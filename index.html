@@ -3,600 +3,193 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RR Electric Run - Scooters Eléctricos de Alto Rendimiento</title>
+    <title>Ficha Técnica Interactiva</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@500;700&display=swap');
-        
-        :root {
-            --primary: #9c27b0;
-            --secondary: #3f51b5;
-            --dark: #121212;
-            --light: #f8f8f8;
-        }
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
         body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-        
-        .particles {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: linear-gradient(135deg, #0f0f0f 0%, #1a1a1a 100%);
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-        }
-        
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            margin-bottom: 3rem;
-        }
-        
-        .logo {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2rem;
-            font-weight: 700;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-        
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-        
-        nav a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            transition: color 0.3s;
-        }
-        
-        nav a:hover {
-            color: var(--primary);
-        }
-        
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            transition: width 0.3s;
-        }
-        
-        nav a:hover::after {
-            width: 100%;
-        }
-        
-        .hero {
-            text-align: center;
-            padding: 5rem 0;
-            position: relative;
-        }
-        
-        .hero h1 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-        }
-        
-        .hero p {
-            font-size: 1.2rem;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.8);
-        }
-        
-        .cta-button {
-            display: inline-block;
-            padding: 1rem 2.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            color: var(--light);
-            border: none;
-            border-radius: 50px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            text-decoration: none;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 10px 20px rgba(156, 39, 176, 0.3);
-        }
-        
-        .cta-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(156, 39, 176, 0.4);
-        }
-        
-        .features {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin: 5rem 0;
-        }
-        
-        .feature-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            transition: transform 0.3s, background 0.3s;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .feature-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        
-        .feature-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .feature-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--primary);
-        }
-        
-        .feature-card p {
-            color: rgba(255, 255, 255, 0.7);
-            line-height: 1.6;
-        }
-        
-        .models {
-            margin: 5rem 0;
-        }
-        
-        .models h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .model-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-        
-        .model-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            overflow: hidden;
-            transition: transform 0.3s;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .model-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .model-image {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-        }
-        
-        .model-info {
-            padding: 1.5rem;
-        }
-        
-        .model-info h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--primary);
-        }
-        
-        .model-info p {
-            color: rgba(255, 255, 255, 0.7);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        
-        .model-specs {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-        }
-        
-        .spec-item {
-            text-align: center;
-        }
-        
-        .spec-item span {
-            display: block;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        
-        .spec-item small {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.8rem;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 3rem 0;
-            margin-top: 5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .social-links {
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
         }
-        
-        .social-links a {
-            color: var(--light);
-            font-size: 1.5rem;
-            transition: color 0.3s;
+
+        .card-container {
+            perspective: 1000px;
+            width: 350px;
+            height: 500px;
         }
-        
-        .social-links a:hover {
-            color: var(--primary);
-        }
-        
-        .instagram-highlights {
-            margin: 5rem 0;
-        }
-        
-        .instagram-highlights h2 {
-            font-family: 'Orbitron', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-        
-        .instagram-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-        }
-        
-        .instagram-post {
-            height: 250px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 10px;
+
+        .technical-card {
             position: relative;
-            overflow: hidden;
-            transition: transform 0.3s;
-        }
-        
-        .instagram-post:hover {
-            transform: scale(1.05);
-        }
-        
-        .instagram-post::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(transparent, rgba(0, 0, 0, 0.7));
+            transform-style: preserve-3d;
+            transition: transform 0.8s;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
         }
-        
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            header {
-                flex-direction: column;
-                gap: 1rem;
-            }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            padding: 20px;
+            box-sizing: border-box;
+            background: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card-front {
+            justify-content: space-between;
+        }
+
+        .card-back {
+            transform: rotateY(180deg);
+            overflow-y: auto;
+        }
+
+        .card-front img {
+            width: 80%;
+            max-height: 200px;
+            object-fit: contain;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .specs {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .spec-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec-name {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .spec-value {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: auto;
+            transition: all 0.3s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        button:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .flipped {
+            transform: rotateY(180deg);
+        }
+
+        /* Efecto de hover para la tarjeta */
+        .technical-card:not(.flipped):hover {
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            transform: translateY(-5px);
         }
     </style>
 </head>
 <body>
-    <div class="particles" id="particles-js"></div>
-    
-    <div class="container">
-        <header>
-            <div class="logo">RR ELECTRIC RUN</div>
-            <nav>
-                <ul>
-                    <li><a href="#inicio">Inicio</a></li>
-                    <li><a href="#modelos">Modelos</a></li>
-                    <li><a href="#destacados">Destacados</a></li>
-                    <li><a href="#contacto">Contacto</a></li>
-                </ul>
-            </nav>
-        </header>
-        
-        <section class="hero" id="inicio">
-            <h1>PASIÓN POR LA VELOCIDAD ELÉCTRICA</h1>
-            <p>En RR Electric Run transformamos la movilidad urbana con scooters de alto rendimiento, diseño agresivo y tecnología de punta. Únete a la revolución eléctrica.</p>
-            <a href="https://www.instagram.com/rrelectricrun/" target="_blank" class="cta-button">SÍGUENOS EN INSTAGRAM</a>
-        </section>
-        
-        <section class="features">
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Alto Rendimiento</h3>
-                <p>Nuestros scooters ofrecen aceleración instantánea y velocidades que desafían los límites de la movilidad urbana.</p>
+    <div class="card-container">
+        <div class="technical-card">
+            <div class="card-front">
+                <h2>Teverun Fighter Mini Pro</h2>
+                <img src="https://i.ibb.co/d4tgc13x/Captura-de-pantalla-2025-06-17-134506.png" alt="Teverun Fighter Mini">
+                <button class="view-details">Ver Ficha Técnica</button>
             </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🔋</div>
-                <h3>Tecnología Avanzada</h3>
-                <p>Baterías de litio de última generación con autonomías extendidas y sistemas de gestión inteligente.</p>
-            </div>
-            
-            <div class="feature-card">
-                <div class="feature-icon">🏍️</div>
-                <h3>Estilo Radical</h3>
-                <p>Diseños personalizados y exclusivos que combinan agresividad estética con aerodinámica funcional.</p>
-            </div>
-        </section>
-        
-        <section class="models" id="modelos">
-            <h2>NUESTROS MODELOS</h2>
-            <div class="model-grid">
-                <div class="model-card">
-                    <div class="model-image" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                    <div class="model-info">
-                        <h3>Dualtron X Limited</h3>
-                        <p>El modelo más potente de nuestra gama, diseñado para quienes buscan el máximo rendimiento.</p>
-                        <div class="model-specs">
-                            <div class="spec-item">
-                                <span>80 km/h</span>
-                                <small>Velocidad Máx</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>120 km</span>
-                                <small>Autonomía</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>3000W</span>
-                                <small>Potencia</small>
-                            </div>
-                        </div>
-                        <a href="#" class="cta-button" style="display: block; text-align: center; padding: 0.5rem;">CONSULTAR</a>
+            <div class="card-back">
+                <h2>Ficha Técnica</h2>
+                <div class="specs">
+                    <div class="spec-row">
+                        <span class="spec-name">Modelo:</span>
+                        <span class="spec-value">Teverun Fighter Mini Pro</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Motor:</span>
+                        <span class="spec-value">1100w</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Procesador:</span>
+                        <span class="spec-value">Snapdragon 8 Gen 2</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Memoria:</span>
+                        <span class="spec-value">12GB RAM + 256GB</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Cámara:</span>
+                        <span class="spec-value">108MP + 12MP + 8MP</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Batería:</span>
+                        <span class="spec-value">5000 mAh</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Sistema:</span>
+                        <span class="spec-value">Android 13</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Conectividad:</span>
+                        <span class="spec-value">5G, WiFi 6, Bluetooth 5.3</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Peso:</span>
+                        <span class="spec-value">205 gramos</span>
+                    </div>
+                    <div class="spec-row">
+                        <span class="spec-name">Garantía:</span>
+                        <span class="spec-value">24 meses</span>
                     </div>
                 </div>
-                
-                <div class="model-card">
-                    <div class="model-image" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                    <div class="model-info">
-                        <h3>Teverun Fighter Mini Pro</h3>
-                        <p>Diseño urbano con prestaciones deportivas, perfecto para el día a día sin renunciar a la adrenalina.</p>
-                        <div class="model-specs">
-                            <div class="spec-item">
-                                <span>60 km/h</span>
-                                <small>Velocidad Máx</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>90 km</span>
-                                <small>Autonomía</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>2000W</span>
-                                <small>Potencia</small>
-                            </div>
-                        </div>
-                        <a href="#" class="cta-button" style="display: block; text-align: center; padding: 0.5rem;">CONSULTAR</a>
-                    </div>
-                </div>
-                
-                <div class="model-card">
-                    <div class="model-image" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                    <div class="model-info">
-                        <h3>Kaabo Wolf King</h3>
-                        <p>Construido para terrenos difíciles con suspensión reforzada y neumáticos todo terreno.</p>
-                        <div class="model-specs">
-                            <div class="spec-item">
-                                <span>50 km/h</span>
-                                <small>Velocidad Máx</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>80 km</span>
-                                <small>Autonomía</small>
-                            </div>
-                            <div class="spec-item">
-                                <span>2500W</span>
-                                <small>Potencia</small>
-                            </div>
-                        </div>
-                        <a href="#" class="cta-button" style="display: block; text-align: center; padding: 0.5rem;">CONSULTAR</a>
-                    </div>
-                </div>
+                <button class="back-to-product">Volver al producto</button>
             </div>
-        </section>
-        
-        <section class="instagram-highlights" id="destacados">
-            <h2>DESTACADOS DE INSTAGRAM</h2>
-            <div class="instagram-grid">
-                <div class="instagram-post" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                <div class="instagram-post" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                <div class="instagram-post" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-                <div class="instagram-post" style="background-image: url('https://scontent.cdninstagram.com/v/t39.30808-6/432919316_1222156905925945_3473518252089086274_n.jpg?stp=dst-jpg_e35&_nc_ht=scontent.cdninstagram.com&_nc_cat=107&_nc_ohc=0X8wJ8Y4jXUAX8x0n4L&edm=APs17CUBAAAA&ccb=7-5&ig_cache_key=MzMxOTQ2ODQ5MTM4NzQxMjU0MQ%3D%3D.2-ccb7-5&oh=00_AfAqQ1hQc5r4hQyKQ6yJhWp5dY7K1N9w5X7Q1Z2X3q3Y1w&oe=661E3B9F&_nc_sid=10d13b')"></div>
-            </div>
-        </section>
-    </div>
-    
-    <footer id="contacto">
-        <div class="social-links">
-            <a href="https://www.instagram.com/rrelectricrun/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"><i class="fab fa-tiktok"></i></a>
         </div>
-        <p>📍 Ubicación: [Av. Baja California 281, Colonia Condesa, Cuauhtémoc, 06170 Ciudad de México, CDMX]</p>
-        <p>📞 Teléfono: +52 56 3595 6358</p>
-        <p>✉ Email: [rrelectricrunrun@gmai.com]</p>
-        <p>&copy; 2025 RR ELECTRIC RUN. Todos los derechos reservados. By Arturo Tramontin</p>
-    </footer>
-    
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    </div>
+
     <script>
-        // Inicialización de partículas para el fondo dinámico
         document.addEventListener('DOMContentLoaded', function() {
-            particlesJS('particles-js', {
-                "particles": {
-                    "number": {
-                        "value": 80,
-                        "density": {
-                            "enable": true,
-                            "value_area": 800
-                        }
-                    },
-                    "color": {
-                        "value": "#9c27b0"
-                    },
-                    "shape": {
-                        "type": "circle",
-                        "stroke": {
-                            "width": 0,
-                            "color": "#000000"
-                        },
-                        "polygon": {
-                            "nb_sides": 5
-                        }
-                    },
-                    "opacity": {
-                        "value": 0.5,
-                        "random": false,
-                        "anim": {
-                            "enable": false,
-                            "speed": 1,
-                            "opacity_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "size": {
-                        "value": 3,
-                        "random": true,
-                        "anim": {
-                            "enable": false,
-                            "speed": 40,
-                            "size_min": 0.1,
-                            "sync": false
-                        }
-                    },
-                    "line_linked": {
-                        "enable": true,
-                        "distance": 150,
-                        "color": "#3f51b5",
-                        "opacity": 0.4,
-                        "width": 1
-                    },
-                    "move": {
-                        "enable": true,
-                        "speed": 2,
-                        "direction": "none",
-                        "random": false,
-                        "straight": false,
-                        "out_mode": "out",
-                        "bounce": false,
-                        "attract": {
-                            "enable": false,
-                            "rotateX": 600,
-                            "rotateY": 1200
-                        }
-                    }
-                },
-                "interactivity": {
-                    "detect_on": "canvas",
-                    "events": {
-                        "onhover": {
-                            "enable": true,
-                            "mode": "grab"
-                        },
-                        "onclick": {
-                            "enable": true,
-                            "mode": "push"
-                        },
-                        "resize": true
-                    },
-                    "modes": {
-                        "grab": {
-                            "distance": 140,
-                            "line_linked": {
-                                "opacity": 1
-                            }
-                        },
-                        "bubble": {
-                            "distance": 400,
-                            "size": 40,
-                            "duration": 2,
-                            "opacity": 8,
-                            "speed": 3
-                        },
-                        "repulse": {
-                            "distance": 200,
-                            "duration": 0.4
-                        },
-                        "push": {
-                            "particles_nb": 4
-                        },
-                        "remove": {
-                            "particles_nb": 2
-                        }
-                    }
-                },
-                "retina_detect": true
+            const card = document.querySelector('.technical-card');
+            const viewDetailsBtn = document.querySelector('.view-details');
+            const backToProductBtn = document.querySelector('.back-to-product');
+            
+            viewDetailsBtn.addEventListener('click', function() {
+                card.classList.add('flipped');
+            });
+            
+            backToProductBtn.addEventListener('click', function() {
+                card.classList.remove('flipped');
             });
         });
     </script>
