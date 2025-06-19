@@ -3,194 +3,2031 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ficha Técnica Interactiva</title>
+    <title>Control de Inventario - Taller Mecánico</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <style>
+        :root {
+            --primary: #2c3e50;
+            --primary-light: #3d566e;
+            --primary-dark: #1a252f;
+            --secondary: #3498db;
+            --secondary-light: #5dade2;
+            --secondary-dark: #2980b9;
+            --accent: #e74c3c;
+            --accent-light: #ec7063;
+            --accent-dark: #c0392b;
+            --success: #2ecc71;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --info: #3498db;
+            --light: #ecf0f1;
+            --light-gray: #bdc3c7;
+            --dark: #34495e;
+            --white: #ffffff;
+            --black: #000000;
+            --sidebar-width: 250px;
+            --header-height: 70px;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa;
+            color: var(--dark);
+            line-height: 1.6;
+        }
+
+        /* Login Styles */
+        .login-container {
+            background: linear-gradient(135deg, var(--primary), var(--dark));
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            min-height: 100vh;
-            background-color: #f5f5f5;
-            margin: 0;
-            padding: 20px;
         }
 
-        .card-container {
-            perspective: 1000px;
-            width: 350px;
-            height: 500px;
-        }
-
-        .technical-card {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            transition: transform 0.8s;
+        .login-box {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 2.5rem;
+            border-radius: 15px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
-            border-radius: 15px;
+            width: 350px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: transform 0.3s ease;
         }
 
-        .card-front, .card-back {
+        .login-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .login-logo {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+        }
+
+        .login-title {
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            color: var(--light);
+        }
+
+        .input-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .input-group i {
             position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light);
+            opacity: 0.8;
+        }
+
+        .login-input {
             width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 15px;
-            padding: 20px;
-            box-sizing: border-box;
-            background: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .card-front {
-            justify-content: space-between;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            overflow-y: auto;
-        }
-
-        .card-front img {
-            width: 80%;
-            max-height: 200px;
-            object-fit: contain;
-            margin: 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .specs {
-            width: 100%;
-            margin-top: 20px;
-        }
-
-        .spec-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .spec-name {
-            font-weight: bold;
-            color: #555;
-        }
-
-        .spec-value {
-            color: #333;
-        }
-
-        button {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
+            padding: 12px 15px 12px 45px;
             border: none;
-            border-radius: 5px;
+            border-radius: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--light);
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 0 2px var(--secondary);
+        }
+
+        .login-input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 30px;
+            background: var(--secondary);
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
             cursor: pointer;
-            font-size: 16px;
-            margin-top: auto;
-            transition: all 0.3s;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
         }
 
-        button:hover {
-            background-color: #45a049;
+        .login-btn:hover {
+            background: var(--secondary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
         }
 
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
+        .login-footer {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            opacity: 0.8;
+            color: var(--light);
+        }
+
+        .error-message {
+            color: var(--accent);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        /* Dashboard Styles */
+        .dashboard-container {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            background: var(--primary);
+            color: var(--light);
+            transition: var(--transition);
+            position: fixed;
+            height: 100vh;
+            z-index: 100;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .sidebar-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+            color: var(--secondary);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 1.5rem 0;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 0.8rem 1.5rem;
+            color: var(--light);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .sidebar-nav li a i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+            width: 20px;
             text-align: center;
         }
 
-        .flipped {
-            transform: rotateY(180deg);
+        .sidebar-nav li a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary-light);
         }
 
-        /* Efecto de hover para la tarjeta */
-        .technical-card:not(.flipped):hover {
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-            transform: translateY(-5px);
+        .sidebar-nav li.active a {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--secondary);
+            border-left: 3px solid var(--secondary);
+        }
+
+        .sidebar-footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            padding: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-profile img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+            object-fit: cover;
+        }
+
+        .user-info {
+            flex: 1;
+        }
+
+        .user-name {
+            display: block;
+            font-weight: 600;
+        }
+
+        .user-role {
+            display: block;
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            color: var(--light);
+            font-size: 1.2rem;
+            transition: var(--transition);
+        }
+
+        .logout-btn:hover {
+            color: var(--accent);
+        }
+
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            transition: var(--transition);
+        }
+
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            background: var(--white);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            height: var(--header-height);
+            position: sticky;
+            top: 0;
+            z-index: 90;
+        }
+
+        .header-left h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .breadcrumb {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            margin-top: 0.3rem;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .search-box {
+            position: relative;
+            margin-right: 1.5rem;
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--light-gray);
+        }
+
+        .search-box input {
+            padding: 0.5rem 1rem 0.5rem 2.5rem;
+            border: 1px solid var(--light-gray);
+            border-radius: 30px;
+            outline: none;
+            transition: var(--transition);
+            width: 200px;
+        }
+
+        .search-box input:focus {
+            border-color: var(--secondary);
+            width: 250px;
+        }
+
+        .notifications {
+            position: relative;
+            margin-right: 1.5rem;
+            font-size: 1.2rem;
+            color: var(--dark);
+            cursor: pointer;
+        }
+
+        .notifications .badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            font-size: 0.7rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .date-time {
+            display: flex;
+            flex-direction: column;
+            font-size: 0.9rem;
+            text-align: right;
+        }
+
+        .content {
+            padding: 1.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-header h2 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .view-all {
+            color: var(--secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: var(--transition);
+        }
+
+        .view-all:hover {
+            color: var(--secondary-dark);
+            text-decoration: underline;
+        }
+
+        /* Alertas */
+        .alerts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .alert-card {
+            display: flex;
+            align-items: center;
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            transition: var(--transition);
+        }
+
+        .alert-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .alert-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .alert-card.critical .alert-icon {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--accent);
+        }
+
+        .alert-card.warning .alert-icon {
+            background: rgba(241, 196, 15, 0.1);
+            color: var(--warning);
+        }
+
+        .alert-card.info .alert-icon {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+
+        .alert-content h3 {
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+            color: var(--primary);
+        }
+
+        .alert-content p {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+        }
+
+        /* Resumen */
+        .summary-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .summary-card {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .summary-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1rem;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .summary-icon.total {
+            background: var(--secondary);
+        }
+
+        .summary-icon.low {
+            background: var(--accent);
+        }
+
+        .summary-icon.entrada {
+            background: var(--success);
+        }
+
+        .summary-icon.salida {
+            background: var(--warning);
+        }
+
+        .summary-content h3 {
+            font-size: 0.9rem;
+            margin-bottom: 0.3rem;
+            color: var(--light-gray);
+        }
+
+        .summary-content .count {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        /* Gráficos */
+        .charts-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-container {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        .chart-options select {
+            padding: 0.3rem 0.5rem;
+            border: 1px solid #eee;
+            border-radius: 4px;
+            outline: none;
+            font-size: 0.9rem;
+        }
+
+        /* Movimientos recientes */
+        .movements-table {
+            background: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        /* Tablas */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 1rem;
+        }
+
+        table th, table td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+
+        table th {
+            font-weight: 600;
+            color: var(--primary);
+            background: #f8f9fa;
+        }
+
+        table tr:hover {
+            background: #f8f9fa;
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .badge.entrada {
+            background: rgba(52, 152, 219, 0.1);
+            color: var(--secondary);
+        }
+
+        .badge.salida {
+            background: rgba(231, 76, 60, 0.1);
+            color: var(--accent);
+        }
+
+        /* Artículos Page */
+        .articles-actions {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn i {
+            margin-right: 5px;
+        }
+
+        .btn-primary {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-dark);
+        }
+
+        .btn-danger {
+            background: var(--accent);
+            color: white;
+        }
+
+        .btn-danger:hover {
+            background: var(--accent-dark);
+        }
+
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+
+        .btn-success:hover {
+            background: #27ae60;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 600px;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: modalFadeIn 0.3s ease;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-header h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light-gray);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            border-color: var(--secondary);
+            outline: none;
+            box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+        }
+
+        .modal-footer {
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #eee;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .main-content.active {
+                margin-left: var(--sidebar-width);
+            }
+        }
+
+        /* Páginas específicas */
+        #articulos-page, #movimientos-page, #reportes-page, #configuracion-page {
+            display: none;
         }
     </style>
 </head>
 <body>
-    <div class="card-container">
-        <div class="technical-card">
-            <div class="card-front">
-                <h2>Teverun Fighter Mini Pro</h2>
-                <img src="https://i.ibb.co/0jQRW1Bn/Imagen-de-Whats-App-2025-06-17-a-las-14-13-22-66c73935.jpg" alt="Teverun Fighter Mini">
-                <button class="view-details">Ver Ficha Técnica</button>
+    <!-- Página de Login -->
+    <div class="login-container" id="login-page">
+        <div class="login-box">
+            <div class="login-logo">
+                <i class="fas fa-tools"></i>
             </div>
-            <div class="card-back">
-                <h2>Ficha Técnica</h2>
-                <div class="specs">
-                    <div class="spec-row">
-                        <span class="spec-name">Modelo:</span>
-                        <span class="spec-value">Teverun Fighter Mini Pro</span>
+            <h2 class="login-title">Control de Inventario</h2>
+            <div class="input-group">
+                <i class="fas fa-user"></i>
+                <input type="text" id="username" class="login-input" placeholder="Usuario" autocomplete="off">
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock"></i>
+                <input type="password" id="password" class="login-input" placeholder="Contraseña">
+            </div>
+            <button id="login-btn" class="login-btn">Ingresar</button>
+            <div class="error-message" id="error-message">
+                Usuario o contraseña incorrectos
+            </div>
+            <div class="login-footer">
+                Taller Mecánico &copy; 2023
+            </div>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div class="dashboard-container" id="dashboard-page">
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-tools"></i>
+                    <span>TallerMec</span>
+                </div>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#" data-page="dashboard">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="articulos">
+                            <i class="fas fa-boxes"></i>
+                            <span>Artículos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="movimientos">
+                            <i class="fas fa-exchange-alt"></i>
+                            <span>Movimientos</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="reportes">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Reportes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" data-page="configuracion">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuración</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="https://ui-avatars.com/api/?name=Admin&background=3498db&color=fff" alt="Usuario">
+                    <div class="user-info">
+                        <span class="user-name">Admin</span>
+                        <span class="user-role">Administrador</span>
                     </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Motor:</span>
-                        <span class="spec-value">1100w</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Procesador:</span>
-                        <span class="spec-value">Snapdragon 8 Gen 2</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Memoria:</span>
-                        <span class="spec-value">12GB RAM + 256GB</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Cámara:</span>
-                        <span class="spec-value">108MP + 12MP + 8MP</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Batería:</span>
-                        <span class="spec-value">5000 mAh</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Sistema:</span>
-                        <span class="spec-value">Android 13</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Conectividad:</span>
-                        <span class="spec-value">5G, WiFi 6, Bluetooth 5.3</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Peso:</span>
-                        <span class="spec-value">205 gramos</span>
-                    </div>
-                    <div class="spec-row">
-                        <span class="spec-name">Garantía:</span>
-                        <span class="spec-value">24 meses</span>
+                    <a href="#" id="logout-btn" class="logout-btn">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="header-left">
+                    <h1 id="page-title">Dashboard</h1>
+                    <div class="breadcrumb" id="breadcrumb">
+                        <span>Inicio</span>
                     </div>
                 </div>
-                <button class="back-to-product">Volver al producto</button>
+                <div class="header-right">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input type="text" placeholder="Buscar...">
+                    </div>
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    <div class="date-time">
+                        <span id="current-date"></span>
+                        <span id="current-time"></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenido del Dashboard -->
+            <div class="content" id="dashboard-content">
+                <!-- Alertas -->
+                <div class="alerts-section">
+                    <div class="section-header">
+                        <h2>Alertas</h2>
+                        <a href="#" class="view-all">Ver todo</a>
+                    </div>
+                    <div class="alerts-grid">
+                        <div class="alert-card critical">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-triangle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h3>Stock Crítico</h3>
+                                <p>5 artículos con stock por debajo del mínimo</p>
+                            </div>
+                        </div>
+                        <div class="alert-card warning">
+                            <div class="alert-icon">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h3>Reordenar</h3>
+                                <p>12 artículos cerca del nivel mínimo</p>
+                            </div>
+                        </div>
+                        <div class="alert-card info">
+                            <div class="alert-icon">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="alert-content">
+                                <h3>Movimientos Recientes</h3>
+                                <p>24 movimientos en las últimas 24 horas</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resumen -->
+                <div class="summary-section">
+                    <div class="summary-card">
+                        <div class="summary-icon total">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Total Artículos</h3>
+                            <p class="count">187</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon low">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Bajo Stock</h3>
+                            <p class="count">17</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon entrada">
+                            <i class="fas fa-arrow-down"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Entradas (Mes)</h3>
+                            <p class="count">42</p>
+                        </div>
+                    </div>
+                    <div class="summary-card">
+                        <div class="summary-icon salida">
+                            <i class="fas fa-arrow-up"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Salidas (Mes)</h3>
+                            <p class="count">68</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gráficos -->
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <div class="section-header">
+                            <h2>Movimientos Mensuales</h2>
+                            <div class="chart-options">
+                                <select>
+                                    <option>Últimos 6 meses</option>
+                                    <option>Este año</option>
+                                    <option>Año pasado</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="movementsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="section-header">
+                            <h2>Distribución por Categoría</h2>
+                        </div>
+                        <canvas id="categoriesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Movimientos Recientes -->
+                <div class="recent-movements">
+                    <div class="section-header">
+                        <h2>Movimientos Recientes</h2>
+                        <a href="#" data-page="movimientos" class="view-all">Ver todo</a>
+                    </div>
+                    <div class="movements-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Fecha</th>
+                                    <th>Artículo</th>
+                                    <th>Código</th>
+                                    <th>Tipo</th>
+                                    <th>Cantidad</th>
+                                    <th>Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>10/05/2023 14:30</td>
+                                    <td>Filtro de Aceite</td>
+                                    <td>FLT-00125</td>
+                                    <td><span class="badge entrada">Entrada</span></td>
+                                    <td>12</td>
+                                    <td>Admin</td>
+                                </tr>
+                                <tr>
+                                    <td>10/05/2023 13:15</td>
+                                    <td>Pastillas de Freno</td>
+                                    <td>PST-00342</td>
+                                    <td><span class="badge salida">Salida</span></td>
+                                    <td>2</td>
+                                    <td>Admin</td>
+                                </tr>
+                                <tr>
+                                    <td>10/05/2023 11:45</td>
+                                    <td>Aceite Motor 5W-30</td>
+                                    <td>ACE-00218</td>
+                                    <td><span class="badge salida">Salida</span></td>
+                                    <td>4</td>
+                                    <td>Admin</td>
+                                </tr>
+                                <tr>
+                                    <td>10/05/2023 10:20</td>
+                                    <td>Bujías</td>
+                                    <td>BJS-00175</td>
+                                    <td><span class="badge entrada">Entrada</span></td>
+                                    <td>24</td>
+                                    <td>Admin</td>
+                                </tr>
+                                <tr>
+                                    <td>09/05/2023 16:50</td>
+                                    <td>Correa Distribución</td>
+                                    <td>CRD-00264</td>
+                                    <td><span class="badge salida">Salida</span></td>
+                                    <td>1</td>
+                                    <td>Admin</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de Artículos -->
+            <div class="content" id="articulos-content" style="display: none;">
+                <div class="articles-actions">
+                    <div>
+                        <button class="btn btn-primary" id="add-article-btn">
+                            <i class="fas fa-plus"></i> Agregar Artículo
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-success" onclick="exportToExcel('articles-table', 'Inventario de Artículos')">
+                            <i class="fas fa-file-excel"></i> Exportar Excel
+                        </button>
+                        <button class="btn btn-danger" onclick="exportToPDF('articles-table', 'Inventario de Artículos')" style="margin-left: 10px;">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="articles-table">
+                        <thead>
+                            <tr>
+                                <th>Código</th>
+                                <th>Nombre</th>
+                                <th>Categoría</th>
+                                <th>Stock</th>
+                                <th>Mínimo</th>
+                                <th>Precio</th>
+                                <th>Ubicación</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>FLT-00125</td>
+                                <td>Filtro de Aceite</td>
+                                <td>Motor</td>
+                                <td>15</td>
+                                <td>10</td>
+                                <td>$12.50</td>
+                                <td>Estante A1</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editArticle('FLT-00125')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle('FLT-00125')" style="margin-left: 5px;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>PST-00342</td>
+                                <td>Pastillas de Freno</td>
+                                <td>Frenos</td>
+                                <td>8</td>
+                                <td>5</td>
+                                <td>$35.00</td>
+                                <td>Estante B2</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editArticle('PST-00342')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle('PST-00342')" style="margin-left: 5px;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>ACE-00218</td>
+                                <td>Aceite Motor 5W-30</td>
+                                <td>Lubricantes</td>
+                                <td>24</td>
+                                <td>15</td>
+                                <td>$28.75</td>
+                                <td>Estante C3</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editArticle('ACE-00218')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle('ACE-00218')" style="margin-left: 5px;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>BJS-00175</td>
+                                <td>Bujías</td>
+                                <td>Motor</td>
+                                <td>32</td>
+                                <td>20</td>
+                                <td>$8.99</td>
+                                <td>Estante A2</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editArticle('BJS-00175')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle('BJS-00175')" style="margin-left: 5px;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>CRD-00264</td>
+                                <td>Correa Distribución</td>
+                                <td>Motor</td>
+                                <td>5</td>
+                                <td>3</td>
+                                <td>$45.20</td>
+                                <td>Estante B1</td>
+                                <td>
+                                    <button class="btn btn-primary btn-sm" onclick="editArticle('CRD-00264')">
+                                        <i class="fas fa-edit"></i>
+                                    </button>
+                                    <button class="btn btn-danger btn-sm" onclick="deleteArticle('CRD-00264')" style="margin-left: 5px;">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contenido de Movimientos -->
+            <div class="content" id="movimientos-content" style="display: none;">
+                <div class="articles-actions">
+                    <div>
+                        <button class="btn btn-primary" id="add-movement-btn">
+                            <i class="fas fa-plus"></i> Nuevo Movimiento
+                        </button>
+                    </div>
+                    <div>
+                        <button class="btn btn-success" onclick="exportToExcel('movements-table', 'Registro de Movimientos')">
+                            <i class="fas fa-file-excel"></i> Exportar Excel
+                        </button>
+                        <button class="btn btn-danger" onclick="exportToPDF('movements-table', 'Registro de Movimientos')" style="margin-left: 10px;">
+                            <i class="fas fa-file-pdf"></i> Exportar PDF
+                        </button>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table id="movements-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha</th>
+                                <th>Artículo</th>
+                                <th>Código</th>
+                                <th>Tipo</th>
+                                <th>Cantidad</th>
+                                <th>Usuario</th>
+                                <th>Notas</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>10/05/2023 14:30</td>
+                                <td>Filtro de Aceite</td>
+                                <td>FLT-00125</td>
+                                <td><span class="badge entrada">Entrada</span></td>
+                                <td>12</td>
+                                <td>Admin</td>
+                                <td>Compra a proveedor</td>
+                            </tr>
+                            <tr>
+                                <td>10/05/2023 13:15</td>
+                                <td>Pastillas de Freno</td>
+                                <td>PST-00342</td>
+                                <td><span class="badge salida">Salida</span></td>
+                                <td>2</td>
+                                <td>Admin</td>
+                                <td>Uso en reparación</td>
+                            </tr>
+                            <tr>
+                                <td>10/05/2023 11:45</td>
+                                <td>Aceite Motor 5W-30</td>
+                                <td>ACE-00218</td>
+                                <td><span class="badge salida">Salida</span></td>
+                                <td>4</td>
+                                <td>Admin</td>
+                                <td>Cambio de aceite</td>
+                            </tr>
+                            <tr>
+                                <td>10/05/2023 10:20</td>
+                                <td>Bujías</td>
+                                <td>BJS-00175</td>
+                                <td><span class="badge entrada">Entrada</span></td>
+                                <td>24</td>
+                                <td>Admin</td>
+                                <td>Compra a proveedor</td>
+                            </tr>
+                            <tr>
+                                <td>09/05/2023 16:50</td>
+                                <td>Correa Distribución</td>
+                                <td>CRD-00264</td>
+                                <td><span class="badge salida">Salida</span></td>
+                                <td>1</td>
+                                <td>Admin</td>
+                                <td>Reparación motor</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Contenido de Reportes -->
+            <div class="content" id="reportes-content" style="display: none;">
+                <div class="section-header">
+                    <h2>Reportes</h2>
+                </div>
+
+                <div class="charts-section">
+                    <div class="chart-container">
+                        <div class="section-header">
+                            <h2>Movimientos Mensuales</h2>
+                            <div class="chart-options">
+                                <select id="report-month">
+                                    <option value="6">Últimos 6 meses</option>
+                                    <option value="12">Este año</option>
+                                    <option value="24">2 años</option>
+                                </select>
+                            </div>
+                        </div>
+                        <canvas id="reportMovementsChart"></canvas>
+                    </div>
+                    <div class="chart-container">
+                        <div class="section-header">
+                            <h2>Artículos con Menor Stock</h2>
+                        </div>
+                        <canvas id="lowStockChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-top: 2rem;">
+                    <h2>Exportar Reportes</h2>
+                </div>
+
+                <div class="summary-section">
+                    <div class="summary-card" onclick="generateStockReport()" style="cursor: pointer;">
+                        <div class="summary-icon total">
+                            <i class="fas fa-boxes"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Reporte de Stock</h3>
+                            <p>Exportar lista completa de inventario</p>
+                        </div>
+                    </div>
+                    <div class="summary-card" onclick="generateLowStockReport()" style="cursor: pointer;">
+                        <div class="summary-icon low">
+                            <i class="fas fa-exclamation"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Stock Crítico</h3>
+                            <p>Artículos por debajo del nivel mínimo</p>
+                        </div>
+                    </div>
+                    <div class="summary-card" onclick="generateMovementsReport()" style="cursor: pointer;">
+                        <div class="summary-icon entrada">
+                            <i class="fas fa-exchange-alt"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Movimientos</h3>
+                            <p>Registro completo de movimientos</p>
+                        </div>
+                    </div>
+                    <div class="summary-card" onclick="generateSalesReport()" style="cursor: pointer;">
+                        <div class="summary-icon salida">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="summary-content">
+                            <h3>Ventas</h3>
+                            <p>Reporte de artículos más vendidos</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido de Configuración -->
+            <div class="content" id="configuracion-content" style="display: none;">
+                <div class="section-header">
+                    <h2>Configuración del Sistema</h2>
+                </div>
+
+                <div class="card">
+                    <h3 style="margin-bottom: 1.5rem;">Ajustes Generales</h3>
+                    
+                    <div class="form-group">
+                        <label for="system-name">Nombre del Taller</label>
+                        <input type="text" id="system-name" class="form-control" value="Taller Mecánico Pérez">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="system-currency">Moneda</label>
+                        <select id="system-currency" class="form-control">
+                            <option value="MXN" selected>Peso Mexicano (MXN)</option>
+                            <option value="USD">Dólar Estadounidense (USD)</option>
+                            <option value="EUR">Euro (EUR)</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="system-timezone">Zona Horaria</label>
+                        <select id="system-timezone" class="form-control">
+                            <option value="-6" selected>Central (UTC-6)</option>
+                            <option value="-7">Montaña (UTC-7)</option>
+                            <option value="-5">Este (UTC-5)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Notificaciones</h3>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" checked> Alertas de stock bajo
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" checked> Notificaciones de movimientos
+                        </label>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox"> Recordatorios de pedidos
+                        </label>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top: 1.5rem;">
+                    <h3 style="margin-bottom: 1.5rem;">Seguridad</h3>
+                    
+                    <div class="form-group">
+                        <label for="current-password">Contraseña Actual</label>
+                        <input type="password" id="current-password" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="new-password">Nueva Contraseña</label>
+                        <input type="password" id="new-password" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" class="form-control">
+                    </div>
+                    
+                    <button class="btn btn-primary" style="margin-top: 1rem;">
+                        <i class="fas fa-save"></i> Guardar Cambios
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar/Editar Artículo -->
+    <div class="modal" id="article-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="article-modal-title">Agregar Nuevo Artículo</h3>
+                <button class="modal-close" onclick="closeModal('article-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="article-code">Código</label>
+                    <input type="text" id="article-code" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="article-name">Nombre</label>
+                    <input type="text" id="article-name" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="article-category">Categoría</label>
+                    <select id="article-category" class="form-control">
+                        <option value="">Seleccionar categoría</option>
+                        <option value="Motor">Motor</option>
+                        <option value="Frenos">Frenos</option>
+                        <option value="Transmisión">Transmisión</option>
+                        <option value="Electricidad">Electricidad</option>
+                        <option value="Suspensión">Suspensión</option>
+                        <option value="Lubricantes">Lubricantes</option>
+                        <option value="Herramientas">Herramientas</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="article-stock">Stock Actual</label>
+                    <input type="number" id="article-stock" class="form-control" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="article-min">Stock Mínimo</label>
+                    <input type="number" id="article-min" class="form-control" min="0">
+                </div>
+                <div class="form-group">
+                    <label for="article-price">Precio Unitario</label>
+                    <input type="number" id="article-price" class="form-control" min="0" step="0.01">
+                </div>
+                <div class="form-group">
+                    <label for="article-location">Ubicación</label>
+                    <input type="text" id="article-location" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="article-notes">Notas</label>
+                    <textarea id="article-notes" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal('article-modal')">Cancelar</button>
+                <button class="btn btn-primary" id="save-article-btn">Guardar Artículo</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Agregar Movimiento -->
+    <div class="modal" id="movement-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Registrar Movimiento</h3>
+                <button class="modal-close" onclick="closeModal('movement-modal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label for="movement-type">Tipo de Movimiento</label>
+                    <select id="movement-type" class="form-control">
+                        <option value="entrada">Entrada</option>
+                        <option value="salida">Salida</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="movement-article">Artículo</label>
+                    <select id="movement-article" class="form-control">
+                        <option value="">Seleccionar artículo</option>
+                        <option value="FLT-00125">FLT-00125 - Filtro de Aceite</option>
+                        <option value="PST-00342">PST-00342 - Pastillas de Freno</option>
+                        <option value="ACE-00218">ACE-00218 - Aceite Motor 5W-30</option>
+                        <option value="BJS-00175">BJS-00175 - Bujías</option>
+                        <option value="CRD-00264">CRD-00264 - Correa Distribución</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="movement-quantity">Cantidad</label>
+                    <input type="number" id="movement-quantity" class="form-control" min="1">
+                </div>
+                <div class="form-group">
+                    <label for="movement-notes">Notas</label>
+                    <textarea id="movement-notes" class="form-control" rows="3"></textarea>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn" onclick="closeModal('movement-modal')">Cancelar</button>
+                <button class="btn btn-primary" id="save-movement-btn">Registrar Movimiento</button>
             </div>
         </div>
     </div>
 
     <script>
+        // Datos de ejemplo
+        const sampleArticles = [
+            {
+                code: 'FLT-00125',
+                name: 'Filtro de Aceite',
+                category: 'Motor',
+                stock: 15,
+                min: 10,
+                price: 12.50,
+                location: 'Estante A1',
+                notes: ''
+            },
+            {
+                code: 'PST-00342',
+                name: 'Pastillas de Freno',
+                category: 'Frenos',
+                stock: 8,
+                min: 5,
+                price: 35.00,
+                location: 'Estante B2',
+                notes: ''
+            },
+            {
+                code: 'ACE-00218',
+                name: 'Aceite Motor 5W-30',
+                category: 'Lubricantes',
+                stock: 24,
+                min: 15,
+                price: 28.75,
+                location: 'Estante C3',
+                notes: ''
+            },
+            {
+                code: 'BJS-00175',
+                name: 'Bujías',
+                category: 'Motor',
+                stock: 32,
+                min: 20,
+                price: 8.99,
+                location: 'Estante A2',
+                notes: ''
+            },
+            {
+                code: 'CRD-00264',
+                name: 'Correa Distribución',
+                category: 'Motor',
+                stock: 5,
+                min: 3,
+                price: 45.20,
+                location: 'Estante B1',
+                notes: ''
+            }
+        ];
+
+        const sampleMovements = [
+            {
+                date: '10/05/2023 14:30',
+                article: 'Filtro de Aceite',
+                code: 'FLT-00125',
+                type: 'entrada',
+                quantity: 12,
+                user: 'Admin',
+                notes: 'Compra a proveedor'
+            },
+            {
+                date: '10/05/2023 13:15',
+                article: 'Pastillas de Freno',
+                code: 'PST-00342',
+                type: 'salida',
+                quantity: 2,
+                user: 'Admin',
+                notes: 'Uso en reparación'
+            },
+            {
+                date: '10/05/2023 11:45',
+                article: 'Aceite Motor 5W-30',
+                code: 'ACE-00218',
+                type: 'salida',
+                quantity: 4,
+                user: 'Admin',
+                notes: 'Cambio de aceite'
+            },
+            {
+                date: '10/05/2023 10:20',
+                article: 'Bujías',
+                code: 'BJS-00175',
+                type: 'entrada',
+                quantity: 24,
+                user: 'Admin',
+                notes: 'Compra a proveedor'
+            },
+            {
+                date: '09/05/2023 16:50',
+                article: 'Correa Distribución',
+                code: 'CRD-00264',
+                type: 'salida',
+                quantity: 1,
+                user: 'Admin',
+                notes: 'Reparación motor'
+            }
+        ];
+
+        // Variables globales
+        let currentEditingArticle = null;
+        let movementsChart, categoriesChart, reportMovementsChart, lowStockChart;
+
+        // Login
+        document.getElementById('login-btn').addEventListener('click', function() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('error-message');
+            
+            if(username === 'Admin' && password === '1234') {
+                document.getElementById('login-page').style.display = 'none';
+                document.getElementById('dashboard-page').style.display = 'flex';
+                initDashboard();
+            } else {
+                errorMessage.style.display = 'block';
+                setTimeout(() => {
+                    errorMessage.style.display = 'none';
+                }, 3000);
+            }
+        });
+
+        // Permitir login con Enter
+        document.addEventListener('keypress', function(e) {
+            if(e.key === 'Enter' && document.getElementById('login-page').style.display !== 'none') {
+                document.getElementById('login-btn').click();
+            }
+        });
+
+        // Logout
+        document.getElementById('logout-btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('dashboard-page').style.display = 'none';
+            document.getElementById('login-page').style.display = 'flex';
+            document.getElementById('username').value = '';
+            document.getElementById('password').value = '';
+        });
+
+        // Navegación
+        document.querySelectorAll('[data-page]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const page = this.getAttribute('data-page');
+                showPage(page);
+            });
+        });
+
+        function showPage(page) {
+            // Ocultar todos los contenidos
+            document.querySelectorAll('.content').forEach(content => {
+                content.style.display = 'none';
+            });
+
+            // Actualizar menú activo
+            document.querySelectorAll('.sidebar-nav li').forEach(item => {
+                item.classList.remove('active');
+            });
+
+            // Activar el elemento del menú correspondiente
+            document.querySelector(`.sidebar-nav li a[data-page="${page}"]`).parentElement.classList.add('active');
+
+            // Mostrar el contenido correspondiente
+            document.getElementById(`${page}-content`).style.display = 'block';
+
+            // Actualizar título y breadcrumb
+            const titles = {
+                'dashboard': 'Dashboard',
+                'articulos': 'Artículos',
+                'movimientos': 'Movimientos',
+                'reportes': 'Reportes',
+                'configuracion': 'Configuración'
+            };
+
+            document.getElementById('page-title').textContent = titles[page];
+            document.getElementById('breadcrumb').innerHTML = `<span>${titles[page]}</span>`;
+
+            // Inicializar gráficos si es necesario
+            if (page === 'dashboard' && !movementsChart) {
+                initCharts();
+            }
+
+            if (page === 'reportes') {
+                initReportCharts();
+            }
+        }
+
+        // Inicializar dashboard
+        function initDashboard() {
+            updateDateTime();
+            setInterval(updateDateTime, 1000);
+            initCharts();
+        }
+
+        // Actualizar fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('current-date').textContent = now.toLocaleDateString('es-ES', options);
+            document.getElementById('current-time').textContent = now.toLocaleTimeString('es-ES');
+        }
+
+        // Inicializar gráficos del dashboard
+        function initCharts() {
+            const movementsCtx = document.getElementById('movementsChart').getContext('2d');
+            movementsChart = new Chart(movementsCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [
+                        {
+                            label: 'Entradas',
+                            data: [12, 19, 15, 27, 34, 42],
+                            backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                            borderColor: 'rgba(52, 152, 219, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'Salidas',
+                            data: [28, 35, 42, 56, 61, 68],
+                            backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                            borderColor: 'rgba(231, 76, 60, 1)',
+                            borderWidth: 1
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+            
+            const categoriesCtx = document.getElementById('categoriesChart').getContext('2d');
+            categoriesChart = new Chart(categoriesCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Motor', 'Frenos', 'Transmisión', 'Electricidad', 'Suspensión', 'Otros'],
+                    datasets: [{
+                        data: [35, 25, 15, 12, 8, 5],
+                        backgroundColor: [
+                            'rgba(52, 152, 219, 0.7)',
+                            'rgba(46, 204, 113, 0.7)',
+                            'rgba(155, 89, 182, 0.7)',
+                            'rgba(241, 196, 15, 0.7)',
+                            'rgba(230, 126, 34, 0.7)',
+                            'rgba(149, 165, 166, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Inicializar gráficos de reportes
+        function initReportCharts() {
+            if (reportMovementsChart) {
+                reportMovementsChart.destroy();
+            }
+            
+            const reportMovementsCtx = document.getElementById('reportMovementsChart').getContext('2d');
+            reportMovementsChart = new Chart(reportMovementsCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+                    datasets: [
+                        {
+                            label: 'Entradas',
+                            data: [12, 19, 15, 27, 34, 42],
+                            backgroundColor: 'rgba(52, 152, 219, 0.2)',
+                            borderColor: 'rgba(52, 152, 219, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        },
+                        {
+                            label: 'Salidas',
+                            data: [28, 35, 42, 56, 61, 68],
+                            backgroundColor: 'rgba(231, 76, 60, 0.2)',
+                            borderColor: 'rgba(231, 76, 60, 1)',
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+
+            if (lowStockChart) {
+                lowStockChart.destroy();
+            }
+            
+            const lowStockCtx = document.getElementById('lowStockChart').getContext('2d');
+            lowStockChart = new Chart(lowStockCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Filtro Aceite', 'Pastillas Freno', 'Aceite Motor', 'Bujías', 'Correa Dist'],
+                    datasets: [{
+                        label: 'Stock Actual',
+                        data: [15, 8, 24, 32, 5],
+                        backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                        borderColor: 'rgba(52, 152, 219, 1)',
+                        borderWidth: 1
+                    }, {
+                        label: 'Stock Mínimo',
+                        data: [10, 5, 15, 20, 3],
+                        backgroundColor: 'rgba(231, 76, 60, 0.7)',
+                        borderColor: 'rgba(231, 76, 60, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        }
+                    }
+                }
+            });
+        }
+
+        // Generar código de artículo automático
+        function generateArticleCode(category) {
+            const prefixes = {
+                'Motor': 'MOT',
+                'Frenos': 'FRN',
+                'Transmisión': 'TRN',
+                'Electricidad': 'ELC',
+                'Suspensión': 'SUS',
+                'Lubricantes': 'LUB',
+                'Herramientas': 'HRR',
+                'Otros': 'OTR'
+            };
+            
+            const prefix = prefixes[category] || 'ART';
+            const randomNum = Math.floor(100 + Math.random() * 900);
+            return `${prefix}-${randomNum}`;
+        }
+
+        // Mostrar modal de artículo
+        document.getElementById('add-article-btn').addEventListener('click', function() {
+            currentEditingArticle = null;
+            document.getElementById('article-modal-title').textContent = 'Agregar Nuevo Artículo';
+            document.getElementById('article-code').value = '';
+            document.getElementById('article-name').value = '';
+            document.getElementById('article-category').value = '';
+            document.getElementById('article-stock').value = '';
+            document.getElementById('article-min').value = '';
+            document.getElementById('article-price').value = '';
+            document.getElementById('article-location').value = '';
+            document.getElementById('article-notes').value = '';
+            
+            document.getElementById('article-modal').style.display = 'flex';
+        });
+
+        // Cambiar código cuando se selecciona categoría
+        document.getElementById('article-category').addEventListener('change', function() {
+            if (this.value && !currentEditingArticle) {
+                document.getElementById('article-code').value = generateArticleCode(this.value);
+            }
+        });
+
+        // Guardar artículo
+        document.getElementById('save-article-btn').addEventListener('click', function() {
+            // Aquí iría la lógica para guardar el artículo
+            alert('Artículo guardado correctamente');
+            closeModal('article-modal');
+        });
+
+        // Editar artículo
+        function editArticle(code) {
+            const article = sampleArticles.find(a => a.code === code);
+            if (article) {
+                currentEditingArticle = article;
+                document.getElementById('article-modal-title').textContent = `Editar Artículo ${code}`;
+                document.getElementById('article-code').value = article.code;
+                document.getElementById('article-name').value = article.name;
+                document.getElementById('article-category').value = article.category;
+                document.getElementById('article-stock').value = article.stock;
+                document.getElementById('article-min').value = article.min;
+                document.getElementById('article-price').value = article.price;
+                document.getElementById('article-location').value = article.location;
+                document.getElementById('article-notes').value = article.notes;
+                
+                document.getElementById('article-modal').style.display = 'flex';
+            }
+        }
+
+        // Eliminar artículo
+        function deleteArticle(code) {
+            if (confirm(`¿Estás seguro de eliminar el artículo ${code}?`)) {
+                // Aquí iría la lógica para eliminar el artículo
+                alert(`Artículo ${code} eliminado correctamente`);
+            }
+        }
+
+        // Mostrar modal de movimiento
+        document.getElementById('add-movement-btn').addEventListener('click', function() {
+            document.getElementById('movement-type').value = 'entrada';
+            document.getElementById('movement-article').value = '';
+            document.getElementById('movement-quantity').value = '';
+            document.getElementById('movement-notes').value = '';
+            
+            document.getElementById('movement-modal').style.display = 'flex';
+        });
+
+        // Guardar movimiento
+        document.getElementById('save-movement-btn').addEventListener('click', function() {
+            // Aquí iría la lógica para guardar el movimiento
+            alert('Movimiento registrado correctamente');
+            closeModal('movement-modal');
+        });
+
+        // Cerrar modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Exportar a PDF
+        function exportToPDF(tableId, title) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.text(title, 14, 15);
+            doc.autoTable({
+                html: `#${tableId}`,
+                startY: 20,
+                theme: 'grid',
+                headStyles: {
+                    fillColor: [44, 62, 80],
+                    textColor: 255
+                },
+                alternateRowStyles: {
+                    fillColor: [241, 243, 245]
+                }
+            });
+            
+            doc.save(`${title}.pdf`);
+        }
+
+        // Exportar a Excel
+        function exportToExcel(tableId, title) {
+            const table = document.getElementById(tableId);
+            const workbook = XLSX.utils.table_to_book(table);
+            XLSX.writeFile(workbook, `${title}.xlsx`);
+        }
+
+        // Generar reportes
+        function generateStockReport() {
+            exportToExcel('articles-table', 'Reporte de Stock Completo');
+        }
+
+        function generateLowStockReport() {
+            alert('Generando reporte de stock crítico...');
+            // Filtrar artículos con stock bajo y generar reporte
+        }
+
+        function generateMovementsReport() {
+            exportToExcel('movements-table', 'Reporte de Movimientos');
+        }
+
+        function generateSalesReport() {
+            alert('Generando reporte de ventas...');
+            // Generar reporte de artículos más vendidos
+        }
+
+        // Toggle sidebar en móviles
         document.addEventListener('DOMContentLoaded', function() {
-            const card = document.querySelector('.technical-card');
-            const viewDetailsBtn = document.querySelector('.view-details');
-            const backToProductBtn = document.querySelector('.back-to-product');
+            const sidebarToggle = document.createElement('div');
+            sidebarToggle.className = 'sidebar-toggle';
+            sidebarToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            sidebarToggle.style.position = 'fixed';
+            sidebarToggle.style.top = '15px';
+            sidebarToggle.style.left = '15px';
+            sidebarToggle.style.zIndex = '99';
+            sidebarToggle.style.fontSize = '1.5rem';
+            sidebarToggle.style.color = 'var(--primary)';
+            sidebarToggle.style.cursor = 'pointer';
+            sidebarToggle.style.display = 'none';
+            document.body.appendChild(sidebarToggle);
             
-            viewDetailsBtn.addEventListener('click', function() {
-                card.classList.add('flipped');
-            });
+            const sidebar = document.querySelector('.sidebar');
+            const mainContent = document.querySelector('.main-content');
             
-            backToProductBtn.addEventListener('click', function() {
-                card.classList.remove('flipped');
-            });
+            function toggleSidebar() {
+                sidebar.classList.toggle('active');
+                mainContent.classList.toggle('active');
+            }
+            
+            sidebarToggle.addEventListener('click', toggleSidebar);
+            
+            function checkScreenSize() {
+                if (window.innerWidth <= 992) {
+                    sidebarToggle.style.display = 'block';
+                    sidebar.classList.remove('active');
+                    mainContent.classList.remove('active');
+                } else {
+                    sidebarToggle.style.display = 'none';
+                    sidebar.classList.add('active');
+                    mainContent.classList.add('active');
+                }
+            }
+            
+            window.addEventListener('resize', checkScreenSize);
+            checkScreenSize();
         });
     </script>
 </body>
