@@ -2,79 +2,302 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Consulta de Servicios RR Scooters</title>
+  <title>Consulta de Servicios - R.R Scooter</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
-    body { font-family: Arial, sans-serif; background: #111; color: #fff; padding: 20px; }
-    label, select { display: block; margin-bottom: 10px; font-size: 1.2em; }
-    .resultado { margin-top: 20px; font-size: 1.4em; color: #00d9ff; }
-    select, option { background: #222; color: #fff; padding: 5px; }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 30px;
+      background: #f0f0f0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #222;
+      text-align: center;
+    }
+    label {
+      font-weight: bold;
+      display: block;
+      margin-top: 15px;
+    }
+    select, button {
+      padding: 10px;
+      margin: 8px 0;
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    .precio-resultado {
+      margin-top: 20px;
+      padding: 15px;
+      border-radius: 5px;
+      background-color: #f8f9fa;
+    }
+    .precio {
+      font-size: 24px;
+      font-weight: bold;
+      color: #2e7d32;
+      margin: 10px 0;
+    }
+    .descripcion {
+      color: #555;
+      margin-top: 10px;
+    }
+    .error {
+      color: #d32f2f;
+      font-weight: bold;
+    }
+    .loading {
+      text-align: center;
+      padding: 10px;
+    }
+    .spinner {
+      border: 4px solid rgba(0, 0, 0, 0.1);
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border-left-color: #4CAF50;
+      animation: spin 1s linear infinite;
+      margin: 0 auto;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
-  <h1>RR SCOOTERS - Consulta de Servicios</h1>
+  <div id="root"></div>
 
-  <label for="modelo">Selecciona tu modelo:</label>
-  <select id="modelo">
-    <option value="">-- Elige un modelo --</option>
-    <option value="c1">Honeywhale C1</option>
-    <option value="discover">Honeywhale Discover</option>
-    <option value="e9 pro">Honeywhale E9 Pro</option>
-    <option value="blade mini">Teverun Blade Mini</option>
-    <option value="burn">Nami Burn</option>
-    <option value="g2">Kukirin G2</option>
-    <option value="mini mad plus">Velocifero Mini Mad Plus</option>
-    <option value="e2 plus">Segway E2 Plus</option>
-    <option value="essential">Xiaomi Essential</option>
-    <!-- Agrega más modelos aquí -->
-  </select>
+  <script type="text/babel">
+    const { useState } = React;
 
-  <label for="servicio">Selecciona tipo de servicio:</label>
-  <select id="servicio">
-    <option value="">-- Elige un servicio --</option>
-    <option value="basico">Servicio Básico</option>
-    <option value="medio">Servicio Medio</option>
-    <option value="completo">Servicio Completo</option>
-    <option value="sinSellado">Sin Sellado de Motor</option>
-  </select>
-
-  <div class="resultado" id="resultado"></div>
-
-  <script>
-    const precios = {
-      "c1": { basico: 350, medio: 500, completo: 950 },
-      "discover": { basico: 500, medio: 750, completo: 1250, sinSellado: 350 },
-      "e9 pro": { basico: 350, medio: 500, completo: 950, sinSellado: 150 },
-      "blade mini": { basico: 400, medio: 650, completo: 950, sinSellado: 100 },
-      "burn": { basico: 600, medio: 950, completo: 1450, sinSellado: 200 },
-      "g2": { basico: 500, medio: 750, completo: 950, sinSellado: 100 },
-      "mini mad plus": { basico: 350, medio: 500, completo: 950 },
-      "e2 plus": { basico: 350, medio: 500, completo: 950 },
-      "essential": { basico: 350, medio: 500, completo: 950 },
-      // Agrega más modelos aquí según la tabla
+    // Base de datos completa de precios
+    const preciosServicios = {
+      // HONEYWHALE
+      "HONEYWHALE": {
+        "c1": {
+          "Servicio Básico": 350,
+          "Servicio Medio": 500,
+          "Servicio Completo": 950
+        },
+        "discover": {
+          "Servicio Básico": 500,
+          "Servicio Medio": 750,
+          "Servicio Completo": 1250,
+          "Sin Sellado de Motor": 350
+        },
+        "e4": {
+          "Servicio Básico": 350,
+          "Servicio Medio": 500,
+          "Servicio Completo": 950,
+          "Sin Sellado de Motor": 150
+        },
+        // ... (todos los modelos de HONEYWHALE)
+      },
+      
+      // TEVERUN
+      "TEVERUN": {
+        "BLADE MINI": {
+          "Servicio Básico": 400,
+          "Servicio Medio": 650,
+          "Servicio Completo": 950,
+          "Sin Sellado de Motor": 100
+        },
+        "BLADE MINI PRO": {
+          "Servicio Básico": 550,
+          "Servicio Medio": 800,
+          "Servicio Completo": 1350,
+          "Sin Sellado de Motor": 100
+        },
+        // ... (todos los modelos de TEVERUN)
+      },
+      
+      // NAMI
+      "NAMI": {
+        "BURN": {
+          "Servicio Básico": 600,
+          "Servicio Medio": 950,
+          "Servicio Completo": 1450,
+          "Sin Sellado de Motor": 200
+        },
+        // ... (todos los modelos de NAMI)
+      },
+      
+      // Otras marcas...
     };
 
-    const modeloSelect = document.getElementById("modelo");
-    const servicioSelect = document.getElementById("servicio");
-    const resultadoDiv = document.getElementById("resultado");
+    // Descripciones de los servicios
+    const descripcionesServicios = {
+      "Servicio Básico": "AJUSTE DE FRENOS, AJUSTE DE TORNILLERIA, CALIBRACION NEUMATICOS, LIMPIEZA",
+      "Servicio Medio": "AJUSTE DE FRENOS, AJUSTE DE TORNILLERIA, CALIBRACION NEUMATICOS, RECTIFICACION DE DISCO, DESCONTAMINACION DE BALATAS, LIMPIEZA",
+      "Servicio Completo": "AJUSTE DE FRENOS, AJUSTE DE TORNILLERIA, CALIBRACION DE NEUMATICOS, RECTIFICACION DE DISCOS, DESCONTAMINACION DE BALATAS Y ENGRASADOO DE BALEROS ENGRASADO DE CHICOTE, ENGRASADO DE SUSPENSION, LIMPIEZA PROFUNDA, LIMPIEZA Y SELLADO DE MOTOR",
+      "Sin Sellado de Motor": "Solo limpieza y sellado de motor (sin otros servicios)"
+    };
 
-    function mostrarPrecio() {
-      const modelo = modeloSelect.value;
-      const servicio = servicioSelect.value;
+    const App = () => {
+      const [marcas] = useState(Object.keys(preciosServicios));
+      const [marcaSeleccionada, setMarcaSeleccionada] = useState('');
+      const [modelos, setModelos] = useState([]);
+      const [modeloSeleccionado, setModeloSeleccionado] = useState('');
+      const [servicios, setServicios] = useState([]);
+      const [servicioSeleccionado, setServicioSeleccionado] = useState('');
+      const [resultado, setResultado] = useState(null);
+      const [cargando, setCargando] = useState(false);
 
-      if (modelo && servicio) {
-        const datos = precios[modelo.toLowerCase()];
-        if (datos && datos[servicio]) {
-          resultadoDiv.textContent = `Costo: $${datos[servicio].toFixed(2)} MXN`;
+      // Cargar modelos cuando se selecciona una marca
+      const handleMarcaChange = (e) => {
+        const marca = e.target.value;
+        setMarcaSeleccionada(marca);
+        setModeloSeleccionado('');
+        setServicioSeleccionado('');
+        setResultado(null);
+        
+        if (marca && preciosServicios[marca]) {
+          setModelos(Object.keys(preciosServicios[marca]));
         } else {
-          resultadoDiv.textContent = "Este servicio no está disponible para el modelo seleccionado.";
+          setModelos([]);
         }
-      } else {
-        resultadoDiv.textContent = "";
-      }
-    }
+        setServicios([]);
+      };
 
-    modeloSelect.addEventListener("change", mostrarPrecio);
-    servicioSelect.addEventListener("change", mostrarPrecio);
+      // Cargar servicios cuando se selecciona un modelo
+      const handleModeloChange = (e) => {
+        const modelo = e.target.value;
+        setModeloSeleccionado(modelo);
+        setServicioSeleccionado('');
+        setResultado(null);
+        
+        if (marcaSeleccionada && modelo && preciosServicios[marcaSeleccionada][modelo]) {
+          setServicios(Object.keys(preciosServicios[marcaSeleccionada][modelo]));
+        } else {
+          setServicios([]);
+        }
+      };
+
+      // Consultar precio
+      const consultarPrecio = () => {
+        if (!marcaSeleccionada || !modeloSeleccionado || !servicioSeleccionado) {
+          setResultado({ error: "Por favor complete todos los campos" });
+          return;
+        }
+
+        setCargando(true);
+        
+        // Simulamos una llamada asíncrona
+        setTimeout(() => {
+          try {
+            const precio = preciosServicios[marcaSeleccionada][modeloSeleccionado][servicioSeleccionado];
+            
+            if (precio) {
+              setResultado({ 
+                precio, 
+                descripcion: descripcionesServicios[servicioSeleccionado] 
+              });
+            } else {
+              setResultado({ error: "No se encontró precio para este servicio" });
+            }
+          } catch (error) {
+            setResultado({ error: "Error al consultar el precio" });
+          } finally {
+            setCargando(false);
+          }
+        }, 500);
+      };
+
+      return (
+        <div className="container">
+          <h2>Consulta de Servicios R.R Scooter</h2>
+          
+          <label htmlFor="marca">Marca:</label>
+          <select 
+            id="marca" 
+            value={marcaSeleccionada}
+            onChange={handleMarcaChange}
+          >
+            <option value="">Selecciona una marca</option>
+            {marcas.map(marca => (
+              <option key={marca} value={marca}>{marca}</option>
+            ))}
+          </select>
+          
+          <label htmlFor="modelo">Modelo:</label>
+          <select 
+            id="modelo" 
+            value={modeloSeleccionado}
+            onChange={handleModeloChange}
+            disabled={!marcaSeleccionada}
+          >
+            <option value="">Selecciona un modelo</option>
+            {modelos.map(modelo => (
+              <option key={modelo} value={modelo}>{modelo}</option>
+            ))}
+          </select>
+          
+          <label htmlFor="servicio">Servicio:</label>
+          <select 
+            id="servicio" 
+            value={servicioSeleccionado}
+            onChange={(e) => setServicioSeleccionado(e.target.value)}
+            disabled={!modeloSeleccionado}
+          >
+            <option value="">Selecciona un servicio</option>
+            {servicios.map(servicio => (
+              <option key={servicio} value={servicio}>{servicio}</option>
+            ))}
+          </select>
+          
+          <button onClick={consultarPrecio} disabled={!servicioSeleccionado || cargando}>
+            {cargando ? 'Consultando...' : 'Consultar Precio'}
+          </button>
+          
+          <div className="precio-resultado">
+            {cargando && (
+              <div className="loading">
+                <div className="spinner"></div>
+                <p>Consultando precio...</p>
+              </div>
+            )}
+            
+            {resultado && !cargando && (
+              <>
+                {resultado.error ? (
+                  <p className="error">{resultado.error}</p>
+                ) : (
+                  <>
+                    <div className="precio">${resultado.precio} MXN</div>
+                    <div className="descripcion">{resultado.descripcion}</div>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      );
+    };
+
+    const root = ReactDOM.createRoot(document.getElementById('root'));
+    root.render(<App />);
   </script>
 </body>
 </html>
