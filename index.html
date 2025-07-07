@@ -111,39 +111,20 @@
     .app-container {
       max-width: 900px;
       margin: 0 auto;
-      perspective: 1000px;
       padding: 20px;
       opacity: 0;
       animation: fadeIn 0.5s ease-out 3s forwards;
     }
     
-    .flip-card {
-      transition: transform 0.8s;
-      transform-style: preserve-3d;
-      position: relative;
-      min-height: 600px;
+    .main-card {
       border-radius: 20px;
       overflow: hidden;
       box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    }
-    
-    .flip-card.flipped {
-      transform: rotateY(180deg);
-    }
-    
-    .card-face {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
       background: var(--white);
       padding: 30px;
+      min-height: 600px;
       display: flex;
       flex-direction: column;
-    }
-    
-    .back-face {
-      transform: rotateY(180deg);
     }
     
     .brand-header {
@@ -235,14 +216,14 @@
       box-shadow: none;
     }
     
-    .btn-flip {
+    .btn-back {
       background-color: transparent;
       color: var(--primary);
       border: 2px solid var(--primary);
       margin-top: 20px;
     }
     
-    .btn-flip:hover {
+    .btn-back:hover {
       background-color: rgba(46, 125, 50, 0.1);
     }
     
@@ -372,12 +353,16 @@
       animation: fadeIn 0.5s ease-out 0.3s forwards;
     }
     
+    .hidden {
+      display: none;
+    }
+    
     @media (max-width: 768px) {
       .app-container {
         padding: 15px;
       }
       
-      .card-face {
+      .main-card {
         padding: 20px;
       }
       
@@ -408,7 +393,7 @@
     }
     
     @media (max-width: 480px) {
-      .flip-card {
+      .main-card {
         min-height: 500px;
       }
       
@@ -454,7 +439,7 @@
   <script type="text/babel">
     const { useState, useEffect } = React;
 
-    // Base de datos completa de precios (simplificada para el ejemplo)
+    // Base de datos completa de precios
     const preciosServicios = {
       "HONEYWHALE": {
         "c1": { "Servicio Básico": 350, "Servicio Medio": 500, "Servicio Completo": 950 },
@@ -598,7 +583,7 @@
       const [servicioSeleccionado, setServicioSeleccionado] = useState('');
       const [resultado, setResultado] = useState(null);
       const [cargando, setCargando] = useState(false);
-      const [flipped, setFlipped] = useState(false);
+      const [mostrarFormulario, setMostrarFormulario] = useState(true);
 
       // Cargar modelos cuando se selecciona una marca
       const handleMarcaChange = (e) => {
@@ -607,7 +592,6 @@
         setModeloSeleccionado('');
         setServicioSeleccionado('');
         setResultado(null);
-        setFlipped(false);
         
         if (marca && preciosServicios[marca]) {
           setModelos(Object.keys(preciosServicios[marca]).sort());
@@ -623,7 +607,6 @@
         setModeloSeleccionado(modelo);
         setServicioSeleccionado('');
         setResultado(null);
-        setFlipped(false);
         
         if (marcaSeleccionada && modelo && preciosServicios[marcaSeleccionada][modelo]) {
           setServicios(Object.keys(preciosServicios[marcaSeleccionada][modelo]).filter(
@@ -656,7 +639,7 @@
                 precio, 
                 descripcion: descripcionesServicios[servicioSeleccionado] 
               });
-              setFlipped(true);
+              setMostrarFormulario(false);
             } else {
               setResultado({ error: "No se encontró precio para este servicio" });
             }
@@ -670,154 +653,155 @@
 
       // Volver al formulario
       const volverAlFormulario = () => {
-        setFlipped(false);
+        setMostrarFormulario(true);
+        setResultado(null);
       };
 
       return (
         <div className="app-container">
-          <div className={`flip-card ${flipped ? 'flipped' : ''}`}>
-            {/* Cara frontal - Formulario */}
-            <div className="card-face front-face">
-              <div className="brand-header">
-                <img src="https://via.placeholder.com/180x60?text=R.R+Electric+Run+Run" alt="R.R Electric Run Run" className="brand-logo" />
-                <h2 className="brand-title">Lista de Precios 2025</h2>
-                <p className="brand-subtitle">Consulta de servicios para scooters</p>
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="marca">Marca:</label>
-                <select 
-                  id="marca" 
-                  value={marcaSeleccionada}
-                  onChange={handleMarcaChange}
-                >
-                  <option value="">Selecciona una marca</option>
-                  {marcas.map(marca => (
-                    <option key={marca} value={marca}>{marca}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="modelo">Modelo:</label>
-                <select 
-                  id="modelo" 
-                  value={modeloSeleccionado}
-                  onChange={handleModeloChange}
-                  disabled={!marcaSeleccionada}
-                >
-                  <option value="">Selecciona un modelo</option>
-                  {modelos.map(modelo => (
-                    <option key={modelo} value={modelo}>{modelo}</option>
-                  ))}
-                </select>
-              </div>
-              
-              <div className="form-group">
-                <label htmlFor="servicio">Servicio:</label>
-                <select 
-                  id="servicio" 
-                  value={servicioSeleccionado}
-                  onChange={(e) => setServicioSeleccionado(e.target.value)}
-                  disabled={!modeloSeleccionado || servicios.length === 0}
-                >
-                  <option value="">Selecciona un servicio</option>
-                  {servicios.map(servicio => (
-                    <option key={servicio} value={servicio}>{servicio}</option>
-                  ))}
-                </select>
-                {modeloSeleccionado && servicios.length === 0 && (
-                  <p className="error">No hay servicios disponibles para este modelo</p>
-                )}
-              </div>
-              
-              <button 
-                onClick={consultarPrecio} 
-                disabled={!servicioSeleccionado || cargando}
-              >
-                {cargando ? (
-                  <>
-                    <i className="fas fa-spinner fa-spin"></i> Consultando...
-                  </>
-                ) : (
-                  <>
-                    <i className="fas fa-search-dollar"></i> Consultar Precio
-                  </>
-                )}
-              </button>
-              
-              <div className="social-links">
-                {socialLinks.map((social, index) => (
-                  <a 
-                    key={index}
-                    href={social.url} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className={`social-link ${social.class}`}
-                    title={social.tooltip}
-                  >
-                    <i className={social.icon}></i>
-                  </a>
-                ))}
-              </div>
-              
-              <div className="footer">
-                © {new Date().getFullYear()} R.R Electric Run Run - Taller especializado
-              </div>
-            </div>
-            
-            {/* Cara trasera - Resultado */}
-            <div className="card-face back-face">
-              {cargando ? (
-                <div className="loading">
-                  <div className="spinner"></div>
-                  <p>Consultando precio...</p>
+          <div className="main-card">
+            {mostrarFormulario ? (
+              <>
+                <div className="brand-header">
+                  <img src="https://via.placeholder.com/180x60?text=R.R+Electric+Run+Run" alt="R.R Electric Run Run" className="brand-logo" />
+                  <h2 className="brand-title">Lista de Precios 2025</h2>
+                  <p className="brand-subtitle">Consulta de servicios para scooters</p>
                 </div>
-              ) : (
-                <div className="result-container">
-                  {resultado?.error ? (
+                
+                <div className="form-group">
+                  <label htmlFor="marca">Marca:</label>
+                  <select 
+                    id="marca" 
+                    value={marcaSeleccionada}
+                    onChange={handleMarcaChange}
+                  >
+                    <option value="">Selecciona una marca</option>
+                    {marcas.map(marca => (
+                      <option key={marca} value={marca}>{marca}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="modelo">Modelo:</label>
+                  <select 
+                    id="modelo" 
+                    value={modeloSeleccionado}
+                    onChange={handleModeloChange}
+                    disabled={!marcaSeleccionada}
+                  >
+                    <option value="">Selecciona un modelo</option>
+                    {modelos.map(modelo => (
+                      <option key={modelo} value={modelo}>{modelo}</option>
+                    ))}
+                  </select>
+                </div>
+                
+                <div className="form-group">
+                  <label htmlFor="servicio">Servicio:</label>
+                  <select 
+                    id="servicio" 
+                    value={servicioSeleccionado}
+                    onChange={(e) => setServicioSeleccionado(e.target.value)}
+                    disabled={!modeloSeleccionado || servicios.length === 0}
+                  >
+                    <option value="">Selecciona un servicio</option>
+                    {servicios.map(servicio => (
+                      <option key={servicio} value={servicio}>{servicio}</option>
+                    ))}
+                  </select>
+                  {modeloSeleccionado && servicios.length === 0 && (
+                    <p className="error">No hay servicios disponibles para este modelo</p>
+                  )}
+                </div>
+                
+                <button 
+                  onClick={consultarPrecio} 
+                  disabled={!servicioSeleccionado || cargando}
+                >
+                  {cargando ? (
                     <>
-                      <p className="error">{resultado.error}</p>
-                      <button className="btn btn-flip" onClick={volverAlFormulario}>
-                        <i className="fas fa-arrow-left"></i> Volver
-                      </button>
+                      <i className="fas fa-spinner fa-spin"></i> Consultando...
                     </>
                   ) : (
                     <>
-                      <img 
-                        src="https://via.placeholder.com/120x120?text=Scooter" 
-                        alt="Modelo de scooter" 
-                        className="model-image" 
-                      />
-                      <h2>{resultado?.marca} {resultado?.modelo}</h2>
-                      <div className="service-name">{resultado?.servicio}</div>
-                      <div className="price">${resultado?.precio} MXN</div>
-                      <div className="service-description">
-                        {resultado?.descripcion}
-                      </div>
-                      <button className="btn btn-flip" onClick={volverAlFormulario}>
-                        <i className="fas fa-redo"></i> Nueva Consulta
-                      </button>
-                      
-                      <div className="social-links">
-                        {socialLinks.map((social, index) => (
-                          <a 
-                            key={index}
-                            href={social.url} 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className={`social-link ${social.class}`}
-                            title={social.tooltip}
-                          >
-                            <i className={social.icon}></i>
-                          </a>
-                        ))}
-                      </div>
+                      <i className="fas fa-search-dollar"></i> Consultar Precio
                     </>
                   )}
+                </button>
+                
+                <div className="social-links">
+                  {socialLinks.map((social, index) => (
+                    <a 
+                      key={index}
+                      href={social.url} 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      className={`social-link ${social.class}`}
+                      title={social.tooltip}
+                    >
+                      <i className={social.icon}></i>
+                    </a>
+                  ))}
                 </div>
-              )}
-            </div>
+                
+                <div className="footer">
+                  © {new Date().getFullYear()} R.R Electric Run Run - Taller especializado
+                </div>
+              </>
+            ) : (
+              <div className="result-container">
+                {cargando ? (
+                  <div className="loading">
+                    <div className="spinner"></div>
+                    <p>Consultando precio...</p>
+                  </div>
+                ) : (
+                  <>
+                    {resultado?.error ? (
+                      <>
+                        <p className="error">{resultado.error}</p>
+                        <button className="btn btn-back" onClick={volverAlFormulario}>
+                          <i className="fas fa-arrow-left"></i> Volver
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <img 
+                          src="https://via.placeholder.com/120x120?text=Scooter" 
+                          alt="Modelo de scooter" 
+                          className="model-image" 
+                        />
+                        <h2>{resultado?.marca} {resultado?.modelo}</h2>
+                        <div className="service-name">{resultado?.servicio}</div>
+                        <div className="price">${resultado?.precio} MXN</div>
+                        <div className="service-description">
+                          {resultado?.descripcion}
+                        </div>
+                        <button className="btn btn-back" onClick={volverAlFormulario}>
+                          <i className="fas fa-redo"></i> Nueva Consulta
+                        </button>
+                        
+                        <div className="social-links">
+                          {socialLinks.map((social, index) => (
+                            <a 
+                              key={index}
+                              href={social.url} 
+                              target="_blank" 
+                              rel="noopener noreferrer"
+                              className={`social-link ${social.class}`}
+                              title={social.tooltip}
+                            >
+                              <i className={social.icon}></i>
+                            </a>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </>
+                )}
+              </div>
+            )}
           </div>
         </div>
       );
