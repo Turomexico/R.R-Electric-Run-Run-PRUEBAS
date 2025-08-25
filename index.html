@@ -3,929 +3,536 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Control de Gastos - Taller R.R Electric Run Run 2025</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <title>SCOTERS ELECTRIC RUN-RUN - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2c3e50;
-            --secondary: #3498db;
-            --accent: #e74c3c;
-            --light: #ecf0f1;
-            --success: #2ecc71;
-            --warning: #f39c12;
-        }
-        
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
-        
+
         body {
-            background-color: #f5f7fa;
-            color: #333;
-            line-height: 1.6;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-        }
-        
-        header {
-            background-color: var(--primary);
-            color: white;
-            padding: 1.5rem;
-            text-align: center;
-        }
-        
-        .header-content {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-        
-        .logo h1 {
-            font-size: 1.8rem;
-        }
-        
-        .logo-icon {
-            font-size: 2rem;
-        }
-        
-        .controls {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .btn {
-            padding: 10px 15px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: all 0.3s;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .btn-primary {
-            background-color: var(--secondary);
-            color: white;
-        }
-        
-        .btn-success {
-            background-color: var(--success);
-            color: white;
-        }
-        
-        .btn-danger {
-            background-color: var(--accent);
-            color: white;
-        }
-        
-        .btn-warning {
-            background-color: var(--warning);
-            color: white;
-        }
-        
-        .btn:hover {
-            opacity: 0.9;
-            transform: translateY(-2px);
-        }
-        
-        .dashboard {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            padding: 20px;
-        }
-        
-        .card {
-            background-color: white;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        
-        .card h2 {
-            color: var(--primary);
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
-        }
-        
-        .summary {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-        
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px;
-            border-radius: 8px;
-            background-color: #f8f9fa;
-        }
-        
-        .summary-item.budget {
-            background-color: rgba(52, 152, 219, 0.2);
-        }
-        
-        .summary-item.expense {
-            background-color: rgba(231, 76, 60, 0.2);
-        }
-        
-        .summary-item.balance {
-            background-color: rgba(46, 204, 113, 0.2);
-            font-weight: bold;
-            font-size: 1.2rem;
-        }
-        
-        .summary-value {
-            font-weight: 600;
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 300px;
-        }
-        
-        .forms-section {
-            padding: 20px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #e9ecef;
-            border-bottom: 1px solid #e9ecef;
-        }
-        
-        .forms-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            color: var(--primary);
-        }
-        
-        input, select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-size: 1rem;
-        }
-        
-        .table-section {
-            padding: 20px;
-        }
-        
-        .table-controls {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 15px;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        
-        .search-box {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .search-box input {
-            min-width: 250px;
-        }
-        
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 15px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-        }
-        
-        th, td {
-            padding: 12px 15px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        
-        th {
-            background-color: var(--primary);
-            color: white;
-            font-weight: 600;
-            position: sticky;
-            top: 0;
-        }
-        
-        tr:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-        
-        tr:hover {
-            background-color: #e9ecef;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .btn-sm {
-            padding: 5px 10px;
-            font-size: 0.8rem;
-        }
-        
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
             justify-content: center;
             align-items: center;
-            z-index: 1000;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1f2d, #0d1018);
+            overflow: hidden;
+            position: relative;
         }
-        
-        .modal-content {
-            background-color: white;
-            padding: 25px;
-            border-radius: 10px;
-            width: 500px;
-            max-width: 90%;
+
+        /* Elementos de fondo con temática de scooters eléctricos */
+        .background-elements {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .element {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 230, 118, 0.1);
+            animation: float 15s infinite linear;
+        }
+
+        .element:nth-child(1) {
+            width: 80px;
+            height: 80px;
+            top: 20%;
+            left: 10%;
+            animation-duration: 20s;
+            background: rgba(0, 176, 255, 0.15);
+        }
+
+        .element:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 25s;
+            animation-delay: 1s;
+            background: rgba(0, 230, 118, 0.1);
+        }
+
+        .element:nth-child(3) {
+            width: 60px;
+            height: 60px;
+            top: 70%;
+            left: 15%;
+            animation-duration: 15s;
+            animation-delay: 0.5s;
+            background: rgba(0, 176, 255, 0.1);
+        }
+
+        .element:nth-child(4) {
+            width: 100px;
+            height: 100px;
+            top: 15%;
+            left: 75%;
+            animation-duration: 18s;
+            animation-delay: 2s;
+            background: rgba(0, 230, 118, 0.15);
+        }
+
+        .scooter-icon {
+            position: absolute;
+            font-size: 24px;
+            color: #00e676;
+            animation: drive 30s linear infinite;
+        }
+
+        .container {
+            position: relative;
+            width: 100%;
+            max-width: 450px;
+            min-height: 550px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .login-box {
+            position: relative;
+            width: 100%;
+            padding: 40px;
+            background: rgba(15, 20, 32, 0.8);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            overflow: hidden;
+            animation: fadeIn 1s ease-out;
+            border: 1px solid rgba(0, 230, 118, 0.2);
+        }
+
+        .login-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 230, 118, 0.1), rgba(0, 176, 255, 0.1));
+            transform: rotate(45deg);
+            z-index: -1;
+            animation: shine 8s infinite linear;
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 30px;
+            animation: slideDown 0.8s ease-out;
+        }
+
+        .logo h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, #00e676, #00b0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-shadow: 0 2px 10px rgba(0, 230, 118, 0.3);
+        }
+
+        .logo span {
+            display: block;
+            font-size: 1rem;
+            color: #00b0ff;
+            letter-spacing: 4px;
+            margin-top: -5px;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            color: #fff;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+            animation: slideDown 0.8s ease-out;
+            font-weight: 600;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #00e676, #00b0ff);
+            border-radius: 3px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 30px;
+            animation: slideUp 0.8s ease-out;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 15px 20px 15px 50px;
+            border: none;
+            outline: none;
+            background: rgba(255, 255, 255, 0.07);
+            border-radius: 30px;
+            font-size: 1rem;
+            color: #fff;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
         }
-        
-        .modal-header {
+
+        .input-group input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-group input:focus {
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.3);
+            transform: translateY(-2px);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .input-group i {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            color: #00e676;
+            font-size: 1.2rem;
+        }
+
+        .remember-forgot {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid var(--light);
+            animation: fadeIn 1.2s ease-out;
         }
-        
-        .close {
-            font-size: 1.5rem;
+
+        .remember-forgot label {
+            display: flex;
+            align-items: center;
+            color: rgba(255, 255, 255, 0.7);
             cursor: pointer;
-            color: #999;
+            font-size: 0.9rem;
         }
-        
-        .close:hover {
-            color: var(--accent);
+
+        .remember-forgot input {
+            margin-right: 5px;
+            accent-color: #00e676;
         }
-        
-        @media (max-width: 992px) {
-            .dashboard {
-                grid-template-columns: 1fr;
+
+        .remember-forgot a {
+            color: #00b0ff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .remember-forgot a:hover {
+            color: #00e676;
+            text-decoration: underline;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #00e676, #00b0ff);
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
+            transition: all 0.3s ease;
+            animation: pulse 2s infinite;
+            letter-spacing: 1px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 230, 118, 0.6);
+            letter-spacing: 1.5px;
+        }
+
+        .btn:active {
+            transform: translateY(1px);
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 25px;
+            color: rgba(255, 255, 255, 0.7);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .register-link a {
+            color: #00b0ff;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .register-link a:hover {
+            color: #00e676;
+            text-decoration: underline;
+        }
+
+        .social-login {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+            animation: slideUp 1s ease-out;
+        }
+
+        .social-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .social-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 230, 118, 0.4);
+        }
+
+        .facebook:hover {
+            background: linear-gradient(45deg, #3b5998, #4a69a4);
+        }
+
+        .google:hover {
+            background: linear-gradient(45deg, #dd4b39, #e05d4d);
+        }
+
+        .twitter:hover {
+            background: linear-gradient(45deg, #1da1f2, #3ab4f5);
+        }
+
+        /* Animaciones */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
             }
-            
-            .forms-container {
-                grid-template-columns: 1fr;
+            to {
+                opacity: 1;
+                transform: translateY(0);
             }
         }
-        
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
+            }
+            50% {
+                box-shadow: 0 5px 20px rgba(0, 230, 118, 0.7);
+            }
+            100% {
+                box-shadow: 0 5px 15px rgba(0, 230, 118, 0.4);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
+            100% {
+                transform: translateY(0) rotate(360deg);
+            }
+        }
+
+        @keyframes shine {
+            0% {
+                transform: rotate(45deg) translateX(-100%);
+            }
+            100% {
+                transform: rotate(45deg) translateX(100%);
+            }
+        }
+
+        @keyframes drive {
+            0% {
+                transform: translateX(-100px);
+            }
+            100% {
+                transform: translateX(calc(100vw + 100px));
+            }
+        }
+
+        /* Responsive */
         @media (max-width: 768px) {
-            .header-content {
-                flex-direction: column;
-                gap: 15px;
+            .container {
+                padding: 20px;
             }
             
-            .table-controls {
-                flex-direction: column;
+            .login-box {
+                padding: 30px 20px;
             }
             
-            .search-box {
-                width: 100%;
+            .logo h1 {
+                font-size: 1.8rem;
             }
             
-            .search-box input {
-                min-width: auto;
-                width: 100%;
+            .logo span {
+                font-size: 0.8rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <div class="header-content">
-                <div class="logo">
-                    <span class="logo-icon">⚡</span>
-                    <h1>Taller R.R Electric Run Run 2025</h1>
-                </div>
-                <div class="controls">
-                    <button class="btn btn-primary" id="export-pdf">
-                        <i>📊</i> Exportar PDF
-                    </button>
-                    <button class="btn btn-success" id="export-excel">
-                        <i>📝</i> Exportar Excel
-                    </button>
-                </div>
-            </div>
-        </header>
-        
-        <div class="dashboard">
-            <div class="card">
-                <h2>Control de Presupuesto</h2>
-                <div class="summary">
-                    <div class="summary-item budget">
-                        <span>Presupuesto Inicial:</span>
-                        <span class="summary-value" id="initial-budget">$0.00</span>
-                    </div>
-                    <div class="summary-item expense">
-                        <span>Total Gastado:</span>
-                        <span class="summary-value" id="total-expenses">$0.00</span>
-                    </div>
-                    <div class="summary-item balance">
-                        <span>Saldo Restante:</span>
-                        <span class="summary-value" id="remaining-balance">$0.00</span>
-                    </div>
-                </div>
-                
-                <div class="form-group" style="margin-top: 20px;">
-                    <label for="initial-budget-input">Establecer Presupuesto:</label>
-                    <input type="number" id="initial-budget-input" step="0.01" placeholder="0.00">
-                    <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="set-budget-btn">Establecer Presupuesto</button>
-                </div>
-            </div>
-            
-            <div class="card">
-                <h2>Progreso de Gastos</h2>
-                <div class="chart-container">
-                    <canvas id="expenseChart"></canvas>
-                </div>
-            </div>
-        </div>
-        
-        <div class="forms-section">
-            <div class="forms-container">
-                <div class="card">
-                    <h2>Registrar Nuevo Gasto</h2>
-                    <form id="expense-form">
-                        <div class="form-group">
-                            <label for="fecha">FECHA:</label>
-                            <input type="date" id="fecha" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="proveedor">PROVEEDOR:</label>
-                            <input type="text" id="proveedor" required placeholder="Nombre del proveedor">
-                        </div>
-                        <div class="form-group">
-                            <label for="refaccion">REFACCIÓN:</label>
-                            <input type="text" id="refaccion" required placeholder="Tipo de refacción">
-                        </div>
-                        <div class="form-group">
-                            <label for="costo-real">COSTO REAL:</label>
-                            <input type="number" id="costo-real" step="0.01" required placeholder="0.00">
-                        </div>
-                        <div class="form-group">
-                            <label for="ganancia">GANANCIA:</label>
-                            <input type="number" id="ganancia" step="0.01" required placeholder="0.00">
-                        </div>
-                        <div class="form-group">
-                            <label for="orden">ORDEN #:</label>
-                            <input type="text" id="orden" required placeholder="Número de orden">
-                        </div>
-                        <button type="submit" class="btn btn-success" style="width: 100%;">Registrar Gasto</button>
-                    </form>
-                </div>
-                
-                <div class="card">
-                    <h2>Filtros y Búsqueda</h2>
-                    <div class="form-group">
-                        <label for="filter-date">Filtrar por Fecha:</label>
-                        <input type="date" id="filter-date">
-                    </div>
-                    <div class="form-group">
-                        <label for="filter-provider">Filtrar por Proveedor:</label>
-                        <input type="text" id="filter-provider" placeholder="Nombre del proveedor">
-                    </div>
-                    <div class="form-group">
-                        <label for="filter-parts">Filtrar por Refacción:</label>
-                        <input type="text" id="filter-parts" placeholder="Tipo de refacción">
-                    </div>
-                    <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" id="apply-filters">Aplicar Filtros</button>
-                    <button class="btn btn-warning" style="width: 100%;" id="clear-filters">Limpiar Filtros</button>
-                    
-                    <h2 style="margin-top: 20px;">Resumen por Categoría</h2>
-                    <div id="category-summary">
-                        <!-- Los resúmenes por categoría se insertarán aquí -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="table-section">
-            <div class="table-controls">
-                <h2>Registros de Gastos</h2>
-                <div class="search-box">
-                    <input type="text" id="search-input" placeholder="Buscar...">
-                    <button class="btn btn-primary" id="search-btn">Buscar</button>
-                </div>
-            </div>
-            
-            <table id="expenses-table">
-                <thead>
-                    <tr>
-                        <th>FECHA</th>
-                        <th>PROVEEDOR</th>
-                        <th>REFACCIÓN</th>
-                        <th>COSTO REAL</th>
-                        <th>GANANCIA</th>
-                        <th>ORDEN #</th>
-                        <th>ACCIONES</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Los gastos se insertarán aquí dinámicamente -->
-                </tbody>
-            </table>
-        </div>
+    <div class="background-elements">
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="element"></div>
+        <div class="scooter-icon" style="top: 20%; animation-delay: 0s;"><i class="fas fa-motorcycle"></i></div>
+        <div class="scooter-icon" style="top: 40%; animation-delay: 5s;"><i class="fas fa-motorcycle"></i></div>
+        <div class="scooter-icon" style="top: 70%; animation-delay: 10s;"><i class="fas fa-motorcycle"></i></div>
+        <div class="scooter-icon" style="top: 85%; animation-delay: 15s;"><i class="fas fa-motorcycle"></i></div>
     </div>
-
-    <!-- Modal para editar gastos -->
-    <div class="modal" id="edit-modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Gasto</h2>
-                <span class="close">&times;</span>
+    
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <h1>SCOTERS</h1>
+                <span>ELECTRIC RUN-RUN</span>
             </div>
-            <form id="edit-form">
-                <input type="hidden" id="edit-id">
-                <div class="form-group">
-                    <label for="edit-fecha">FECHA:</label>
-                    <input type="date" id="edit-fecha" required>
+            
+            <h2>Iniciar Sesión</h2>
+            <form id="loginForm">
+                <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Usuario o Correo" required>
                 </div>
-                <div class="form-group">
-                    <label for="edit-proveedor">PROVEEDOR:</label>
-                    <input type="text" id="edit-proveedor" required>
+                
+                <div class="input-group">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Contraseña" required>
                 </div>
-                <div class="form-group">
-                    <label for="edit-refaccion">REFACCIÓN:</label>
-                    <input type="text" id="edit-refaccion" required>
+                
+                <div class="remember-forgot">
+                    <label>
+                        <input type="checkbox"> Recordarme
+                    </label>
+                    <a href="#">¿Olvidaste tu contraseña?</a>
                 </div>
-                <div class="form-group">
-                    <label for="edit-costo-real">COSTO REAL:</label>
-                    <input type="number" id="edit-costo-real" step="0.01" required>
+                
+                <button type="submit" class="btn">Ingresar</button>
+                
+                <div class="register-link">
+                    ¿No tienes una cuenta? <a href="#">Regístrate ahora</a>
                 </div>
-                <div class="form-group">
-                    <label for="edit-ganancia">GANANCIA:</label>
-                    <input type="number" id="edit-ganancia" step="0.01" required>
+                
+                <div class="social-login">
+                    <div class="social-btn facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </div>
+                    <div class="social-btn google">
+                        <i class="fab fa-google"></i>
+                    </div>
+                    <div class="social-btn twitter">
+                        <i class="fab fa-twitter"></i>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="edit-orden">ORDEN #:</label>
-                    <input type="text" id="edit-orden" required>
-                </div>
-                <button type="submit" class="btn btn-success" style="width: 100%;">Guardar Cambios</button>
             </form>
         </div>
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Establecer fecha actual como predeterminada
-            const today = new Date().toISOString().split('T')[0];
-            document.getElementById('fecha').value = today;
+        document.getElementById('loginForm').addEventListener('submit', function(e) {
+            e.preventDefault();
             
-            // Inicializar datos
-            let initialBudget = parseFloat(localStorage.getItem('initialBudget')) || 0;
-            let expenses = JSON.parse(localStorage.getItem('expenses')) || [];
+            const btn = this.querySelector('.btn');
+            btn.innerHTML = 'Ingresando...';
+            btn.style.background = 'linear-gradient(45deg, #00b0ff, #0091ea)';
             
-            // Configurar gráfico
-            const ctx = document.getElementById('expenseChart').getContext('2d');
-            const expenseChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: ['Presupuesto', 'Gastado', 'Restante'],
-                    datasets: [{
-                        label: 'Montos en $',
-                        data: [initialBudget, 0, initialBudget],
-                        backgroundColor: [
-                            'rgba(52, 152, 219, 0.7)',
-                            'rgba(231, 76, 60, 0.7)',
-                            'rgba(46, 204, 113, 0.7)'
-                        ],
-                        borderColor: [
-                            'rgb(52, 152, 219)',
-                            'rgb(231, 76, 60)',
-                            'rgb(46, 204, 113)'
-                        ],
-                        borderWidth: 1
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Monto ($)'
-                            }
-                        }
-                    }
-                }
-            });
-            
-            // Actualizar vista
-            function updateView() {
-                updateSummary();
-                updateChart();
-                updateExpensesTable();
-                updateCategorySummary();
-            }
-            
-            // Actualizar resumen
-            function updateSummary() {
-                const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.costoReal), 0);
-                const remainingBalance = initialBudget - totalExpenses;
+            // Simulación de inicio de sesión
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> ¡Éxito!';
+                btn.style.background = 'linear-gradient(45deg, #00e676, #00c853)';
                 
-                document.getElementById('initial-budget').textContent = `$${initialBudget.toFixed(2)}`;
-                document.getElementById('total-expenses').textContent = `$${totalExpenses.toFixed(2)}`;
-                document.getElementById('remaining-balance').textContent = `$${remainingBalance.toFixed(2)}`;
-                
-                // Cambiar color si el saldo es bajo
-                if (remainingBalance < initialBudget * 0.2) {
-                    document.getElementById('remaining-balance').style.color = '#e74c3c';
-                } else {
-                    document.getElementById('remaining-balance').style.color = 'inherit';
-                }
-            }
-            
-            // Actualizar gráfico
-            function updateChart() {
-                const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.costoReal), 0);
-                const remainingBalance = initialBudget - totalExpenses;
-                
-                expenseChart.data.datasets[0].data = [initialBudget, totalExpenses, remainingBalance];
-                expenseChart.update();
-            }
-            
-            // Actualizar tabla de gastos
-            function updateExpensesTable(filteredExpenses = null) {
-                const tableBody = document.querySelector('#expenses-table tbody');
-                tableBody.innerHTML = '';
-                
-                const expensesToShow = filteredExpenses || expenses;
-                
-                // Ordenar gastos por fecha (más recientes primero)
-                const sortedExpenses = [...expensesToShow].sort((a, b) => 
-                    new Date(b.fecha) - new Date(a.fecha)
-                );
-                
-                sortedExpenses.forEach(expense => {
-                    const row = document.createElement('tr');
-                    
-                    // Formatear fecha
-                    const fecha = new Date(expense.fecha).toLocaleDateString();
-                    
-                    row.innerHTML = `
-                        <td>${fecha}</td>
-                        <td>${expense.proveedor}</td>
-                        <td>${expense.refaccion}</td>
-                        <td>$${parseFloat(expense.costoReal).toFixed(2)}</td>
-                        <td>$${parseFloat(expense.ganancia).toFixed(2)}</td>
-                        <td>${expense.orden}</td>
-                        <td class="action-buttons">
-                            <button class="btn btn-warning btn-sm edit-btn" data-id="${expense.id}">Editar</button>
-                            <button class="btn btn-danger btn-sm delete-btn" data-id="${expense.id}">Eliminar</button>
-                        </td>
-                    `;
-                    
-                    tableBody.appendChild(row);
-                });
-                
-                // Agregar event listeners a los botones
-                document.querySelectorAll('.edit-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        editExpense(id);
-                    });
-                });
-                
-                document.querySelectorAll('.delete-btn').forEach(btn => {
-                    btn.addEventListener('click', function() {
-                        const id = this.getAttribute('data-id');
-                        deleteExpense(id);
-                    });
-                });
-            }
-            
-            // Actualizar resumen por categoría
-            function updateCategorySummary() {
-                const categorySummary = document.getElementById('category-summary');
-                categorySummary.innerHTML = '';
-                
-                // Agrupar gastos por proveedor
-                const byProvider = {};
-                expenses.forEach(expense => {
-                    if (!byProvider[expense.proveedor]) {
-                        byProvider[expense.proveedor] = 0;
-                    }
-                    byProvider[expense.proveedor] += parseFloat(expense.costoReal);
-                });
-                
-                // Agrupar gastos por refacción
-                const byRefaccion = {};
-                expenses.forEach(expense => {
-                    if (!byRefaccion[expense.refaccion]) {
-                        byRefaccion[expense.refaccion] = 0;
-                    }
-                    byRefaccion[expense.refaccion] += parseFloat(expense.costoReal);
-                });
-                
-                // Crear elementos HTML para el resumen
-                const providerSummary = document.createElement('div');
-                providerSummary.innerHTML = '<h3>Gastos por Proveedor</h3>';
-                
-                for (const [provider, amount] of Object.entries(byProvider)) {
-                    const providerItem = document.createElement('div');
-                    providerItem.className = 'summary-item';
-                    providerItem.innerHTML = `
-                        <span>${provider}:</span>
-                        <span>$${amount.toFixed(2)}</span>
-                    `;
-                    providerSummary.appendChild(providerItem);
-                }
-                
-                const refaccionSummary = document.createElement('div');
-                refaccionSummary.innerHTML = '<h3>Gastos por Refacción</h3>';
-                
-                for (const [refaccion, amount] of Object.entries(byRefaccion)) {
-                    const refaccionItem = document.createElement('div');
-                    refaccionItem.className = 'summary-item';
-                    refaccionItem.innerHTML = `
-                        <span>${refaccion}:</span>
-                        <span>$${amount.toFixed(2)}</span>
-                    `;
-                    refaccionSummary.appendChild(refaccionItem);
-                }
-                
-                categorySummary.appendChild(providerSummary);
-                categorySummary.appendChild(refaccionSummary);
-            }
-            
-            // Establecer presupuesto inicial
-            document.getElementById('set-budget-btn').addEventListener('click', function() {
-                const budgetInput = parseFloat(document.getElementById('initial-budget-input').value);
-                
-                if (isNaN(budgetInput) || budgetInput <= 0) {
-                    alert('Por favor ingrese un monto válido para el presupuesto');
-                    return;
-                }
-                
-                initialBudget = budgetInput;
-                localStorage.setItem('initialBudget', initialBudget);
-                updateView();
-                
-                document.getElementById('initial-budget-input').value = '';
-            });
-            
-            // Registrar nuevo gasto
-            document.getElementById('expense-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.costoReal), 0);
-                const newExpense = parseFloat(document.getElementById('costo-real').value);
-                
-                if (totalExpenses + newExpense > initialBudget) {
-                    if (!confirm('¡Atención! Este gasto excederá su presupuesto. ¿Desea continuar?')) {
-                        return;
-                    }
-                }
-                
-                const expense = {
-                    id: Date.now(),
-                    fecha: document.getElementById('fecha').value,
-                    proveedor: document.getElementById('proveedor').value,
-                    refaccion: document.getElementById('refaccion').value,
-                    costoReal: document.getElementById('costo-real').value,
-                    ganancia: document.getElementById('ganancia').value,
-                    orden: document.getElementById('orden').value
-                };
-                
-                expenses.push(expense);
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                updateView();
-                
-                this.reset();
-                document.getElementById('fecha').value = today;
-            });
-            
-            // Editar gasto
-            function editExpense(id) {
-                const expense = expenses.find(e => e.id == id);
-                
-                if (!expense) return;
-                
-                document.getElementById('edit-id').value = expense.id;
-                document.getElementById('edit-fecha').value = expense.fecha;
-                document.getElementById('edit-proveedor').value = expense.proveedor;
-                document.getElementById('edit-refaccion').value = expense.refaccion;
-                document.getElementById('edit-costo-real').value = expense.costoReal;
-                document.getElementById('edit-ganancia').value = expense.ganancia;
-                document.getElementById('edit-orden').value = expense.orden;
-                
-                document.getElementById('edit-modal').style.display = 'flex';
-            }
-            
-            // Guardar gasto editado
-            document.getElementById('edit-form').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const id = parseInt(document.getElementById('edit-id').value);
-                const index = expenses.findIndex(e => e.id === id);
-                
-                if (index === -1) return;
-                
-                expenses[index] = {
-                    id: id,
-                    fecha: document.getElementById('edit-fecha').value,
-                    proveedor: document.getElementById('edit-proveedor').value,
-                    refaccion: document.getElementById('edit-refaccion').value,
-                    costoReal: document.getElementById('edit-costo-real').value,
-                    ganancia: document.getElementById('edit-ganancia').value,
-                    orden: document.getElementById('edit-orden').value
-                };
-                
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                updateView();
-                
-                document.getElementById('edit-modal').style.display = 'none';
-            });
-            
-            // Eliminar gasto
-            function deleteExpense(id) {
-                if (!confirm('¿Está seguro de que desea eliminar este gasto?')) {
-                    return;
-                }
-                
-                expenses = expenses.filter(e => e.id != id);
-                localStorage.setItem('expenses', JSON.stringify(expenses));
-                updateView();
-            }
-            
-            // Cerrar modal
-            document.querySelector('.close').addEventListener('click', function() {
-                document.getElementById('edit-modal').style.display = 'none';
-            });
-            
-            // Cerrar modal al hacer clic fuera
-            window.addEventListener('click', function(e) {
-                if (e.target === document.getElementById('edit-modal')) {
-                    document.getElementById('edit-modal').style.display = 'none';
-                }
-            });
-            
-            // Buscar gastos
-            document.getElementById('search-btn').addEventListener('click', function() {
-                const searchTerm = document.getElementById('search-input').value.toLowerCase();
-                
-                if (!searchTerm) {
-                    updateExpensesTable();
-                    return;
-                }
-                
-                const filteredExpenses = expenses.filter(expense => 
-                    expense.proveedor.toLowerCase().includes(searchTerm) ||
-                    expense.refaccion.toLowerCase().includes(searchTerm) ||
-                    expense.orden.toLowerCase().includes(searchTerm)
-                );
-                
-                updateExpensesTable(filteredExpenses);
-            });
-            
-            // Aplicar filtros
-            document.getElementById('apply-filters').addEventListener('click', function() {
-                const dateFilter = document.getElementById('filter-date').value;
-                const providerFilter = document.getElementById('filter-provider').value.toLowerCase();
-                const partsFilter = document.getElementById('filter-parts').value.toLowerCase();
-                
-                let filteredExpenses = expenses;
-                
-                if (dateFilter) {
-                    filteredExpenses = filteredExpenses.filter(expense => expense.fecha === dateFilter);
-                }
-                
-                if (providerFilter) {
-                    filteredExpenses = filteredExpenses.filter(expense => 
-                        expense.proveedor.toLowerCase().includes(providerFilter)
-                    );
-                }
-                
-                if (partsFilter) {
-                    filteredExpenses = filteredExpenses.filter(expense => 
-                        expense.refaccion.toLowerCase().includes(partsFilter)
-                    );
-                }
-                
-                updateExpensesTable(filteredExpenses);
-            });
-            
-            // Limpiar filtros
-            document.getElementById('clear-filters').addEventListener('click', function() {
-                document.getElementById('filter-date').value = '';
-                document.getElementById('filter-provider').value = '';
-                document.getElementById('filter-parts').value = '';
-                document.getElementById('search-input').value = '';
-                
-                updateExpensesTable();
-            });
-            
-            // Exportar a PDF
-            document.getElementById('export-pdf').addEventListener('click', function() {
-                const { jsPDF } = window.jspdf;
-                const doc = new jsPDF();
-                
-                // Título
-                doc.setFontSize(18);
-                doc.text('Reporte de Gastos - Taller R.R Electric Run Run 2025', 14, 22);
-                
-                // Resumen
-                doc.setFontSize(12);
-                const totalExpenses = expenses.reduce((sum, expense) => sum + parseFloat(expense.costoReal), 0);
-                const remainingBalance = initialBudget - totalExpenses;
-                
-                doc.text(`Presupuesto Inicial: $${initialBudget.toFixed(2)}`, 14, 32);
-                doc.text(`Total Gastado: $${totalExpenses.toFixed(2)}`, 14, 38);
-                doc.text(`Saldo Restante: $${remainingBalance.toFixed(2)}`, 14, 44);
-                
-                // Tabla
-                doc.autoTable({
-                    startY: 50,
-                    head: [['Fecha', 'Proveedor', 'Refacción', 'Costo Real', 'Ganancia', 'Orden #']],
-                    body: expenses.map(expense => [
-                        new Date(expense.fecha).toLocaleDateString(),
-                        expense.proveedor,
-                        expense.refaccion,
-                        `$${parseFloat(expense.costoReal).toFixed(2)}`,
-                        `$${parseFloat(expense.ganancia).toFixed(2)}`,
-                        expense.orden
-                    ])
-                });
-                
-                // Guardar PDF
-                doc.save('gastos_taller_rr_electric.pdf');
-            });
-            
-            // Exportar a Excel
-            document.getElementById('export-excel').addEventListener('click', function() {
-                // Preparar datos
-                const data = [
-                    ['Fecha', 'Proveedor', 'Refacción', 'Costo Real', 'Ganancia', 'Orden #']
-                ];
-                
-                expenses.forEach(expense => {
-                    data.push([
-                        new Date(expense.fecha).toLocaleDateString(),
-                        expense.proveedor,
-                        expense.refaccion,
-                        parseFloat(expense.costoReal),
-                        parseFloat(expense.ganancia),
-                        expense.orden
-                    ]);
-                });
-                
-                // Crear libro de trabajo
-                const ws = XLSX.utils.aoa_to_sheet(data);
-                const wb = XLSX.utils.book_new();
-                XLSX.utils.book_append_sheet(wb, ws, 'Gastos');
-                
-                // Exportar
-                XLSX.writeFile(wb, 'gastos_taller_rr_electric.xlsx');
-            });
-            
-            // Inicializar vista
-            updateView();
+                // Restaurar después de 2 segundos
+                setTimeout(() => {
+                    btn.innerHTML = 'Ingresar';
+                    btn.style.background = 'linear-gradient(45deg, #00e676, #00b0ff)';
+                    alert('Inicio de sesión simulado con éxito');
+                }, 2000);
+            }, 1500);
         });
+
+        // Efecto de parallax en el fondo
+        document.addEventListener('mousemove', function(e) {
+            const elements = document.querySelectorAll('.element');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            elements.forEach(element => {
+                const speed = parseInt(element.style.width) / 100;
+                const xMove = x * speed * 5;
+                const yMove = y * speed * 5;
+                
+                element.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${x * 360}deg)`;
+            });
+        });
+
+        // Crear más scooters en movimiento
+        function createScooters() {
+            const background = document.querySelector('.background-elements');
+            for (let i = 0; i < 3; i++) {
+                const scooter = document.createElement('div');
+                scooter.className = 'scooter-icon';
+                scooter.innerHTML = '<i class="fas fa-motorcycle"></i>';
+                scooter.style.top = Math.random() * 80 + 10 + '%';
+                scooter.style.animationDelay = Math.random() * 20 + 's';
+                scooter.style.animationDuration = 25 + Math.random() * 15 + 's';
+                background.appendChild(scooter);
+            }
+        }
+        
+        createScooters();
     </script>
 </body>
 </html>
