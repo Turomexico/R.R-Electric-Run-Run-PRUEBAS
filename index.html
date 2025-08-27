@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCOTERS ELECTRIC RUN-RUN - Login</title>
+    <title>R.R Electric Run Run - Login</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
@@ -89,8 +89,8 @@
         .container {
             position: relative;
             width: 100%;
-            max-width: 450px;
-            min-height: 550px;
+            max-width: 500px;
+            min-height: 600px;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -122,14 +122,37 @@
             animation: shine 8s infinite linear;
         }
 
-        .logo {
+        .logo-container {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             animation: slideDown 0.8s ease-out;
         }
 
-        .logo h1 {
-            font-size: 2.2rem;
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .logo-img {
+            width: 300px;
+            height: auto;
+            filter: drop-shadow(0 0 20px rgba(0, 230, 118, 0.7));
+            transition: all 0.5s ease;
+        }
+
+        .logo-img:hover {
+            transform: scale(1.05);
+            filter: drop-shadow(0 0 25px rgba(0, 230, 118, 0.9));
+        }
+
+        .logo-text {
+            text-align: center;
+        }
+
+        .logo-text h1 {
+            font-size: 2.5rem;
             font-weight: 800;
             background: linear-gradient(45deg, #00e676, #00b0ff);
             -webkit-background-clip: text;
@@ -138,15 +161,17 @@
             text-transform: uppercase;
             letter-spacing: 2px;
             margin-bottom: 5px;
-            text-shadow: 0 2px 10px rgba(0, 230, 118, 0.3);
+            text-shadow: 0 2px 15px rgba(0, 230, 118, 0.4);
         }
 
-        .logo span {
+        .logo-text span {
             display: block;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: #00b0ff;
-            letter-spacing: 4px;
-            margin-top: -5px;
+            letter-spacing: 3px;
+            margin-top: 10px;
+            font-style: italic;
+            text-transform: uppercase;
         }
 
         h2 {
@@ -314,16 +339,56 @@
             box-shadow: 0 8px 20px rgba(0, 230, 118, 0.4);
         }
 
+        .facebook {
+            background: rgba(59, 89, 152, 0.2);
+        }
+
         .facebook:hover {
             background: linear-gradient(45deg, #3b5998, #4a69a4);
         }
 
-        .google:hover {
-            background: linear-gradient(45deg, #dd4b39, #e05d4d);
+        .instagram {
+            background: rgba(225, 48, 108, 0.2);
         }
 
-        .twitter:hover {
-            background: linear-gradient(45deg, #1da1f2, #3ab4f5);
+        .instagram:hover {
+            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        }
+
+        .tiktok {
+            background: rgba(0, 0, 0, 0.2);
+        }
+
+        .tiktok:hover {
+            background: linear-gradient(45deg, #000000, #00f2ea, #ff0050);
+        }
+
+        .youtube {
+            background: rgba(255, 0, 0, 0.2);
+        }
+
+        .youtube:hover {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+        }
+
+        .copyright {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.8rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .copyright a {
+            color: #00b0ff;
+            text-decoration: none;
+        }
+
+        .copyright a:hover {
+            color: #00e676;
+            text-decoration: underline;
         }
 
         /* Animaciones */
@@ -412,11 +477,34 @@
                 padding: 30px 20px;
             }
             
-            .logo h1 {
-                font-size: 1.8rem;
+            .logo-img {
+                width: 250px;
             }
             
-            .logo span {
+            .logo-text h1 {
+                font-size: 2rem;
+            }
+            
+            .logo-text span {
+                font-size: 0.9rem;
+            }
+            
+            .copyright {
+                font-size: 0.7rem;
+                padding: 0 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo-img {
+                width: 200px;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.6rem;
+            }
+            
+            .logo-text span {
                 font-size: 0.8rem;
             }
         }
@@ -436,9 +524,14 @@
     
     <div class="container">
         <div class="login-box">
-            <div class="logo">
-                <h1>SCOTERS</h1>
-                <span>ELECTRIC RUN-RUN</span>
+            <div class="logo-container">
+                <div class="logo">
+                    <img src="https://storage.googleapis.com/hostinger-horizons-assets-prod/e303a708-2a74-494e-8649-bacccf795346/d931f13b04b6dc4375e5b29c0f7c4a9c.png" alt="R.R Electric Run Run Logo" class="logo-img">
+                </div>
+                <div class="logo-text">
+                    <h1>R.R Electric Run Run</h1>
+                    <span>Shut Your Eyes And Speed Up</span>
+                </div>
             </div>
             
             <h2>Iniciar Sesión</h2>
@@ -467,18 +560,25 @@
                 </div>
                 
                 <div class="social-login">
-                    <div class="social-btn facebook">
+                    <a href="https://www.facebook.com/profile.php?id=61573868350922" target="_blank" class="social-btn facebook">
                         <i class="fab fa-facebook-f"></i>
-                    </div>
-                    <div class="social-btn google">
-                        <i class="fab fa-google"></i>
-                    </div>
-                    <div class="social-btn twitter">
-                        <i class="fab fa-twitter"></i>
-                    </div>
+                    </a>
+                    <a href="https://www.instagram.com/rrelectricrun/" target="_blank" class="social-btn instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://www.tiktok.com/@rrelectricrunrun" target="_blank" class="social-btn tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://www.youtube.com/channel/UCqfOML1UzXbF9qtCwpDsZzg" target="_blank" class="social-btn youtube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
                 </div>
             </form>
         </div>
+    </div>
+
+    <div class="copyright">
+        &copy; 2023 R.R Electric Run Run. Todos los derechos reservados por <a href="#">Arturo Tramontin</a>
     </div>
 
     <script>
