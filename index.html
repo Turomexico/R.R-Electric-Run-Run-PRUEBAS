@@ -3,9 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>R.R Electric Run Run - Login</title>
+    <title>Grooming Zoraida Colmenares Pérez - Estética Canina Profesional</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* Variables de colores */
+        :root {
+            --primary: #3A7D34; /* Verde naturaleza */
+            --secondary: #F9A826; /* Naranja energía */
+            --accent: #F48FB1; /* Rosa suave */
+            --light: #F8F9FA;
+            --dark: #343A40;
+            --gray: #6C757D;
+            --light-gray: #E9ECEF;
+        }
+
+        /* Reset y estilos generales */
         * {
             margin: 0;
             padding: 0;
@@ -14,711 +26,881 @@
         }
 
         body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1f2d, #0d1018);
-            overflow: hidden;
-            position: relative;
-            padding: 20px;
-        }
-
-        /* Elementos de fondo con temática de scooters eléctricos */
-        .background-elements {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .element {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(0, 230, 118, 0.1);
-            animation: float 15s infinite linear;
-        }
-
-        .element:nth-child(1) {
-            width: 60px;
-            height: 60px;
-            top: 15%;
-            left: 10%;
-            animation-duration: 20s;
-            background: rgba(0, 176, 255, 0.15);
-        }
-
-        .element:nth-child(2) {
-            width: 90px;
-            height: 90px;
-            top: 65%;
-            left: 85%;
-            animation-duration: 25s;
-            animation-delay: 1s;
-            background: rgba(0, 230, 118, 0.1);
-        }
-
-        .element:nth-child(3) {
-            width: 50px;
-            height: 50px;
-            top: 75%;
-            left: 12%;
-            animation-duration: 15s;
-            animation-delay: 0.5s;
-            background: rgba(0, 176, 255, 0.1);
-        }
-
-        .element:nth-child(4) {
-            width: 70px;
-            height: 70px;
-            top: 10%;
-            left: 80%;
-            animation-duration: 18s;
-            animation-delay: 2s;
-            background: rgba(0, 230, 118, 0.15);
-        }
-
-        .scooter-icon {
-            position: absolute;
-            font-size: 18px;
-            color: #00e676;
-            animation: drive 25s linear infinite;
+            color: var(--dark);
+            line-height: 1.6;
         }
 
         .container {
-            position: relative;
             width: 100%;
-            max-width: 380px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .login-box {
-            position: relative;
-            width: 100%;
-            padding: 25px 20px;
-            background: rgba(15, 20, 32, 0.9);
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(10px);
-            overflow: hidden;
-            animation: fadeIn 1s ease-out;
-            border: 1px solid rgba(0, 230, 118, 0.2);
-        }
-
-        .login-box::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(0, 230, 118, 0.1), rgba(0, 176, 255, 0.1));
-            transform: rotate(45deg);
-            z-index: -1;
-            animation: shine 8s infinite linear;
-        }
-
-        .logo-container {
-            text-align: center;
-            margin-bottom: 15px;
-            animation: slideDown 0.8s ease-out;
-        }
-
-        .logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 8px;
-        }
-
-        .logo-img-container {
-            width: 100%;
-            max-width: 180px;
+            max-width: 1200px;
             margin: 0 auto;
+            padding: 0 20px;
         }
 
-        .logo-img {
-            width: 100%;
-            height: auto;
-            filter: drop-shadow(0 0 12px rgba(0, 230, 118, 0.6));
-            transition: all 0.5s ease;
+        section {
+            padding: 80px 0;
         }
 
-        .logo-img:hover {
-            transform: scale(1.05);
-            filter: drop-shadow(0 0 15px rgba(0, 230, 118, 0.8));
+        h1, h2, h3 {
+            color: var(--primary);
+            margin-bottom: 20px;
         }
 
-        .logo-text {
-            text-align: center;
-        }
-
-        .logo-text h1 {
-            font-size: 1.6rem;
-            font-weight: 800;
-            background: linear-gradient(45deg, #00e676, #00b0ff);
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            margin-bottom: 4px;
-            text-shadow: 0 2px 8px rgba(0, 230, 118, 0.4);
-        }
-
-        .logo-text span {
-            display: block;
-            font-size: 0.8rem;
-            color: #00b0ff;
-            letter-spacing: 2px;
-            margin-top: 5px;
-            font-style: italic;
-            text-transform: uppercase;
+        h1 {
+            font-size: 2.8rem;
+            font-weight: 700;
         }
 
         h2 {
-            font-size: 1.4rem;
-            color: #fff;
+            font-size: 2.2rem;
             text-align: center;
-            margin-bottom: 20px;
             position: relative;
-            animation: slideDown 0.8s ease-out;
-            font-weight: 600;
+            padding-bottom: 15px;
         }
 
         h2::after {
             content: '';
             position: absolute;
-            bottom: -6px;
+            bottom: 0;
             left: 50%;
             transform: translateX(-50%);
-            width: 35px;
-            height: 2px;
-            background: linear-gradient(45deg, #00e676, #00b0ff);
-            border-radius: 2px;
+            width: 80px;
+            height: 4px;
+            background-color: var(--secondary);
         }
 
-        .input-group {
-            position: relative;
-            margin-bottom: 20px;
-            animation: slideUp 0.8s ease-out;
+        h3 {
+            font-size: 1.5rem;
+            color: var(--dark);
         }
 
-        .input-group input {
-            width: 100%;
-            padding: 10px 15px 10px 40px;
-            border: none;
-            outline: none;
-            background: rgba(255, 255, 255, 0.07);
-            border-radius: 20px;
-            font-size: 0.9rem;
-            color: #fff;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .input-group input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 0.85rem;
-        }
-
-        .input-group input:focus {
-            box-shadow: 0 3px 10px rgba(0, 230, 118, 0.3);
-            transform: translateY(-2px);
-            background: rgba(255, 255, 255, 0.1);
-        }
-
-        .input-group i {
-            position: absolute;
-            top: 50%;
-            left: 15px;
-            transform: translateY(-50%);
-            color: #00e676;
-            font-size: 1rem;
-        }
-
-        .remember-forgot {
-            display: flex;
-            justify-content: space-between;
+        p {
             margin-bottom: 15px;
-            animation: fadeIn 1.2s ease-out;
-        }
-
-        .remember-forgot label {
-            display: flex;
-            align-items: center;
-            color: rgba(255, 255, 255, 0.7);
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .remember-forgot input {
-            margin-right: 5px;
-            accent-color: #00e676;
-        }
-
-        .remember-forgot a {
-            color: #00b0ff;
-            text-decoration: none;
-            transition: color 0.3s;
-            font-size: 0.8rem;
-        }
-
-        .remember-forgot a:hover {
-            color: #00e676;
-            text-decoration: underline;
+            font-size: 1.1rem;
         }
 
         .btn {
-            width: 100%;
-            padding: 11px;
-            border: none;
-            border-radius: 20px;
-            background: linear-gradient(45deg, #00e676, #00b0ff);
-            color: white;
-            font-size: 0.95rem;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
-            transition: all 0.3s ease;
-            animation: pulse 2s infinite;
-            letter-spacing: 0.8px;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 230, 118, 0.5);
-            letter-spacing: 1px;
-        }
-
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .register-link {
-            text-align: center;
-            margin-top: 15px;
-            color: rgba(255, 255, 255, 0.7);
-            animation: fadeIn 1.5s ease-out;
-            font-size: 0.85rem;
-        }
-
-        .register-link a {
-            color: #00b0ff;
+            display: inline-block;
+            padding: 12px 28px;
+            border-radius: 50px;
             text-decoration: none;
             font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #2c6127;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #e8971a;
+            transform: translateY(-3px);
+        }
+
+        .btn-whatsapp {
+            background-color: #25D366;
+            color: white;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1da851;
+        }
+
+        .section-title {
+            margin-bottom: 50px;
+        }
+
+        /* Header y Navegación */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 30px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 600;
+            font-size: 1rem;
             transition: color 0.3s;
         }
 
-        .register-link a:hover {
-            color: #00e676;
-            text-decoration: underline;
+        nav ul li a:hover {
+            color: var(--primary);
         }
 
-        .social-login {
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--primary);
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1596492784531-6e6eb5ea9993?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 180px 0 100px;
+            margin-top: 70px;
+        }
+
+        .hero h1 {
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--light-gray);
+        }
+
+        .hero-buttons {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            margin-top: 18px;
-            animation: slideUp 1s ease-out;
+            gap: 20px;
             flex-wrap: wrap;
         }
 
-        .social-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
+        /* Quiénes Somos */
+        .about {
+            background-color: var(--light);
+        }
+
+        .about-content {
             display: flex;
+            align-items: center;
+            gap: 50px;
+        }
+
+        .about-text {
+            flex: 1;
+        }
+
+        .about-image {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .about-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Servicios */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+        .service-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .pension-card {
+            border: 3px solid var(--primary);
+            grid-column: 1 / -1;
+            margin-top: 30px;
+        }
+
+        .requirements-list {
+            list-style: none;
+            margin: 20px 0;
+        }
+
+        .requirements-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--light-gray);
+            display: flex;
+            align-items: center;
+        }
+
+        .requirements-list li i {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .pricing-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+
+        .pricing-table th {
+            background-color: var(--primary);
+            color: white;
+            text-align: left;
+            padding: 15px;
+        }
+
+        .pricing-table td {
+            padding: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .pricing-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .currency {
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        /* Ubicación */
+        .location {
+            background-color: var(--light);
+        }
+
+        .location-content {
+            display: flex;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .location-info {
+            flex: 1;
+        }
+
+        .location-info p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .location-info i {
+            color: var(--primary);
+            margin-right: 10px;
+            width: 20px;
+        }
+
+        .map-container {
+            flex: 1;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            height: 400px;
+        }
+
+        .map-placeholder {
+            background-color: var(--light-gray);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            color: var(--gray);
+        }
+
+        /* Contacto */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .whatsapp-direct {
+            text-align: center;
+            margin-top: 40px;
+        }
+
+        /* WhatsApp Flotante */
+        .whatsapp-float {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            right: 40px;
+            background-color: #25D366;
             color: white;
-            font-size: 0.95rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            text-align: center;
+            font-size: 30px;
+            box-shadow: 0 5px 15px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             text-decoration: none;
+            transition: all 0.3s;
         }
 
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 12px rgba(0, 230, 118, 0.4);
+        .whatsapp-float:hover {
+            background-color: #1da851;
+            transform: scale(1.1);
         }
 
-        .facebook {
-            background: rgba(59, 89, 152, 0.2);
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 60px 0 30px;
         }
 
-        .facebook:hover {
-            background: linear-gradient(45deg, #3b5998, #4a69a4);
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
         }
 
-        .instagram {
-            background: rgba(225, 48, 108, 0.2);
+        .footer-column {
+            flex: 1;
+            min-width: 250px;
         }
 
-        .instagram:hover {
-            background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
+        .footer-logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+            display: block;
         }
 
-        .tiktok {
-            background: rgba(0, 0, 0, 0.2);
+        .footer-logo span {
+            color: var(--secondary);
         }
 
-        .tiktok:hover {
-            background: linear-gradient(45deg, #000000, #00f2ea, #ff0050);
+        .footer-links {
+            list-style: none;
         }
 
-        .youtube {
-            background: rgba(255, 0, 0, 0.2);
+        .footer-links li {
+            margin-bottom: 10px;
         }
 
-        .youtube:hover {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
         }
 
-        .google {
-            background: rgba(219, 68, 55, 0.2);
+        .footer-links a:hover {
+            color: white;
         }
 
-        .google:hover {
-            background: linear-gradient(45deg, #4285F4, #34A853, #FBBC05, #EA4335);
+        .footer-contact p {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--secondary);
         }
 
         .copyright {
-            position: absolute;
-            bottom: 12px;
-            width: 100%;
             text-align: center;
-            color: rgba(255, 255, 255, 0.5);
-            font-size: 0.7rem;
-            animation: fadeIn 2s ease-out;
-            left: 0;
-            padding: 0 20px;
+            padding-top: 30px;
+            border-top: 1px solid #444;
+            color: #aaa;
+            font-size: 0.9rem;
         }
 
-        .copyright a {
-            color: #00b0ff;
-            text-decoration: none;
-        }
-
-        .copyright a:hover {
-            color: #00e676;
-            text-decoration: underline;
-        }
-
-        /* Animaciones */
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0% {
-                box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
-            }
-            50% {
-                box-shadow: 0 4px 14px rgba(0, 230, 118, 0.5);
-            }
-            100% {
-                box-shadow: 0 4px 12px rgba(0, 230, 118, 0.4);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-12px) rotate(180deg);
-            }
-            100% {
-                transform: translateY(0) rotate(360deg);
-            }
-        }
-
-        @keyframes shine {
-            0% {
-                transform: rotate(45deg) translateX(-100%);
-            }
-            100% {
-                transform: rotate(45deg) translateX(100%);
-            }
-        }
-
-        @keyframes drive {
-            0% {
-                transform: translateX(-80px);
-            }
-            100% {
-                transform: translateX(calc(100vw + 80px));
-            }
-        }
-
-        /* Responsive para tablets */
-        @media (min-width: 769px) and (max-width: 1024px) {
-            .container {
-                max-width: 360px;
+        /* Responsive */
+        @media (max-width: 992px) {
+            .about-content, .location-content {
+                flex-direction: column;
             }
             
-            .logo-img-container {
-                max-width: 160px;
+            h1 {
+                font-size: 2.3rem;
             }
             
-            .logo-text h1 {
-                font-size: 1.5rem;
+            h2 {
+                font-size: 1.8rem;
             }
         }
 
-        /* Responsive para móviles */
         @media (max-width: 768px) {
-            .container {
-                max-width: 340px;
+            nav ul {
+                display: none;
+                position: absolute;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                padding: 20px;
+                box-shadow: 0 10px 15px rgba(0,0,0,0.1);
             }
             
-            .logo-text h1 {
-                font-size: 1.4rem;
+            nav ul.active {
+                display: flex;
             }
             
-            .logo-text span {
-                font-size: 0.75rem;
+            nav ul li {
+                margin: 10px 0;
             }
             
-            .copyright {
-                font-size: 0.65rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .login-box {
-                padding: 20px 15px;
-                border-radius: 14px;
+            .mobile-menu-btn {
+                display: block;
             }
             
-            .logo-img-container {
-                max-width: 140px;
+            .hero {
+                padding: 150px 0 80px;
             }
             
-            .logo-text h1 {
-                font-size: 1.3rem;
-                letter-spacing: 1px;
+            .hero h1 {
+                font-size: 2rem;
             }
             
-            .logo-text span {
-                font-size: 0.7rem;
-                letter-spacing: 1.5px;
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
             }
             
-            h2 {
-                font-size: 1.3rem;
+            .whatsapp-float {
+                width: 50px;
+                height: 50px;
+                bottom: 20px;
+                right: 20px;
+                font-size: 25px;
             }
             
-            .social-login {
-                gap: 8px;
-            }
-            
-            .social-btn {
-                width: 32px;
-                height: 32px;
-                font-size: 0.85rem;
-            }
-        }
-
-        @media (max-width: 360px) {
-            .logo-img-container {
-                max-width: 120px;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.1rem;
-            }
-            
-            .logo-text span {
-                font-size: 0.65rem;
-            }
-            
-            h2 {
-                font-size: 1.2rem;
-            }
-            
-            .input-group input {
-                padding: 8px 12px 8px 35px;
-                font-size: 0.85rem;
-            }
-            
-            .input-group i {
-                left: 12px;
-                font-size: 0.9rem;
-            }
-            
-            .btn {
-                padding: 10px;
-                font-size: 0.9rem;
+            section {
+                padding: 60px 0;
             }
         }
     </style>
 </head>
 <body>
-    <div class="background-elements">
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="element"></div>
-        <div class="scooter-icon" style="top: 18%; animation-delay: 0s;"><i class="fas fa-motorcycle"></i></div>
-        <div class="scooter-icon" style="top: 42%; animation-delay: 4s;"><i class="fas fa-motorcycle"></i></div>
-        <div class="scooter-icon" style="top: 68%; animation-delay: 8s;"><i class="fas fa-motorcycle"></i></div>
-        <div class="scooter-icon" style="top: 82%; animation-delay: 12s;"><i class="fas fa-motorcycle"></i></div>
-    </div>
-    
-    <div class="container">
-        <div class="login-box">
-            <div class="logo-container">
-                <div class="logo">
-                    <div class="logo-img-container">
-                        <img src="https://storage.googleapis.com/hostinger-horizons-assets-prod/e303a708-2a74-494e-8649-bacccf795346/d931f13b04b6dc4375e5b29c0f7c4a9c.png" alt="R.R Electric Run Run Logo" class="logo-img">
+    <!-- WhatsApp Flotante -->
+    <a href="https://wa.me/059995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="header-container container">
+            <a href="#" class="logo">Grooming <span>Zoraida</span></a>
+            
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav>
+                <ul id="mainMenu">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                    <li><a href="#servicios">Servicios</a></li>
+                    <li><a href="#ubicacion">Ubicación</a></li>
+                    <li><a href="#contacto">Contáctanos</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Cuidado Profesional Para Tu Mejor Amigo</h1>
+            <p>Estética canina con amor, experiencia y dedicación en Dominguito. Ofrecemos servicios de grooming, baño y pensión canina para el bienestar de tu mascota.</p>
+            <div class="hero-buttons">
+                <a href="https://wa.me/059995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="btn btn-whatsapp" target="_blank">
+                    <i class="fab fa-whatsapp"></i> Reserva tu cita por WhatsApp
+                </a>
+                <a href="#servicios" class="btn btn-secondary">Ver Servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quiénes Somos -->
+    <section class="about" id="quienes-somos">
+        <div class="container">
+            <h2 class="section-title">Nuestra Filosofía de Cuidado Canino</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>En <strong>Grooming Zoraida Colmenares Pérez</strong>, llevamos más de 10 años dedicados al cuidado y bienestar de las mascotas en Dominguito, Curazao. Nuestro enfoque se basa en el trato amoroso y respetuoso hacia cada animal que llega a nuestras instalaciones.</p>
+                    
+                    <p>Zoraida, fundadora y especialista en estética canina, cuenta con certificaciones internacionales en grooming y cuidado animal, asegurando que cada servicio se realice con los más altos estándares de calidad y seguridad.</p>
+                    
+                    <p>Nuestra filosofía se centra en tres pilares fundamentales: <strong>salud, bienestar y estética</strong>. Creemos que una mascota bien cuidada no solo luce mejor, sino que también es más feliz y saludable.</p>
+                    
+                    <p>Utilizamos productos de primera calidad, adecuados para cada tipo de pelaje y piel, y nos mantenemos actualizados en las últimas técnicas de estética canina para ofrecer siempre lo mejor a nuestros clientes de cuatro patas.</p>
+                </div>
+                <div class="about-image">
+                    <img src="https://images.unsplash.com/photo-1554456854-55a089fd4cb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Zoraida trabajando con un perro en la estética canina">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Servicios -->
+    <section id="servicios">
+        <div class="container">
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-shower"></i>
+                    </div>
+                    <h3>Baño y Aseo Completo</h3>
+                    <p>Lavado profesional con shampoo especializado, secado con temperatura controlada y cepillado para dejar el pelaje suave y brillante.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-cut"></i>
+                    </div>
+                    <h3>Corte de Pelo y Estilizado</h3>
+                    <p>Corte según raza o preferencia del dueño, arreglo de patas, cara y zonas delicadas con técnicas profesionales.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-tooth"></i>
+                    </div>
+                    <h3>Limpieza Dental y Ocular</h3>
+                    <p>Limpieza suave de dientes y eliminación de lagañas para prevenir enfermedades y mantener una óptima higiene.</p>
+                </div>
+                
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-paw"></i>
+                    </div>
+                    <h3>Corte de Uñas y Oídos</h3>
+                    <p>Corte seguro de uñas y limpieza delicada de oídos para prevenir infecciones y mantener la comodidad de tu mascota.</p>
+                </div>
+                
+                <!-- Pensión Canina - Servicio Especial -->
+                <div class="service-card pension-card">
+                    <div class="service-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Pensión Canina - Hogar Temporal</h3>
+                    <p>Ofrecemos un espacio seguro, limpio y amoroso donde tu perro puede quedarse mientras tú viajas o atiendes compromisos. Contamos con áreas separadas por tamaño y temperamento, paseos diarios y supervisión constante.</p>
+                    
+                    <h4>Requisitos Obligatorios:</h4>
+                    <ul class="requirements-list">
+                        <li><i class="fas fa-check-circle"></i> Vacunación al día (cartilla de vacunas vigente)</li>
+                        <li><i class="fas fa-check-circle"></i> Desparasitación reciente (máximo 3 meses)</li>
+                        <li><i class="fas fa-check-circle"></i> Certificado de buena salud veterinario (máximo 30 días)</li>
+                        <li><i class="fas fa-check-circle"></i> Comida proporcionada por el dueño (o opción de compra con nosotros)</li>
+                        <li><i class="fas fa-check-circle"></i> Juguetes y/o cobijas personales para mayor comodidad</li>
+                        <li><i class="fas fa-check-circle"></i> Comportamiento social básico con otros perros</li>
+                        <li><i class="fas fa-check-circle"></i> Información de contacto de emergencia y veterinario de preferencia</li>
+                    </ul>
+                    
+                    <h4>Costos en Florines de Curazao (ANG):</h4>
+                    <table class="pricing-table">
+                        <thead>
+                            <tr>
+                                <th>Días</th>
+                                <th>Precio por día</th>
+                                <th>Incluye</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1-3 días</td>
+                                <td><span class="currency">25 ANG</span></td>
+                                <td>Alojamiento, 2 paseos diarios, alimentación básica</td>
+                            </tr>
+                            <tr>
+                                <td>4-7 días</td>
+                                <td><span class="currency">22 ANG</span></td>
+                                <td>Alojamiento, 3 paseos diarios, monitoreo constante</td>
+                            </tr>
+                            <tr>
+                                <td>8+ días</td>
+                                <td><span class="currency">20 ANG</span></td>
+                                <td>Alojamiento premium, paseos ilimitados, reporte diario con fotos</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><strong>Servicios adicionales:</strong> Grooming durante estadía (15 ANG), Paseos extra (5 ANG), Alimento premium (8 ANG/día)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <p><strong>Horarios:</strong> Entrega: 8:00 AM - 12:00 PM / Recogida: 2:00 PM - 6:00 PM</p>
+                    <p><strong>Política de cancelación:</strong> Sin costo con 48 horas de anticipación. 50% de cargo con menos de 24 horas.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ubicación -->
+    <section class="location" id="ubicacion">
+        <div class="container">
+            <h2 class="section-title">Encuéntranos en Dominguito</h2>
+            <div class="location-content">
+                <div class="location-info">
+                    <h3>Visita Nuestro Establecimiento</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Calle Llamunchiweg número 4, Dominguito, Curazao</p>
+                    <p><i class="fas fa-clock"></i> <strong>Horarios de atención:</strong> Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+                    <p><i class="fas fa-phone-alt"></i> <strong>Teléfono/WhatsApp:</strong> +059995211694</p>
+                    <p><i class="fas fa-car"></i> <strong>Estacionamiento:</strong> Disponible frente al local</p>
+                    <p><i class="fas fa-info-circle"></i> <strong>Puntos de referencia:</strong> Cerca del supermercado Centro Dominguito, a dos cuadras de la farmacia Botika</p>
+                    
+                    <a href="https://maps.google.com/?q=Calle+Llamunchiweg+número+4+Dominguito+Curazao" class="btn btn-primary" target="_blank">
+                        <i class="fas fa-directions"></i> Cómo llegar con Google Maps
+                    </a>
+                </div>
+                
+                <div class="map-container">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt" style="font-size: 3rem; margin-bottom: 20px;"></i>
+                        <p>Mapa interactivo de Google Maps</p>
+                        <p>Calle Llamunchiweg número 4</p>
+                        <p>Dominguito, Curazao</p>
+                        <p>(En la versión final se integrará el mapa embebido)</p>
                     </div>
                 </div>
-                <div class="logo-text">
-                    <h1>R.R Electric Run Run</h1>
-                    <span>Shut Your Eyes And Speed Up</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacto -->
+    <section id="contacto">
+        <div class="container">
+            <h2 class="section-title">Contáctanos</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto 40px;">¿Tienes preguntas sobre nuestros servicios o quieres reservar una cita? Completa el formulario y nos comunicaremos contigo por WhatsApp.</p>
+            
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Nombre completo *</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Teléfono/WhatsApp *</label>
+                        <input type="tel" id="phone" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Correo electrónico</label>
+                        <input type="email" id="email" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="service">Servicio de interés</label>
+                        <select id="service" class="form-control">
+                            <option value="">Selecciona un servicio</option>
+                            <option value="grooming">Baño y grooming</option>
+                            <option value="pension">Pensión canina</option>
+                            <option value="corte">Corte de pelo</option>
+                            <option value="otros">Otros servicios</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="message">Mensaje *</label>
+                        <textarea id="message" class="form-control" rows="5" required>Hola Grooming Zoraida, me gustaría conocer más sobre los servicios...</textarea>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block" style="width: 100%;">
+                        <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
+                    </button>
+                </form>
+                
+                <div class="whatsapp-direct">
+                    <p>O contáctanos directamente:</p>
+                    <a href="https://wa.me/059995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="btn btn-whatsapp" target="_blank">
+                        <i class="fab fa-whatsapp"></i> WhatsApp: +059995211694
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <a href="#" class="footer-logo">Grooming <span>Zoraida</span></a>
+                    <p>Estética canina profesional en Dominguito, Curazao. Cuidamos de tu mascota con amor, experiencia y dedicación.</p>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Enlaces rápidos</h3>
+                    <ul class="footer-links">
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#quienes-somos">Quiénes Somos</a></li>
+                        <li><a href="#servicios">Servicios</a></li>
+                        <li><a href="#ubicacion">Ubicación</a></li>
+                        <li><a href="#contacto">Contáctanos</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-column">
+                    <h3>Contacto</h3>
+                    <div class="footer-contact">
+                        <p><i class="fas fa-map-marker-alt"></i> Calle Llamunchiweg 4, Dominguito</p>
+                        <p><i class="fas fa-phone-alt"></i> +059995211694</p>
+                        <p><i class="fas fa-clock"></i> Lunes a Sábado: 8:00 AM - 6:00 PM</p>
+                    </div>
                 </div>
             </div>
             
-            <h2>Iniciar Sesión</h2>
-            <form id="loginForm">
-                <div class="input-group">
-                    <i class="fas fa-user"></i>
-                    <input type="text" placeholder="Usuario o Correo" required>
-                </div>
-                
-                <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" placeholder="Contraseña" required>
-                </div>
-                
-                <div class="remember-forgot">
-                    <label>
-                        <input type="checkbox"> Recordarme
-                    </label>
-                    <a href="#">¿Olvidaste tu contraseña?</a>
-                </div>
-                
-                <button type="submit" class="btn">Ingresar</button>
-                
-                <div class="register-link">
-                    ¿No tienes una cuenta? <a href="#">Regístrate ahora</a>
-                </div>
-                
-                <div class="social-login">
-                    <a href="https://www.facebook.com/profile.php?id=61573868350922" target="_blank" class="social-btn facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-                    <a href="https://www.instagram.com/rrelectricrun/" target="_blank" class="social-btn instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="https://www.tiktok.com/@rrelectricrunrun" target="_blank" class="social-btn tiktok">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                    <a href="https://www.youtube.com/channel/UCqfOML1UzXbF9qtCwpDsZzg" target="_blank" class="social-btn youtube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="https://share.google/1yRTWthpa996mn5WK" target="_blank" class="social-btn google">
-                        <i class="fab fa-google"></i>
-                    </a>
-                </div>
-            </form>
+            <div class="copyright">
+                <p>&copy; 2023 Grooming Zoraida Colmenares Pérez. Todos los derechos reservados.</p>
+                <p>Diseñado y desarrollado para el bienestar de tus mascotas.</p>
+            </div>
         </div>
-    </div>
-
-    <div class="copyright">
-        &copy; 2025 R.R Electric Run Run. Todos los derechos reservados por <a href="#"> Por Arturo Tramontin BETA 1.0 Index</a>
-    </div>
+    </footer>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        // Menú móvil
+        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+            const menu = document.getElementById('mainMenu');
+            menu.classList.toggle('active');
+            
+            // Cambiar icono del botón
+            const icon = this.querySelector('i');
+            if (menu.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+        
+        // Formulario de contacto
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            const btn = this.querySelector('.btn');
-            btn.innerHTML = 'Ingresando...';
-            btn.style.background = 'linear-gradient(45deg, #00b0ff, #0091ea)';
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
             
-            // Simulación de inicio de sesión
-            setTimeout(() => {
-                btn.innerHTML = '<i class="fas fa-check"></i> ¡Éxito!';
-                btn.style.background = 'linear-gradient(45deg, #00e676, #00c853)';
-                
-                // Restaurar después de 2 segundos
-                setTimeout(() => {
-                    btn.innerHTML = 'Ingresar';
-                    btn.style.background = 'linear-gradient(45deg, #00e676, #00b0ff)';
-                    alert('Inicio de sesión simulado con éxito');
-                }, 2000);
-            }, 1500);
+            // Crear mensaje para WhatsApp
+            let whatsappMessage = `Hola Grooming Zoraida, me gustaría conocer más sobre los servicios...%0A%0A`;
+            whatsappMessage += `*Nombre:* ${name}%0A`;
+            whatsappMessage += `*Teléfono:* ${phone}%0A`;
+            
+            if (service) {
+                whatsappMessage += `*Servicio de interés:* ${service}%0A`;
+            }
+            
+            whatsappMessage += `*Mensaje:* ${message}`;
+            
+            // Redirigir a WhatsApp
+            window.open(`https://wa.me/059995211694?text=${whatsappMessage}`, '_blank');
         });
-
-        // Efecto de parallax en el fondo
-        document.addEventListener('mousemove', function(e) {
-            const elements = document.querySelectorAll('.element');
-            const x = e.clientX / window.innerWidth;
-            const y = e.clientY / window.innerHeight;
-            
-            elements.forEach(element => {
-                const speed = parseInt(element.style.width) / 100;
-                const xMove = x * speed * 4;
-                const yMove = y * speed * 4;
+        
+        // Cerrar menú al hacer clic en un enlace (en móviles)
+        const menuLinks = document.querySelectorAll('#mainMenu a');
+        menuLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                const menu = document.getElementById('mainMenu');
+                const menuBtn = document.getElementById('mobileMenuBtn');
+                const icon = menuBtn.querySelector('i');
                 
-                element.style.transform = `translate(${xMove}px, ${yMove}px) rotate(${x * 360}deg)`;
+                if (menu.classList.contains('active')) {
+                    menu.classList.remove('active');
+                    icon.classList.remove('fa-times');
+                    icon.classList.add('fa-bars');
+                }
             });
         });
-
-        // Crear más scooters en movimiento
-        function createScooters() {
-            const background = document.querySelector('.background-elements');
-            for (let i = 0; i < 2; i++) {
-                const scooter = document.createElement('div');
-                scooter.className = 'scooter-icon';
-                scooter.innerHTML = '<i class="fas fa-motorcycle"></i>';
-                scooter.style.top = Math.random() * 80 + 10 + '%';
-                scooter.style.animationDelay = Math.random() * 15 + 's';
-                scooter.style.animationDuration = 20 + Math.random() * 10 + 's';
-                background.appendChild(scooter);
-            }
-        }
-        
-        createScooters();
     </script>
 </body>
 </html>
-
