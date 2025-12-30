@@ -7,6 +7,169 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* Animación de carga */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--sea-green));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease-out;
+        }
+
+        .dog-animation {
+            width: 200px;
+            height: 150px;
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .dog-body {
+            width: 100px;
+            height: 60px;
+            background: #8B4513;
+            border-radius: 50% 50% 40% 40%;
+            position: absolute;
+            top: 60px;
+            left: 50px;
+            animation: dogMove 7s ease-in-out forwards;
+        }
+
+        .dog-head {
+            width: 70px;
+            height: 70px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            top: 40px;
+            left: 120px;
+            animation: dogMove 7s ease-in-out forwards;
+        }
+
+        .dog-ear {
+            width: 30px;
+            height: 40px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            top: 25px;
+        }
+
+        .dog-ear.left {
+            left: 110px;
+            transform: rotate(-20deg);
+        }
+
+        .dog-ear.right {
+            left: 140px;
+            transform: rotate(20deg);
+        }
+
+        .dog-nose {
+            width: 15px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 55px;
+            left: 175px;
+        }
+
+        .dog-eye {
+            width: 10px;
+            height: 10px;
+            background: #000;
+            border-radius: 50%;
+            position: absolute;
+            top: 50px;
+        }
+
+        .dog-eye.left {
+            left: 135px;
+        }
+
+        .dog-eye.right {
+            left: 155px;
+        }
+
+        .dog-tail {
+            width: 40px;
+            height: 15px;
+            background: #8B4513;
+            border-radius: 50%;
+            position: absolute;
+            top: 65px;
+            left: 20px;
+            animation: tailWag 0.3s infinite alternate;
+        }
+
+        .scent-trail {
+            position: absolute;
+            width: 300px;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+            top: 100px;
+            left: -200px;
+            animation: trailMove 7s linear forwards;
+        }
+
+        .scent-dot {
+            width: 10px;
+            height: 10px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            position: absolute;
+            animation: scentPulse 2s infinite;
+        }
+
+        .scent-dot:nth-child(1) { left: 50px; top: -2px; animation-delay: 0s; }
+        .scent-dot:nth-child(2) { left: 150px; top: -2px; animation-delay: 0.5s; }
+        .scent-dot:nth-child(3) { left: 250px; top: -2px; animation-delay: 1s; }
+
+        .found-text {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            opacity: 0;
+            animation: textFadeIn 1s ease 6s forwards;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        @keyframes dogMove {
+            0% { transform: translateX(-100px); }
+            30% { transform: translateX(50px); }
+            60% { transform: translateX(150px); }
+            100% { transform: translateX(300px); }
+        }
+
+        @keyframes tailWag {
+            0% { transform: rotate(-10deg); }
+            100% { transform: rotate(10deg); }
+        }
+
+        @keyframes trailMove {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(500px); }
+        }
+
+        @keyframes scentPulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.5); opacity: 1; }
+        }
+
+        @keyframes textFadeIn {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
         /* Variables de colores - Tema Caribeño */
         :root {
             --primary: #28A745; /* Verde vibrante caribeño */
@@ -34,6 +197,12 @@
             background-color: #f8fdf8;
             background-image: radial-gradient(#e8f5e9 2px, transparent 2px);
             background-size: 30px 30px;
+            opacity: 0;
+            animation: pageFadeIn 1s ease 7s forwards;
+        }
+
+        @keyframes pageFadeIn {
+            to { opacity: 1; }
         }
 
         .container {
@@ -83,6 +252,7 @@
         h3 {
             font-size: 1.8rem;
             color: var(--dark);
+            line-height: 1.3;
         }
 
         p {
@@ -442,6 +612,7 @@
             font-size: 1.6rem;
             margin-bottom: 15px;
             color: var(--dark);
+            line-height: 1.3;
         }
 
         .service-card .price {
@@ -580,6 +751,7 @@
             align-items: center;
             gap: 12px;
             font-size: 1.3rem;
+            line-height: 1.3;
         }
 
         .size-card h4 i {
@@ -624,6 +796,8 @@
         .location-info h3 {
             color: var(--primary);
             margin-bottom: 25px;
+            line-height: 1.3;
+            font-size: 1.8rem;
         }
 
         .location-info p {
@@ -631,6 +805,7 @@
             align-items: center;
             margin-bottom: 20px;
             font-size: 1.1rem;
+            line-height: 1.6;
         }
 
         .location-info i {
@@ -638,6 +813,18 @@
             margin-right: 15px;
             width: 24px;
             font-size: 1.3rem;
+            flex-shrink: 0;
+        }
+
+        .location-info-text {
+            flex: 1;
+        }
+
+        .location-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            flex-wrap: wrap;
         }
 
         .map-container {
@@ -647,24 +834,38 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.15);
             height: 450px;
             border: 5px solid white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .map-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
         }
 
         .map-placeholder {
-            background: linear-gradient(135deg, var(--accent), var(--caribbean-blue));
             height: 100%;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            color: white;
+            color: var(--dark);
             padding: 30px;
             text-align: center;
+            background: #f8f9fa;
         }
 
         .map-placeholder i {
-            font-size: 4rem;
+            font-size: 3rem;
             margin-bottom: 20px;
-            opacity: 0.9;
+            color: var(--primary);
+        }
+
+        .map-instruction {
+            margin-top: 15px;
+            font-size: 0.9rem;
+            color: var(--gray);
+            font-style: italic;
         }
 
         /* Contacto */
@@ -860,6 +1061,79 @@
             width: 24px;
         }
 
+        /* Redes Sociales */
+        .social-media {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .social-media h4 {
+            color: white;
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            background: rgba(255,255,255,0.1);
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+
+        .social-icon.tiktok:hover { background: #000000; }
+        .social-icon.youtube:hover { background: #FF0000; }
+        .social-icon.instagram:hover { background: #E4405F; }
+        .social-icon.facebook:hover { background: #1877F2; }
+
+        .social-tooltip {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.8);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .social-icon:hover .social-tooltip {
+            opacity: 1;
+        }
+
+        .coming-soon {
+            font-size: 0.8rem;
+            color: var(--sun-yellow);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
         .copyright {
             text-align: center;
             padding-top: 40px;
@@ -913,6 +1187,17 @@
             
             .logo-img {
                 height: 60px;
+            }
+            
+            .location-buttons {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .location-buttons .btn,
+            .location-buttons .service-select-btn {
+                width: 100%;
+                text-align: center;
             }
         }
 
@@ -976,6 +1261,23 @@
             
             .contact-form {
                 padding: 30px;
+            }
+            
+            .size-info {
+                flex-direction: column;
+            }
+            
+            .size-card {
+                min-width: 100%;
+            }
+            
+            .dog-animation {
+                width: 150px;
+                height: 120px;
+            }
+            
+            .found-text {
+                font-size: 1.5rem;
             }
         }
 
@@ -1051,9 +1353,50 @@
                 opacity: 1;
             }
         }
+
+        /* Corrección de alineación de texto */
+        .text-fix {
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            hyphens: auto;
+        }
+
+        /* Mejoras de espaciado */
+        .location-info p, 
+        .footer-contact p,
+        .about-text p,
+        .service-card p {
+            line-height: 1.7;
+            margin-bottom: 18px;
+        }
+
+        .location-info strong {
+            display: inline-block;
+            min-width: 140px;
+        }
     </style>
 </head>
 <body>
+    <!-- Animación de carga -->
+    <div id="loader">
+        <div class="dog-animation">
+            <div class="scent-trail">
+                <div class="scent-dot"></div>
+                <div class="scent-dot"></div>
+                <div class="scent-dot"></div>
+            </div>
+            <div class="dog-tail"></div>
+            <div class="dog-body"></div>
+            <div class="dog-head"></div>
+            <div class="dog-ear left"></div>
+            <div class="dog-ear right"></div>
+            <div class="dog-nose"></div>
+            <div class="dog-eye left"></div>
+            <div class="dog-eye right"></div>
+        </div>
+        <div class="found-text">¡Encontrado! Cargando Grooming Zoraida...</div>
+    </div>
+
     <!-- WhatsApp Flotante -->
     <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
@@ -1102,7 +1445,7 @@
     <section class="hero" id="inicio">
         <div class="container">
             <h1>Cuidado Profesional Para Tu Mejor Amigo</h1>
-            <p>Estética canina con amor, experiencia y dedicación en el corazón de Curazao. Ofrecemos servicios de grooming, baño y pensión canina con el espíritu caribeño que tu mascota merece.</p>
+            <p class="text-fix">Estética canina con amor, experiencia y dedicación en el corazón de Curazao. Ofrecemos servicios de grooming, baño y pensión canina con el espíritu caribeño que tu mascota merece.</p>
             <div class="hero-buttons">
                 <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="btn btn-whatsapp" target="_blank">
                     <i class="fab fa-whatsapp"></i> Reserva tu cita por WhatsApp
@@ -1118,13 +1461,13 @@
             <h2 class="section-title">Nuestra Filosofía de Cuidado Canino</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>En <strong>Grooming Zoraida Colmenares Pérez</strong>, fusionamos la pasión caribeña por la vida con el cuidado profesional de mascotas. Con más de 10 años de experiencia en Dominguito, Curazao, hemos creado un espacio donde tu mascota recibe el mismo cariño y atención que le darías en casa.</p>
+                    <p class="text-fix">En <strong>Grooming Zoraida Colmenares Pérez</strong>, fusionamos la pasión caribeña por la vida con el cuidado profesional de mascotas. Con más de 10 años de experiencia en Dominguito, Curazao, hemos creado un espacio donde tu mascota recibe el mismo cariño y atención que le darías en casa.</p>
                     
-                    <p>Zoraida, nuestra fundadora y especialista en estética canina, combina técnicas internacionales con un toque caribeño único. Sus certificaciones internacionales en grooming aseguran que cada servicio se realice con los más altos estándares de calidad y seguridad.</p>
+                    <p class="text-fix">Zoraida, nuestra fundadora y especialista en estética canina, combina técnicas internacionales con un toque caribeño único. Sus certificaciones internacionales en grooming aseguran que cada servicio se realice con los más altos estándares de calidad y seguridad.</p>
                     
-                    <p>Nuestra filosofía se basa en tres pilares: <strong>salud, bienestar y estilo caribeño</strong>. Creemos que una mascota feliz y saludable es la mejor compañía, y por eso utilizamos productos naturales y técnicas que respetan su bienestar.</p>
+                    <p class="text-fix">Nuestra filosofía se basa en tres pilares: <strong>salud, bienestar y estilo caribeño</strong>. Creemos que una mascota feliz y saludable es la mejor compañía, y por eso utilizamos productos naturales y técnicas que respetan su bienestar.</p>
                     
-                    <p>Inspirados por los colores y la energía de Curazao, ofrecemos un servicio que va más allá del grooming tradicional. ¡Tu mascota se sentirá como en casa en nuestra isla!</p>
+                    <p class="text-fix">Inspirados por los colores y la energía de Curazao, ofrecemos un servicio que va más allá del grooming tradicional. ¡Tu mascota se sentirá como en casa en nuestra isla!</p>
                 </div>
                 <div class="about-image">
                     <img src="https://images.unsplash.com/photo-1554456854-55a089fd4cb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Zoraida trabajando con un perro en la estética canina">
@@ -1137,15 +1480,15 @@
     <section id="servicios">
         <div class="container">
             <h2 class="section-title">Nuestros Servicios Caribeños</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem; color: var(--dark);">Descubre nuestros servicios especializados. Haz clic en "Solicitar este servicio" para contactarnos directamente por WhatsApp.</p>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem; color: var(--dark);" class="text-fix">Descubre nuestros servicios especializados. Haz clic en "Solicitar este servicio" para contactarnos directamente por WhatsApp.</p>
             
             <div class="services-grid">
                 <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-shower"></i>
                     </div>
-                    <h3>Baño Caribeño Completo</h3>
-                    <p>Lavado profesional con shampoo especializado, secado con temperatura controlada y cepillado para dejar el pelaje suave y brillante como las playas de Curazao.</p>
+                    <h3 class="text-fix">Baño Caribeño Completo</h3>
+                    <p class="text-fix">Lavado profesional con shampoo especializado, secado con temperatura controlada y cepillado para dejar el pelaje suave y brillante como las playas de Curazao.</p>
                     <div class="price">Desde 25 ANG</div>
                     <button class="service-select-btn" data-service="Baño Caribeño Completo" data-price="25 ANG">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
@@ -1156,8 +1499,8 @@
                     <div class="service-icon">
                         <i class="fas fa-cut"></i>
                     </div>
-                    <h3>Corte de Pelo Estilo Caribe</h3>
-                    <p>Corte según raza o estilo preferido, arreglo de patas, cara y zonas delicadas con técnicas profesionales inspiradas en la belleza natural de nuestra isla.</p>
+                    <h3 class="text-fix">Corte de Pelo Estilo Caribe</h3>
+                    <p class="text-fix">Corte según raza o estilo preferido, arreglo de patas, cara y zonas delicadas con técnicas profesionales inspiradas en la belleza natural de nuestra isla.</p>
                     <div class="price">Desde 30 ANG</div>
                     <button class="service-select-btn" data-service="Corte de Pelo Estilo Caribe" data-price="30 ANG">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
@@ -1168,8 +1511,8 @@
                     <div class="service-icon">
                         <i class="fas fa-tooth"></i>
                     </div>
-                    <h3>Limpieza Dental y Ocular</h3>
-                    <p>Limpieza suave de dientes y eliminación de lagañas para prevenir enfermedades y mantener una óptima higiene bucal y ocular.</p>
+                    <h3 class="text-fix">Limpieza Dental y Ocular</h3>
+                    <p class="text-fix">Limpieza suave de dientes y eliminación de lagañas para prevenir enfermedades y mantener una óptima higiene bucal y ocular.</p>
                     <div class="price">15 ANG</div>
                     <button class="service-select-btn" data-service="Limpieza Dental y Ocular" data-price="15 ANG">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
@@ -1180,8 +1523,8 @@
                     <div class="service-icon">
                         <i class="fas fa-paw"></i>
                     </div>
-                    <h3>Corte de Uñas y Oídos</h3>
-                    <p>Corte seguro de uñas y limpieza delicada de oídos para prevenir infecciones y mantener la comodidad de tu mascota.</p>
+                    <h3 class="text-fix">Corte de Uñas y Oídos</h3>
+                    <p class="text-fix">Corte seguro de uñas y limpieza delicada de oídos para prevenir infecciones y mantener la comodidad de tu mascota.</p>
                     <div class="price">10 ANG</div>
                     <button class="service-select-btn" data-service="Corte de Uñas y Oídos" data-price="10 ANG">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
@@ -1193,14 +1536,14 @@
                     <div class="service-icon">
                         <i class="fas fa-home"></i>
                     </div>
-                    <h3>Pensión Canina - Hogar Temporal</h3>
-                    <p>Ofrecemos un espacio seguro, limpio y amoroso donde tu perro puede quedarse mientras tú viajas o atiendes compromisos. Inspirado en la calidez caribeña, con áreas separadas por tamaño y temperamento, paseos diarios y supervisión constante.</p>
+                    <h3 class="text-fix">Pensión Canina - Hogar Temporal</h3>
+                    <p class="text-fix">Ofrecemos un espacio seguro, limpio y amoroso donde tu perro puede quedarse mientras tú viajas o atiendes compromisos. Inspirado en la calidez caribeña, con áreas separadas por tamaño y temperamento, paseos diarios y supervisión constante.</p>
                     
                     <!-- Información por tamaño de perro -->
                     <div class="size-info">
                         <div class="size-card">
                             <h4><i class="fas fa-dog" style="color: var(--primary);"></i> Perros Pequeños</h4>
-                            <p>Razas pequeñas (hasta 10kg): Chihuahua, Yorkshire, Poodle toy, etc.</p>
+                            <p class="text-fix">Razas pequeñas (hasta 10kg): Chihuahua, Yorkshire, Poodle toy, etc.</p>
                             <p><strong class="currency">25 ANG</strong> por día</p>
                             <button class="service-select-btn" data-service="Pensión Canina - Perros Pequeños" data-price="25 ANG/día" style="margin-top: 10px;">
                                 <i class="fab fa-whatsapp"></i> Solicitar pensión pequeña
@@ -1209,7 +1552,7 @@
                         
                         <div class="size-card">
                             <h4><i class="fas fa-dog" style="color: var(--primary);"></i> Perros Medianos</h4>
-                            <p>Razas medianas (10-25kg): Beagle, Cocker Spaniel, Border Collie, etc.</p>
+                            <p class="text-fix">Razas medianas (10-25kg): Beagle, Cocker Spaniel, Border Collie, etc.</p>
                             <p><strong class="currency">25 ANG</strong> por día</p>
                             <button class="service-select-btn" data-service="Pensión Canina - Perros Medianos" data-price="25 ANG/día" style="margin-top: 10px;">
                                 <i class="fab fa-whatsapp"></i> Solicitar pensión mediana
@@ -1218,21 +1561,21 @@
                         
                         <div class="size-card unavailable">
                             <h4><i class="fas fa-times-circle" style="color: var(--gray);"></i> Perros Grandes</h4>
-                            <p>Razas grandes (más de 25kg): Labrador, Pastor Alemán, Golden Retriever, etc.</p>
+                            <p class="text-fix">Razas grandes (más de 25kg): Labrador, Pastor Alemán, Golden Retriever, etc.</p>
                             <p><strong>Servicio temporalmente no disponible</strong></p>
-                            <p style="color: var(--gray); margin-top: 10px;">¡Próximamente expandiremos nuestras instalaciones!</p>
+                            <p style="color: var(--gray); margin-top: 10px;" class="text-fix">¡Próximamente expandiremos nuestras instalaciones!</p>
                         </div>
                     </div>
                     
                     <h4>Requisitos Obligatorios:</h4>
                     <ul class="requirements-list">
-                        <li><i class="fas fa-syringe"></i> Vacunación al día (cartilla de vacunas vigente)</li>
-                        <li><i class="fas fa-shield-alt"></i> Desparasitación reciente (máximo 3 meses)</li>
-                        <li><i class="fas fa-file-medical"></i> Certificado de buena salud veterinario (máximo 30 días)</li>
-                        <li><i class="fas fa-utensils"></i> Comida proporcionada por el dueño (o opción de compra con nosotros)</li>
-                        <li><i class="fas fa-gamepad"></i> Juguetes y/o cobijas personales para mayor comodidad</li>
-                        <li><i class="fas fa-users"></i> Comportamiento social básico con otros perros</li>
-                        <li><i class="fas fa-phone-alt"></i> Información de contacto de emergencia y veterinario de preferencia</li>
+                        <li><i class="fas fa-syringe"></i> <span class="text-fix">Vacunación al día (cartilla de vacunas vigente)</span></li>
+                        <li><i class="fas fa-shield-alt"></i> <span class="text-fix">Desparasitación reciente (máximo 3 meses)</span></li>
+                        <li><i class="fas fa-file-medical"></i> <span class="text-fix">Certificado de buena salud veterinario (máximo 30 días)</span></li>
+                        <li><i class="fas fa-utensils"></i> <span class="text-fix">Comida proporcionada por el dueño (o opción de compra con nosotros)</span></li>
+                        <li><i class="fas fa-gamepad"></i> <span class="text-fix">Juguetes y/o cobijas personales para mayor comodidad</span></li>
+                        <li><i class="fas fa-users"></i> <span class="text-fix">Comportamiento social básico con otros perros</span></li>
+                        <li><i class="fas fa-phone-alt"></i> <span class="text-fix">Información de contacto de emergencia y veterinario de preferencia</span></li>
                     </ul>
                     
                     <h4>Costos en Florines de Curazao (ANG):</h4>
@@ -1248,26 +1591,26 @@
                             <tr>
                                 <td>1-3 días</td>
                                 <td><span class="currency">25 ANG</span></td>
-                                <td>Alojamiento, 2 paseos diarios, alimentación básica</td>
+                                <td class="text-fix">Alojamiento, 2 paseos diarios, alimentación básica</td>
                             </tr>
                             <tr>
                                 <td>4-7 días</td>
                                 <td><span class="currency">25 ANG</span></td>
-                                <td>Alojamiento, 3 paseos diarios, monitoreo constante</td>
+                                <td class="text-fix">Alojamiento, 3 paseos diarios, monitoreo constante</td>
                             </tr>
                             <tr>
                                 <td>8+ días</td>
                                 <td><span class="currency">25 ANG</span></td>
-                                <td>Alojamiento premium, paseos ilimitados, reporte diario con fotos</td>
+                                <td class="text-fix">Alojamiento premium, paseos ilimitados, reporte diario con fotos</td>
                             </tr>
                             <tr>
-                                <td colspan="3"><strong>Servicios adicionales:</strong> Grooming durante estadía (15 ANG), Paseos extra (5 ANG), Alimento premium (8 ANG/día)</td>
+                                <td colspan="3" class="text-fix"><strong>Servicios adicionales:</strong> Grooming durante estadía (15 ANG), Paseos extra (5 ANG), Alimento premium (8 ANG/día)</td>
                             </tr>
                         </tbody>
                     </table>
                     
-                    <p><strong>Horarios:</strong> Entrega: 8:00 AM - 12:00 PM / Recogida: 2:00 PM - 6:00 PM</p>
-                    <p><strong>Política de cancelación:</strong> Sin costo con 48 horas de anticipación. 50% de cargo con menos de 24 horas.</p>
+                    <p class="text-fix"><strong>Horarios:</strong> Entrega: 8:00 AM - 12:00 PM / Recogida: 2:00 PM - 6:00 PM</p>
+                    <p class="text-fix"><strong>Política de cancelación:</strong> Sin costo con 48 horas de anticipación. 50% de cargo con menos de 24 horas.</p>
                     
                     <div style="text-align: center; margin-top: 30px;">
                         <button class="service-select-btn" data-service="Pensión Canina - Consulta General" data-price="Consulta de precios" style="padding: 15px 30px; font-size: 1.1rem;">
@@ -1285,16 +1628,43 @@
             <h2 class="section-title">Encuéntranos en Dominguito, Curazao</h2>
             <div class="location-content">
                 <div class="location-info">
-                    <h3>Visita Nuestro Establecimiento</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> <strong>Dirección:</strong> Calle Llamunchiweg número 4, Dominguito, Curazao</p>
-                    <p><i class="fas fa-clock"></i> <strong>Horarios de atención:</strong> Lunes a Sábado: 8:00 AM - 6:00 PM</p>
-                    <p><i class="fas fa-phone-alt"></i> <strong>Teléfono/WhatsApp:</strong> +59995211694</p>
-                    <p><i class="fas fa-car"></i> <strong>Estacionamiento:</strong> Disponible frente al local</p>
-                    <p><i class="fas fa-info-circle"></i> <strong>Puntos de referencia:</strong> Cerca del supermercado Centro Dominguito, a dos cuadras de la farmacia Botika</p>
+                    <h3 class="text-fix">Visita Nuestro Establecimiento</h3>
+                    <p>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="location-info-text">
+                            <strong>Dirección:</strong> Calle Llamunchiweg N°4, Dominguito, Curazao.
+                        </span>
+                    </p>
+                    <p>
+                        <i class="fas fa-clock"></i>
+                        <span class="location-info-text">
+                            <strong>Horarios:</strong> Lunes a Domingo 8:00 AM - 8:00 PM
+                        </span>
+                    </p>
+                    <p>
+                        <i class="fas fa-phone-alt"></i>
+                        <span class="location-info-text">
+                            <strong>Teléfono/WhatsApp:</strong> +59995211694
+                        </span>
+                    </p>
+                    <p>
+                        <i class="fas fa-car"></i>
+                        <span class="location-info-text">
+                            <strong>Estacionamiento:</strong> Disponible frente al lugar/casa/negocio.
+                        </span>
+                    </p>
+                    <p>
+                        <i class="fas fa-info-circle"></i>
+                        <span class="location-info-text text-fix">
+                            <strong>Puntos de referencia:</strong> Cerca del supermercado "Centro Dominguito" a dos cuadras de la farmacia Botika.
+                        </span>
+                    </p>
                     
-                    <div style="display: flex; gap: 15px; margin-top: 30px;">
-                        <a href="https://maps.google.com/?q=Calle+Llamunchiweg+número+4+Dominguito+Curazao" class="btn btn-primary" target="_blank">
-                            <i class="fas fa-directions"></i> Cómo llegar
+                    <div class="location-buttons">
+                        <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
+                           class="btn btn-primary" 
+                           target="_blank">
+                            <i class="fas fa-directions"></i> Ver en Google Maps
                         </a>
                         <button class="service-select-btn" data-service="Consulta de ubicación" data-price="Sin costo" style="padding: 12px 24px;">
                             <i class="fab fa-whatsapp"></i> Preguntar por ubicación
@@ -1302,13 +1672,13 @@
                     </div>
                 </div>
                 
-                <div class="map-container">
+                <div class="map-container" id="mapContainer">
                     <div class="map-placeholder">
                         <i class="fas fa-map-marked-alt"></i>
-                        <h3 style="color: white; margin-bottom: 15px;">Ubicación en Curazao</h3>
-                        <p>Dominguito, Curazao</p>
-                        <p>Calle Llamunchiweg número 4</p>
-                        <p style="margin-top: 20px; font-size: 0.9rem;">(Mapa interactivo de Google Maps)</p>
+                        <h3 style="color: var(--primary); margin-bottom: 15px;">Ubicación en Curazao</h3>
+                        <p class="text-fix">Dominguito, Curazao</p>
+                        <p class="text-fix">Calle Llamunchiweg N°4</p>
+                        <p class="map-instruction text-fix">Haz clic aquí para abrir en Google Maps</p>
                     </div>
                 </div>
             </div>
@@ -1319,7 +1689,7 @@
     <section id="contacto">
         <div class="container">
             <h2 class="section-title">Contáctanos</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;">¿Tienes preguntas sobre nuestros servicios o quieres reservar una cita? Completa el formulario y nos comunicaremos contigo por WhatsApp.</p>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem;" class="text-fix">¿Tienes preguntas sobre nuestros servicios o quieres reservar una cita? Completa el formulario y nos comunicaremos contigo por WhatsApp.</p>
             
             <div class="contact-form">
                 <form id="contactForm">
@@ -1363,7 +1733,7 @@
                 </form>
                 
                 <div class="whatsapp-direct">
-                    <p style="font-size: 1.1rem; margin-bottom: 20px;">O contáctanos directamente:</p>
+                    <p style="font-size: 1.1rem; margin-bottom: 20px;" class="text-fix">O contáctanos directamente:</p>
                     <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="btn btn-whatsapp" target="_blank" style="padding: 16px 30px;">
                         <i class="fab fa-whatsapp"></i> WhatsApp: +59995211694
                     </a>
@@ -1381,10 +1751,10 @@
                         <img src="https://i.ibb.co/7JPhnctb/d007fbda-213e-46ea-8ac0-d587e80ae896.jpg" alt="Grooming Zoraida Logo" class="footer-logo-img">
                         <div class="footer-logo-text">
                             <div class="footer-logo-name">Grooming Zoraida</div>
-                            <div class="footer-logo-tagline">Estética Canina Profesional en Curazao</div>
+                            <div class="footer-logo-tagline text-fix">Estética Canina Profesional en Curazao</div>
                         </div>
                     </div>
-                    <p style="color: #ccc;">Estética canina profesional en Dominguito, Curazao. Cuidamos de tu mascota con amor caribeño, experiencia y dedicación.</p>
+                    <p style="color: #ccc;" class="text-fix">Estética canina profesional en Dominguito, Curazao. Cuidamos de tu mascota con amor caribeño, experiencia y dedicación.</p>
                     <div style="margin-top: 20px;">
                         <button class="service-select-btn" data-service="Consulta General" data-price="Sin costo" style="padding: 10px 20px; font-size: 0.9rem;">
                             <i class="fab fa-whatsapp"></i> Consulta rápida
@@ -1406,17 +1776,53 @@
                 <div class="footer-column">
                     <h3 style="color: white; margin-bottom: 25px;">Contacto</h3>
                     <div class="footer-contact">
-                        <p><i class="fas fa-map-marker-alt"></i> Calle Llamunchiweg 4, Dominguito</p>
-                        <p><i class="fas fa-phone-alt"></i> +59995211694</p>
-                        <p><i class="fas fa-clock"></i> Lunes a Sábado: 8:00 AM - 6:00 PM</p>
-                        <p><i class="fas fa-dog"></i> Estética canina con corazón caribeño</p>
+                        <p>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span class="text-fix">Calle Llamunchiweg N°4, Dominguito</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-phone-alt"></i>
+                            <span class="text-fix">+59995211694</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-clock"></i>
+                            <span class="text-fix">Lunes a Domingo: 8:00 AM - 8:00 PM</span>
+                        </p>
+                        <p>
+                            <i class="fas fa-dog"></i>
+                            <span class="text-fix">Estética canina con corazón caribeño</span>
+                        </p>
                     </div>
                 </div>
             </div>
             
+            <!-- Redes Sociales -->
+            <div class="social-media">
+                <h4>Síguenos en Redes Sociales</h4>
+                <div class="social-icons">
+                    <div class="social-icon tiktok">
+                        <i class="fab fa-tiktok"></i>
+                        <div class="social-tooltip">TikTok</div>
+                    </div>
+                    <div class="social-icon youtube">
+                        <i class="fab fa-youtube"></i>
+                        <div class="social-tooltip">YouTube</div>
+                    </div>
+                    <div class="social-icon instagram">
+                        <i class="fab fa-instagram"></i>
+                        <div class="social-tooltip">Instagram</div>
+                    </div>
+                    <div class="social-icon facebook">
+                        <i class="fab fa-facebook-f"></i>
+                        <div class="social-tooltip">Facebook</div>
+                    </div>
+                </div>
+                <p class="coming-soon text-fix">¡Próximamente! Estamos preparando nuestras redes sociales</p>
+            </div>
+            
             <div class="copyright">
-                <p>&copy; 2026 Grooming Zoraida Colmenares Pérez. Todos los derechos reservados.</p>
-                <p>Diseñado y desarrollado para el bienestar de tus mascotas.</p>
+                <p class="text-fix">&copy; 2026 Grooming Zoraida Colmenares Pérez. Todos los derechos reservados.</p>
+                <p class="text-fix">Diseñado y desarrollado para el bienestar de tus mascotas.</p>
                 <div class="designer-credit">
                     <p>Por Arturo Tramontin 2026</p>
                 </div>
@@ -1425,6 +1831,17 @@
     </footer>
 
     <script>
+        // Animación de carga
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(function() {
+                document.getElementById('loader').style.opacity = '0';
+                setTimeout(function() {
+                    document.getElementById('loader').style.display = 'none';
+                    document.body.style.opacity = '1';
+                }, 500);
+            }, 7000);
+        });
+
         // Menú móvil
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const menu = document.getElementById('mainMenu');
@@ -1444,6 +1861,11 @@
         // Cerrar notificación
         document.getElementById('closeNotification').addEventListener('click', function() {
             document.getElementById('serviceNotification').classList.remove('active');
+        });
+        
+        // Mapa interactivo - clic en el recuadro
+        document.getElementById('mapContainer').addEventListener('click', function() {
+            window.open('https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D', '_blank');
         });
         
         // Sistema de selección de servicios
@@ -1550,6 +1972,20 @@
                         behavior: 'smooth'
                     });
                 }
+            });
+        });
+        
+        // Redes sociales - mostrar mensaje al hacer clic
+        document.querySelectorAll('.social-icon').forEach(icon => {
+            icon.addEventListener('click', function() {
+                const notification = document.getElementById('serviceNotification');
+                document.getElementById('notificationText').textContent = 
+                    '¡Próximamente! Nuestras redes sociales estarán disponibles muy pronto.';
+                notification.classList.add('active');
+                
+                setTimeout(() => {
+                    notification.classList.remove('active');
+                }, 3000);
             });
         });
     </script>
