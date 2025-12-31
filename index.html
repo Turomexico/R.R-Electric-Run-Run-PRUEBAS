@@ -141,6 +141,51 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
         }
 
+        /* Botón minimalista Google Maps */
+        .btn-minimalist {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .btn-minimalist:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.2);
+        }
+
+        /* Botón de reseñas */
+        .btn-reviews {
+            background: linear-gradient(135deg, #4285F4, #34A853);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 12px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(66, 133, 244, 0.3);
+        }
+
+        .btn-reviews:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
+            background: linear-gradient(135deg, #3367D6, #2E8B57);
+        }
+
         .section-title {
             margin-bottom: 60px;
         }
@@ -264,8 +309,8 @@
 
         /* Hero Section con tema caribeño */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), 
-                        url('https://images.unsplash.com/photo-1554456854-55a089fd4cb2?ixlib=rb-4.0.3&auto=format&fit=crop&w=1600&q=80');
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
+                        url('https://w0.peakpx.com/wallpaper/57/181/HD-wallpaper-toy-poodle-lawn-dogs-cute-animals-flowers-pets-toy-poodle-dog.jpg');
             background-size: cover;
             background-position: center;
             color: white;
@@ -686,45 +731,6 @@
             color: var(--primary);
         }
 
-        /* Redes sociales - Perfiles próximamente */
-        .social-profiles {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .social-profile {
-            background: #f8f9fa;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            padding: 15px 25px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: var(--dark);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: not-allowed;
-            opacity: 0.7;
-        }
-
-        .social-profile:hover {
-            background: #e9ecef;
-            transform: translateY(-3px);
-        }
-
-        .social-profile i {
-            font-size: 1.5rem;
-        }
-
-        .social-profile .coming-soon {
-            font-size: 0.8rem;
-            color: var(--secondary);
-            font-weight: 500;
-        }
-
         /* Contacto */
         .contact-form {
             max-width: 800px;
@@ -929,6 +935,29 @@
             font-weight: 500;
         }
 
+        /* Iconos de redes sociales en el footer */
+        .social-icons-footer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .social-icon-footer {
+            color: #ccc;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .social-icon-footer:hover {
+            color: var(--sun-yellow);
+            transform: translateY(-3px);
+        }
+
         /* Responsive */
         @media (max-width: 1200px) {
             h1 {
@@ -971,7 +1000,8 @@
                 align-items: stretch;
             }
             
-            .location-buttons .btn,
+            .location-buttons .btn-minimalist,
+            .location-buttons .btn-reviews,
             .location-buttons .service-select-btn {
                 width: 100%;
                 text-align: center;
@@ -1410,9 +1440,14 @@
                     
                     <div class="location-buttons">
                         <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
-                           class="btn btn-primary" 
+                           class="btn-minimalist" 
                            target="_blank">
-                            <i class="fas fa-directions"></i> Ver en Google Maps
+                            <i class="fas fa-map-marked-alt"></i> Ver en Google Maps
+                        </a>
+                        <a href="https://www.google.com/search?sxsrf=AE3TifM1zl3O7IHyTs3NEbp7jsP8hIkMBw:1767143053247&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E5OZK5mv334yFCfYcLBPrp4PKEDtQX21hdhNDI4qXYEsh2HHChOVYAAlUBchojpy4rsN_Luls7ldUdysVeXnedyTh-ORN8w2q7DzcHpR6E6j_BM8RSzM8pVOiQxnqsl5nEts_Xg%3D&q=Peluqueria+Canina+-+Zoraida+Colmenares+Opiniones" 
+                           class="btn-reviews" 
+                           target="_blank">
+                            <i class="fas fa-star"></i> Regálanos un comentario
                         </a>
                         <button class="service-select-btn" data-service="Consulta de ubicación" data-price="Sin costo" style="padding: 12px 24px;">
                             <i class="fab fa-whatsapp"></i> Preguntar por ubicación
@@ -1481,38 +1516,6 @@
                         <i class="fab fa-whatsapp"></i> Enviar mensaje por WhatsApp
                     </button>
                 </form>
-                
-                <!-- Sección de redes sociales -->
-                <div class="social-profiles">
-                    <a href="#" class="social-profile" onclick="return false;">
-                        <i class="fab fa-tiktok" style="color: #000000;"></i>
-                        <div>
-                            <div>TikTok</div>
-                            <div class="coming-soon">Próximamente</div>
-                        </div>
-                    </a>
-                    <a href="#" class="social-profile" onclick="return false;">
-                        <i class="fab fa-facebook" style="color: #1877F2;"></i>
-                        <div>
-                            <div>Facebook</div>
-                            <div class="coming-soon">Próximamente</div>
-                        </div>
-                    </a>
-                    <a href="#" class="social-profile" onclick="return false;">
-                        <i class="fab fa-instagram" style="color: #E4405F;"></i>
-                        <div>
-                            <div>Instagram</div>
-                            <div class="coming-soon">Próximamente</div>
-                        </div>
-                    </a>
-                    <a href="#" class="social-profile" onclick="return false;">
-                        <i class="fab fa-youtube" style="color: #FF0000;"></i>
-                        <div>
-                            <div>YouTube</div>
-                            <div class="coming-soon">Próximamente</div>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
     </section>
@@ -1572,6 +1575,22 @@
             </div>
             
             <div class="copyright">
+                <!-- Iconos de redes sociales -->
+                <div class="social-icons-footer">
+                    <a href="#" class="social-icon-footer" onclick="event.preventDefault(); alert('¡Próximamente disponible! Nuestro perfil de TikTok estará activo pronto.');">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="#" class="social-icon-footer" onclick="event.preventDefault(); alert('¡Próximamente disponible! Nuestro perfil de Facebook estará activo pronto.');">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="#" class="social-icon-footer" onclick="event.preventDefault(); alert('¡Próximamente disponible! Nuestro perfil de Instagram estará activo pronto.');">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon-footer" onclick="event.preventDefault(); alert('¡Próximamente disponible! Nuestro perfil de YouTube estará activo pronto.');">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+                
                 <p class="text-fix">&copy; 2026 Grooming Zoraida Colmenares Pérez. Todos los derechos reservados.</p>
                 <p class="text-fix">Diseñado y desarrollado para el bienestar de tus mascotas.</p>
                 <div class="designer-credit">
@@ -1707,14 +1726,6 @@
                         behavior: 'smooth'
                     });
                 }
-            });
-        });
-        
-        // Prevenir clic en perfiles de redes sociales (próximamente)
-        document.querySelectorAll('.social-profile').forEach(profile => {
-            profile.addEventListener('click', function(e) {
-                e.preventDefault();
-                alert('¡Próximamente disponible! Nuestros perfiles de redes sociales estarán activos pronto.');
             });
         });
     </script>
