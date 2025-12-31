@@ -7,6 +7,208 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
+        /* ========================= */
+        /* PANTALLA DE CARGA */
+        /* ========================= */
+        #loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffffff 0%, #f8fdf8 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+        
+        #loading-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+        }
+        
+        .loading-content {
+            text-align: center;
+            max-width: 500px;
+            padding: 30px;
+        }
+        
+        /* Logo animado */
+        .logo-animation {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 0 auto 40px;
+        }
+        
+        .logo-circle {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--sea-green) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: pulse 2s infinite ease-in-out;
+            box-shadow: 0 20px 40px rgba(40, 167, 69, 0.2);
+        }
+        
+        .paw-icon {
+            font-size: 5rem;
+            color: white;
+            animation: float 3s infinite ease-in-out;
+        }
+        
+        .logo-ring {
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            right: -10px;
+            bottom: -10px;
+            border-radius: 50%;
+            border: 3px solid rgba(40, 167, 69, 0.3);
+            animation: rotate 8s infinite linear;
+        }
+        
+        .logo-ring:nth-child(2) {
+            top: -20px;
+            left: -20px;
+            right: -20px;
+            bottom: -20px;
+            border-color: rgba(0, 168, 232, 0.2);
+            animation: rotate 12s infinite linear reverse;
+        }
+        
+        /* Texto de carga */
+        .brand-name-loading {
+            font-size: 2.8rem;
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .tagline-loading {
+            color: var(--dark);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            font-weight: 400;
+            opacity: 0.8;
+        }
+        
+        /* Barra de progreso */
+        .progress-container {
+            width: 100%;
+            max-width: 300px;
+            margin: 0 auto 30px;
+        }
+        
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            color: var(--dark);
+        }
+        
+        .progress-bar-bg {
+            height: 6px;
+            background: #e9ecef;
+            border-radius: 3px;
+            overflow: hidden;
+        }
+        
+        .progress-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            position: relative;
+            transition: width 0.3s ease;
+        }
+        
+        .progress-bar-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.6), 
+                transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        /* Contador */
+        .counter {
+            font-size: 1.2rem;
+            color: var(--dark);
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+        
+        .counter-number {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.4rem;
+        }
+        
+        /* Indicador de servicios */
+        .services-indicator {
+            margin-top: 40px;
+            color: var(--dark);
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+        
+        /* Animaciones */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(20px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+        
+        .loading-content {
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* ========================= */
+        /* ESTILOS PRINCIPALES */
+        /* ========================= */
         /* Variables de colores - Tema Caribeño */
         :root {
             --primary: #28A745; /* Verde vibrante caribeño */
@@ -34,6 +236,14 @@
             background-color: #f8fdf8;
             background-image: radial-gradient(#e8f5e9 2px, transparent 2px);
             background-size: 30px 30px;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.5s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         .container {
@@ -212,6 +422,14 @@
             z-index: 1000;
             backdrop-filter: blur(10px);
             border-bottom: 3px solid var(--primary);
+            transform: translateY(-100%);
+            animation: slideDown 0.8s ease 1s forwards;
+        }
+
+        @keyframes slideDown {
+            to {
+                transform: translateY(0);
+            }
         }
 
         .header-container {
@@ -321,6 +539,9 @@
             margin-top: 90px;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 1.2s forwards;
         }
 
         .hero::before {
@@ -366,6 +587,9 @@
             background: linear-gradient(135deg, #f8fdf8 0%, #e8f5e9 100%);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 1.4s forwards;
         }
 
         .about::before {
@@ -422,6 +646,9 @@
         #servicios {
             background: white;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 1.6s forwards;
         }
 
         #servicios::before {
@@ -452,7 +679,18 @@
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.5s ease forwards;
         }
+
+        /* Animación escalonada para las tarjetas de servicios */
+        .service-card:nth-child(1) { animation-delay: 1.8s; }
+        .service-card:nth-child(2) { animation-delay: 1.9s; }
+        .service-card:nth-child(3) { animation-delay: 2.0s; }
+        .service-card:nth-child(4) { animation-delay: 2.1s; }
+        .service-card:nth-child(5) { animation-delay: 2.2s; }
+        .service-card:nth-child(6) { animation-delay: 2.3s; }
 
         .service-card::before {
             content: '';
@@ -527,6 +765,9 @@
             position: relative;
             overflow: hidden;
             background: linear-gradient(135deg, #f8fdf8, #e8f5e9);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 2.4s forwards;
         }
 
         .pension-card::before {
@@ -641,6 +882,9 @@
             background: linear-gradient(135deg, #e8f5e9 0%, #d4edda 100%);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 1.8s forwards;
         }
 
         .location::after {
@@ -744,6 +988,9 @@
             box-shadow: 0 15px 40px rgba(0,0,0,0.1);
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 2s forwards;
         }
 
         .contact-form::before {
@@ -804,17 +1051,21 @@
             text-decoration: none;
             transition: all 0.4s;
             animation: pulse 2s infinite;
+            opacity: 0;
+            transform: scale(0.5);
+            animation: popIn 0.5s ease 2.5s forwards, pulse 2s infinite 3s;
+        }
+
+        @keyframes popIn {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .whatsapp-float:hover {
             transform: scale(1.15) rotate(10deg);
             box-shadow: 0 12px 30px rgba(37, 211, 102, 0.6);
-        }
-
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
         }
 
         /* Footer caribeño */
@@ -824,6 +1075,9 @@
             padding: 70px 0 30px;
             position: relative;
             overflow: hidden;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease 2.2s forwards;
         }
 
         footer::before {
@@ -999,6 +1253,10 @@
             h2 {
                 font-size: 2.2rem;
             }
+
+            .brand-name-loading {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 992px) {
@@ -1036,6 +1294,19 @@
             .location-buttons .service-select-btn {
                 width: 100%;
                 text-align: center;
+            }
+
+            .logo-animation {
+                width: 140px;
+                height: 140px;
+            }
+            
+            .paw-icon {
+                font-size: 4rem;
+            }
+            
+            .brand-name-loading {
+                font-size: 2rem;
             }
         }
 
@@ -1119,104 +1390,58 @@
             .size-card {
                 min-width: 100%;
             }
-        }
 
-        /* Animaciones */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
+            .logo-animation {
+                width: 120px;
+                height: 120px;
             }
-            to {
-                opacity: 1;
-                transform: translateY(0);
+            
+            .paw-icon {
+                font-size: 3rem;
             }
-        }
-
-        /* Notificación de servicio seleccionado */
-        .service-notification {
-            position: fixed;
-            top: 100px;
-            right: 20px;
-            background: linear-gradient(135deg, var(--primary), var(--sea-green));
-            color: white;
-            padding: 20px 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            z-index: 1000;
-            display: none;
-            align-items: center;
-            gap: 15px;
-            max-width: 400px;
-            animation: slideInRight 0.5s ease;
-        }
-
-        .service-notification.active {
-            display: flex;
-        }
-
-        .service-notification i {
-            font-size: 2rem;
-        }
-
-        .service-notification-content {
-            flex: 1;
-        }
-
-        .service-notification-close {
-            background: none;
-            border: none;
-            color: white;
-            font-size: 1.5rem;
-            cursor: pointer;
-            padding: 0;
-            width: 30px;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: background 0.3s;
-        }
-
-        .service-notification-close:hover {
-            background: rgba(255,255,255,0.2);
-        }
-
-        @keyframes slideInRight {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
+            
+            .brand-name-loading {
+                font-size: 1.8rem;
             }
-            to {
-                transform: translateX(0);
-                opacity: 1;
-            }
-        }
-
-        /* Corrección de alineación de texto */
-        .text-fix {
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-            hyphens: auto;
-        }
-
-        /* Mejoras de espaciado */
-        .location-info p, 
-        .footer-contact p,
-        .about-text p,
-        .service-card p {
-            line-height: 1.7;
-            margin-bottom: 18px;
-        }
-
-        .location-info strong {
-            display: inline-block;
-            min-width: 140px;
         }
     </style>
 </head>
 <body>
+    <!-- Pantalla de carga -->
+    <div id="loading-screen">
+        <div class="loading-content">
+            <div class="logo-animation">
+                <div class="logo-circle">
+                    <i class="fas fa-paw paw-icon"></i>
+                </div>
+                <div class="logo-ring"></div>
+                <div class="logo-ring"></div>
+            </div>
+            
+            <h1 class="brand-name-loading">Grooming Zoraida</h1>
+            <p class="tagline-loading">Estética Canina Profesional en Curazao</p>
+            
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Cargando</span>
+                    <span id="progress-percent">0%</span>
+                </div>
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progress-bar"></div>
+                </div>
+            </div>
+            
+            <div class="counter">
+                Preparando en <span class="counter-number" id="counter">4</span> segundos
+            </div>
+            
+            <div class="services-indicator">
+                <i class="fas fa-spinner fa-spin"></i> Cargando servicios especializados
+            </div>
+        </div>
+    </div>
+
+    <!-- Contenido principal -->
     <!-- WhatsApp Flotante -->
     <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
@@ -1500,7 +1725,7 @@
                     </p>
                     
                     <div class="location-buttons">
-                        <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
+                        <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLC BDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
                            class="btn-minimalist" 
                            target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Ver en Google Maps
@@ -1663,6 +1888,55 @@
     </footer>
 
     <script>
+        // ==============================
+        // SCRIPT DE PANTALLA DE CARGA
+        // ==============================
+        document.addEventListener('DOMContentLoaded', function() {
+            const loadingScreen = document.getElementById('loading-screen');
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercent = document.getElementById('progress-percent');
+            const counter = document.getElementById('counter');
+            
+            const totalTime = 4000; // 4 segundos (más rápido)
+            const intervalTime = 50; // Actualizar cada 50ms
+            const steps = totalTime / intervalTime;
+            let currentStep = 0;
+            
+            // Función para actualizar el progreso
+            function updateProgress() {
+                currentStep++;
+                const progress = Math.min(100, (currentStep / steps) * 100);
+                
+                // Actualizar barra y porcentaje
+                progressBar.style.width = `${progress}%`;
+                progressPercent.textContent = `${Math.round(progress)}%`;
+                
+                // Actualizar contador de tiempo
+                const remainingSeconds = Math.ceil((totalTime - (currentStep * intervalTime)) / 1000);
+                counter.textContent = Math.max(0, remainingSeconds);
+                
+                // Si hemos completado el 100%
+                if (progress >= 100) {
+                    clearInterval(progressInterval);
+                    
+                    // Ocultar pantalla de carga
+                    loadingScreen.classList.add('fade-out');
+                    
+                    setTimeout(() => {
+                        loadingScreen.style.display = 'none';
+                        // Mostrar animaciones de la página principal
+                        document.body.style.animation = 'fadeIn 0.5s ease 0.5s forwards';
+                    }, 800);
+                }
+            }
+            
+            // Iniciar la animación de la barra de progreso
+            const progressInterval = setInterval(updateProgress, intervalTime);
+        });
+
+        // ==============================
+        // SCRIPTS PRINCIPALES DE LA PÁGINA
+        // ==============================
         // Menú móvil
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const menu = document.getElementById('mainMenu');
