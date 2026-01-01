@@ -308,20 +308,23 @@
         }
 
         /* ========================= */
-        /* HERO SECTION PROFESIONAL */
+        /* HERO SECTION AJUSTADO */
         /* ========================= */
         .hero {
             background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), 
                         url('https://i.ibb.co/wZLDQPLc/53cace74-7f25-44bc-a46d-efffbe4c5a0b.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            background-repeat: no-repeat;
             color: var(--white);
-            min-height: 100vh;
+            height: 70vh; /* Altura ajustada */
+            min-height: 500px; /* Altura mínima */
+            max-height: 700px; /* Altura máxima */
             display: flex;
             align-items: center;
             position: relative;
             overflow: hidden;
+            margin-top: 90px; /* Para compensar el header fijo */
         }
 
         .hero:before {
@@ -343,7 +346,7 @@
         }
 
         .hero h1 {
-            font-size: 4rem;
+            font-size: 3rem; /* Tamaño ajustado */
             margin-bottom: 1.5rem;
             color: var(--white);
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
@@ -351,9 +354,9 @@
         }
 
         .hero p {
-            font-size: 1.4rem;
+            font-size: 1.2rem; /* Tamaño ajustado */
             color: rgba(255, 255, 255, 0.9);
-            margin-bottom: 3rem;
+            margin-bottom: 2.5rem; /* Espacio reducido */
             line-height: 1.6;
         }
 
@@ -959,6 +962,19 @@
         @media (max-width: 992px) {
             section { padding: 80px 0; }
             
+            .hero {
+                height: 60vh;
+                min-height: 400px;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
             .about-content,
             .location-content {
                 grid-template-columns: 1fr;
@@ -968,9 +984,6 @@
             .about-image {
                 order: -1;
             }
-            
-            .hero h1 { font-size: 2.5rem; }
-            .hero p { font-size: 1.2rem; }
             
             .mobile-menu-btn {
                 display: block;
@@ -1030,6 +1043,12 @@
             .footer-content {
                 grid-template-columns: 1fr;
             }
+            
+            .hero {
+                height: 50vh;
+                min-height: 300px;
+                margin-top: 80px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1037,7 +1056,16 @@
             h2 { font-size: 1.8rem; }
             
             .hero {
-                min-height: 90vh;
+                height: 45vh;
+                min-height: 250px;
+            }
+            
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
             }
             
             .service-card {
@@ -1100,10 +1128,6 @@
                        class="btn btn-whatsapp"
                        target="_blank">
                         <i class="fab fa-whatsapp"></i> Reservar Cita
-                    </a>
-                    <a href="#contacto" 
-                       class="btn btn-accent">
-                        <i class="fas fa-calendar-check"></i> Solicitar Consulta
                     </a>
                     <a href="#servicios" 
                        class="btn btn-outline">
@@ -1225,19 +1249,6 @@
                     <div class="service-price">10 <small>ANG</small></div>
                     <button class="btn btn-primary service-btn" onclick="selectService('Corte de Uñas y Oídos', '10 ANG')">
                         <i class="fab fa-whatsapp"></i> Solicitar Servicio
-                    </button>
-                </div>
-                
-                <!-- Consulta Veterinaria -->
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-stethoscope"></i>
-                    </div>
-                    <h3>Consulta Veterinaria</h3>
-                    <p>Evaluación médica completa para garantizar la salud de tu mascota antes de cualquier procedimiento de grooming.</p>
-                    <div class="service-price">50 <small>ANG</small></div>
-                    <button class="btn btn-accent service-btn" onclick="selectService('Consulta Veterinaria', '50 ANG')">
-                        <i class="fab fa-whatsapp"></i> Solicitar Consulta
                     </button>
                 </div>
                 
@@ -1392,7 +1403,6 @@
                             <option value="Corte de Pelo">Corte de Pelo (30 ANG)</option>
                             <option value="Limpieza Dental y Ocular">Limpieza Dental y Ocular (15 ANG)</option>
                             <option value="Corte de Uñas y Oídos">Corte de Uñas y Oídos (10 ANG)</option>
-                            <option value="Consulta Veterinaria">Consulta Veterinaria (50 ANG)</option>
                             <option value="Pensión Canina">Pensión Canina (Consultar)</option>
                             <option value="Otro">Otro servicio</option>
                         </select>
