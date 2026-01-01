@@ -527,21 +527,27 @@
             cursor: pointer;
         }
 
-        /* Hero Section con tema caribeño */
+        /* ========================= */
+        /* HERO SECTION MEJORADO */
+        /* ========================= */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
-                        url('https://w0.peakpx.com/wallpaper/57/181/HD-wallpaper-toy-poodle-lawn-dogs-cute-animals-flowers-pets-toy-poodle-dog.jpg');
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://i.ibb.co/wZLDQPLc/53cace74-7f25-44bc-a46d-efffbe4c5a0b.jpg');
             background-size: cover;
-            background-position: center;
+            background-position: center center;
+            background-repeat: no-repeat;
             color: white;
             text-align: center;
-            padding: 200px 0 120px;
+            padding: 180px 0 100px;
             margin-top: 90px;
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInUp 0.8s ease 1.2s forwards;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
         }
 
         .hero::before {
@@ -558,26 +564,32 @@
         .hero .container {
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         .hero h1 {
             color: white;
             margin-bottom: 25px;
             animation: fadeInUp 1s ease;
+            font-size: 3.2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .hero p {
             font-size: 1.4rem;
             max-width: 800px;
             margin: 0 auto 50px;
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.95);
             animation: fadeInUp 1s ease 0.2s both;
+            line-height: 1.6;
         }
 
         .hero-buttons {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            gap: 20px;
             flex-wrap: wrap;
             animation: fadeInUp 1s ease 0.4s both;
         }
@@ -642,7 +654,9 @@
             display: block;
         }
 
-        /* Servicios - Estilo caribeño mejorado */
+        /* ========================= */
+        /* SERVICIOS SIN EFECTO FLIP - CLICK DIRECTO */
+        /* ========================= */
         #servicios {
             background: white;
             position: relative;
@@ -675,13 +689,15 @@
             border-radius: 20px;
             padding: 35px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-            transition: all 0.4s ease;
+            transition: all 0.3s ease;
             border: 2px solid transparent;
             position: relative;
             overflow: hidden;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInUp 0.5s ease forwards;
+            cursor: pointer;
+            height: auto;
         }
 
         /* Animación escalonada para las tarjetas de servicios */
@@ -690,7 +706,6 @@
         .service-card:nth-child(3) { animation-delay: 2.0s; }
         .service-card:nth-child(4) { animation-delay: 2.1s; }
         .service-card:nth-child(5) { animation-delay: 2.2s; }
-        .service-card:nth-child(6) { animation-delay: 2.3s; }
 
         .service-card::before {
             content: '';
@@ -703,8 +718,8 @@
         }
 
         .service-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
             border-color: var(--primary);
         }
 
@@ -732,17 +747,18 @@
         }
 
         .service-card .price {
-            font-size: 1.4rem;
+            font-size: 1.8rem;
             color: var(--primary);
             font-weight: 700;
             margin: 15px 0;
+            text-align: center;
         }
 
         .service-select-btn {
             margin-top: 20px;
             width: 100%;
-            padding: 12px;
-            font-size: 1rem;
+            padding: 14px;
+            font-size: 1.1rem;
             background: linear-gradient(135deg, var(--primary), var(--sea-green));
             color: white;
             border: none;
@@ -750,11 +766,37 @@
             cursor: pointer;
             transition: all 0.3s;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .service-select-btn:hover {
             transform: translateY(-3px);
             box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+        }
+
+        .service-click-indicator {
+            text-align: center;
+            margin-top: 15px;
+            color: var(--primary);
+            font-size: 0.9rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        .service-click-indicator i {
+            margin-right: 5px;
+        }
+
+        /* Consulta especial */
+        .service-card.consulta-card {
+            border: 2px solid var(--caribbean-blue);
+        }
+
+        .service-card.consulta-card .service-select-btn {
+            background: linear-gradient(135deg, var(--caribbean-blue), var(--accent));
         }
 
         /* Pensión Canina - Estilo especial */
@@ -783,6 +825,7 @@
             transform: rotate(45deg);
             box-shadow: 0 3px 15px rgba(239, 131, 84, 0.3);
             letter-spacing: 1px;
+            z-index: 10;
         }
 
         .requirements-list {
@@ -943,6 +986,20 @@
             flex: 1;
         }
 
+        /* Enlaces clickeables en información de contacto */
+        .contact-link {
+            color: var(--primary);
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px dashed var(--primary);
+            cursor: pointer;
+        }
+
+        .contact-link:hover {
+            color: var(--sea-green);
+            border-bottom: 1px solid var(--sea-green);
+        }
+
         .location-buttons {
             display: flex;
             gap: 12px;
@@ -1029,6 +1086,46 @@
             border-color: var(--primary);
             outline: none;
             box-shadow: 0 0 0 3px rgba(40, 167, 69, 0.1);
+        }
+
+        /* Notificación de servicio */
+        .service-notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--sea-green));
+            color: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 15px;
+            z-index: 9999;
+            transform: translateX(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .service-notification.active {
+            display: flex;
+            transform: translateX(0);
+        }
+
+        .service-notification i {
+            font-size: 1.5rem;
+            color: var(--sun-yellow);
+        }
+
+        .service-notification-content {
+            flex: 1;
+        }
+
+        .service-notification-close {
+            background: none;
+            border: none;
+            color: white;
+            cursor: pointer;
+            font-size: 1.2rem;
         }
 
         /* WhatsApp Flotante mejorado */
@@ -1174,6 +1271,19 @@
             width: 24px;
         }
 
+        /* Enlaces clickeables en footer */
+        .footer-contact-link {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s;
+            border-bottom: 1px dashed #666;
+        }
+
+        .footer-contact-link:hover {
+            color: var(--sun-yellow);
+            border-bottom: 1px solid var(--sun-yellow);
+        }
+
         .copyright {
             text-align: center;
             padding-top: 40px;
@@ -1247,7 +1357,7 @@
         /* Responsive */
         @media (max-width: 1200px) {
             h1 {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             h2 {
@@ -1270,7 +1380,7 @@
             }
             
             h1 {
-                font-size: 2.2rem;
+                font-size: 2.4rem;
             }
             
             h2 {
@@ -1308,6 +1418,15 @@
             .brand-name-loading {
                 font-size: 2rem;
             }
+            
+            .hero {
+                padding: 150px 0 80px;
+                min-height: 70vh;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1337,12 +1456,14 @@
             }
             
             .hero {
-                padding: 160px 0 100px;
+                padding: 120px 0 60px;
                 margin-top: 90px;
+                min-height: 60vh;
             }
             
             .hero h1 {
                 font-size: 2rem;
+                padding: 0 10px;
             }
             
             .hero p {
@@ -1354,6 +1475,7 @@
                 flex-direction: column;
                 align-items: center;
                 gap: 15px;
+                padding: 0 15px;
             }
             
             .hero-btn {
@@ -1380,7 +1502,7 @@
             }
             
             .contact-form {
-                padding: 30px;
+                padding: 30px 20px;
             }
             
             .size-info {
@@ -1402,6 +1524,39 @@
             
             .brand-name-loading {
                 font-size: 1.8rem;
+            }
+            
+            .service-card {
+                padding: 25px;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .hero-btn {
+                margin: 5px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero {
+                padding: 100px 0 50px;
+                min-height: 50vh;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .hero-btn {
+                padding: 10px 20px;
+                font-size: 0.9rem;
             }
         }
     </style>
@@ -1486,7 +1641,7 @@
         </div>
     </header>
 
-    <!-- Hero Section -->
+    <!-- Hero Section CON NUEVA IMAGEN Y BOTÓN ADICIONAL -->
     <section class="hero" id="inicio">
         <div class="container">
             <h1>Cuidado Profesional Para Tu Mejor Amigo</h1>
@@ -1494,6 +1649,9 @@
             <div class="hero-buttons">
                 <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." class="hero-btn" target="_blank">
                     <i class="fab fa-whatsapp"></i> Reserva tu cita
+                </a>
+                <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20hacer%20una%20consulta%20gratuita%20sobre%20los%20servicios%20para%20mi%20mascota." class="hero-btn" target="_blank" style="background: rgba(255, 255, 255, 0.2); border-color: var(--sun-yellow);">
+                    <i class="fas fa-comment-medical"></i> Consulta gratuita
                 </a>
                 <a href="#servicios" class="hero-btn">
                     <i class="fas fa-paw"></i> Ver Servicios
@@ -1523,76 +1681,91 @@
         </div>
     </section>
 
-    <!-- Servicios -->
+    <!-- Servicios SIN EFECTO FLIP - CLICK DIRECTO A FORMULARIO -->
     <section id="servicios">
         <div class="container">
-            <h2 class="section-title">Nuestros Servicios Caribeños</h2>
-            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem; color: var(--dark);" class="text-fix">Descubre nuestros servicios especializados. Haz clic en "Solicitar este servicio" para contactarnos directamente por WhatsApp.</p>
+            <h2 class="section-title">Nuestros Servicios</h2>
+            <p style="text-align: center; max-width: 800px; margin: 0 auto 40px; font-size: 1.2rem; color: var(--dark);" class="text-fix">Descubre nuestros servicios especializados. Haz clic en cualquier servicio para contactarnos directamente por WhatsApp.</p>
             
             <div class="services-grid">
-                <div class="service-card">
+                <!-- Baño Caribeño Completo -->
+                <div class="service-card" onclick="selectService('Baño Caribeño Completo', '25 ANG')">
                     <div class="service-icon">
                         <i class="fas fa-shower"></i>
                     </div>
                     <h3 class="text-fix">Baño Caribeño Completo</h3>
-                    <p class="text-fix">Lavado profesional con shampoo especializado, secado con temperatura controlada y cepillado para dejar el pelaje suave y brillante como las playas de Curazao.</p>
-                    <div class="price">Desde 25 ANG</div>
-                    <button class="service-select-btn" data-service="Baño Caribeño Completo" data-price="25 ANG">
+                    <p class="text-fix">Lavado profesional con shampoo especializado, secado con temperatura controlada y cepillado para dejar el pelaje suave y brillante.</p>
+                    <div class="price">25 ANG</div>
+                    <button class="service-select-btn">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
                     </button>
+                    <div class="service-click-indicator">
+                        <i class="fas fa-mouse-pointer"></i> Haz clic en cualquier parte de la tarjeta
+                    </div>
                 </div>
                 
-                <div class="service-card">
+                <!-- Corte de Pelo Estilo Caribe -->
+                <div class="service-card" onclick="selectService('Corte de Pelo Estilo Caribe', '30 ANG')">
                     <div class="service-icon">
                         <i class="fas fa-cut"></i>
                     </div>
                     <h3 class="text-fix">Corte de Pelo Estilo Caribe</h3>
-                    <p class="text-fix">Corte según raza o estilo preferido, arreglo de patas, cara y zonas delicadas con técnicas profesionales inspiradas en la belleza natural de nuestra isla.</p>
-                    <div class="price">Desde 30 ANG</div>
-                    <button class="service-select-btn" data-service="Corte de Pelo Estilo Caribe" data-price="30 ANG">
+                    <p class="text-fix">Corte según raza o estilo preferido, arreglo de patas, cara y zonas delicadas con técnicas profesionales.</p>
+                    <div class="price">30 ANG</div>
+                    <button class="service-select-btn">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
                     </button>
+                    <div class="service-click-indicator">
+                        <i class="fas fa-mouse-pointer"></i> Haz clic en cualquier parte de la tarjeta
+                    </div>
                 </div>
                 
-                <div class="service-card">
+                <!-- Limpieza Dental y Ocular -->
+                <div class="service-card" onclick="selectService('Limpieza Dental y Ocular', '15 ANG')">
                     <div class="service-icon">
                         <i class="fas fa-tooth"></i>
                     </div>
                     <h3 class="text-fix">Limpieza Dental y Ocular</h3>
-                    <p class="text-fix">Limpieza suave de dientes y eliminación de lagañas para prevenir enfermedades y mantener una óptima higiene bucal y ocular.</p>
+                    <p class="text-fix">Limpieza suave de dientes y eliminación de lagañas para prevenir enfermedades y mantener higiene bucal y ocular.</p>
                     <div class="price">15 ANG</div>
-                    <button class="service-select-btn" data-service="Limpieza Dental y Ocular" data-price="15 ANG">
+                    <button class="service-select-btn">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
                     </button>
+                    <div class="service-click-indicator">
+                        <i class="fas fa-mouse-pointer"></i> Haz clic en cualquier parte de la tarjeta
+                    </div>
                 </div>
                 
-                <div class="service-card">
+                <!-- Corte de Uñas y Oídos -->
+                <div class="service-card" onclick="selectService('Corte de Uñas y Oídos', '10 ANG')">
                     <div class="service-icon">
                         <i class="fas fa-paw"></i>
                     </div>
                     <h3 class="text-fix">Corte de Uñas y Oídos</h3>
                     <p class="text-fix">Corte seguro de uñas y limpieza delicada de oídos para prevenir infecciones y mantener la comodidad de tu mascota.</p>
                     <div class="price">10 ANG</div>
-                    <button class="service-select-btn" data-service="Corte de Uñas y Oídos" data-price="10 ANG">
+                    <button class="service-select-btn">
                         <i class="fab fa-whatsapp"></i> Solicitar este servicio
                     </button>
+                    <div class="service-click-indicator">
+                        <i class="fas fa-mouse-pointer"></i> Haz clic en cualquier parte de la tarjeta
+                    </div>
                 </div>
                 
                 <!-- Consulta Veterinaria -->
-                <div class="service-card" style="border: 2px solid var(--caribbean-blue);">
+                <div class="service-card consulta-card" onclick="selectService('Consulta', '50 ANG')">
                     <div class="service-icon">
                         <i class="fas fa-stethoscope"></i>
                     </div>
                     <h3 class="text-fix">Consulta</h3>
-                    <p class="text-fix">Tu mascota recibe una evaluación médica completa para garantizar que esté sana y apta para su grooming. Detectamos a tiempo infecciones, problemas de piel, dolor, parásitos y más, cuidando su bienestar y alargando su vida saludable.</p>
-                    
-                    <div style="text-align: center; margin: 25px 0;">
-                        <div class="price" style="font-size: 1.8rem;">50 ANG</div>
-                    </div>
-                    
-                    <button class="service-select-btn" data-service="Consulta" data-price="50 ANG" style="background: linear-gradient(135deg, var(--caribbean-blue), var(--accent));">
+                    <p class="text-fix">Tu mascota recibe una evaluación médica completa para garantizar que esté sana y apta para su grooming.</p>
+                    <div class="price">50 ANG</div>
+                    <button class="service-select-btn">
                         <i class="fab fa-whatsapp"></i> Solicitar consulta
                     </button>
+                    <div class="service-click-indicator">
+                        <i class="fas fa-mouse-pointer"></i> Haz clic en cualquier parte de la tarjeta
+                    </div>
                 </div>
                 
                 <!-- Pensión Canina - Servicio Especial -->
@@ -1601,83 +1774,38 @@
                         <i class="fas fa-home"></i>
                     </div>
                     <h3 class="text-fix">Pensión Canina - Hogar Temporal</h3>
-                    <p class="text-fix">Ofrecemos un espacio seguro, limpio y amoroso donde tu perro puede quedarse mientras tú viajas o atiendes compromisos. Inspirado en la calidez caribeña, con áreas separadas por tamaño y temperamento, paseos diarios y supervisión constante.</p>
+                    <p class="text-fix">Ofrecemos un espacio seguro, limpio y amoroso donde tu perro puede quedarse mientras tú viajas o atiendes compromisos.</p>
                     
                     <!-- Información por tamaño de perro -->
                     <div class="size-info">
-                        <div class="size-card">
+                        <div class="size-card" onclick="selectService('Pensión Canina - Perros Pequeños', '25 ANG/día')">
                             <h4><i class="fas fa-dog" style="color: var(--primary);"></i> Perros Pequeños</h4>
                             <p class="text-fix">Razas pequeñas (hasta 10kg): Chihuahua, Yorkshire, Poodle toy, etc.</p>
                             <p><strong class="currency">25 ANG</strong> por día</p>
-                            <button class="service-select-btn" data-service="Pensión Canina - Perros Pequeños" data-price="25 ANG/día" style="margin-top: 10px;">
-                                <i class="fab fa-whatsapp"></i> Solicitar pensión pequeña
-                            </button>
+                            <div class="service-click-indicator" style="margin-top: 10px; font-size: 0.8rem;">
+                                <i class="fas fa-mouse-pointer"></i> Haz clic para solicitar
+                            </div>
                         </div>
                         
-                        <div class="size-card">
+                        <div class="size-card" onclick="selectService('Pensión Canina - Perros Medianos', '25 ANG/día')">
                             <h4><i class="fas fa-dog" style="color: var(--primary);"></i> Perros Medianos</h4>
                             <p class="text-fix">Razas medianas (10-25kg): Beagle, Cocker Spaniel, Border Collie, etc.</p>
                             <p><strong class="currency">25 ANG</strong> por día</p>
-                            <button class="service-select-btn" data-service="Pensión Canina - Perros Medianos" data-price="25 ANG/día" style="margin-top: 10px;">
-                                <i class="fab fa-whatsapp"></i> Solicitar pensión mediana
-                            </button>
+                            <div class="service-click-indicator" style="margin-top: 10px; font-size: 0.8rem;">
+                                <i class="fas fa-mouse-pointer"></i> Haz clic para solicitar
+                            </div>
                         </div>
                         
                         <div class="size-card unavailable">
-                            <h4><i class="fas fa-times-circle" style="color: var(--gray);"></i> Perros Grandes</h4>
+                            <h4><i class="fas fa-times-circle" style="color: #6c757d;"></i> Perros Grandes</h4>
                             <p class="text-fix">Razas grandes (más de 25kg): Labrador, Pastor Alemán, Golden Retriever, etc.</p>
                             <p><strong>Servicio temporalmente no disponible</strong></p>
-                            <p style="color: var(--gray); margin-top: 10px;" class="text-fix">¡Próximamente expandiremos nuestras instalaciones!</p>
+                            <p style="color: #6c757d; margin-top: 10px;" class="text-fix">¡Próximamente expandiremos nuestras instalaciones!</p>
                         </div>
                     </div>
                     
-                    <h4>Requisitos Obligatorios:</h4>
-                    <ul class="requirements-list">
-                        <li><i class="fas fa-syringe"></i> <span class="text-fix">Vacunación al día (cartilla de vacunas vigente)</span></li>
-                        <li><i class="fas fa-shield-alt"></i> <span class="text-fix">Desparasitación reciente (máximo 3 meses)</span></li>
-                        <li><i class="fas fa-file-medical"></i> <span class="text-fix">Certificado de buena salud veterinario (máximo 30 días)</span></li>
-                        <li><i class="fas fa-utensils"></i> <span class="text-fix">Comida proporcionada por el dueño (o opción de compra con nosotros)</span></li>
-                        <li><i class="fas fa-gamepad"></i> <span class="text-fix">Juguetes y/o cobijas personales para mayor comodidad</span></li>
-                        <li><i class="fas fa-users"></i> <span class="text-fix">Comportamiento social básico con otros perros</span></li>
-                        <li><i class="fas fa-phone-alt"></i> <span class="text-fix">Información de contacto de emergencia y veterinario de preferencia</span></li>
-                    </ul>
-                    
-                    <h4>Costos en Florines de Curazao (ANG):</h4>
-                    <table class="pricing-table">
-                        <thead>
-                            <tr>
-                                <th>Duración de estadía</th>
-                                <th>Precio por día (Perros Pequeños/Medianos)</th>
-                                <th>Incluye</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>1-3 días</td>
-                                <td><span class="currency">25 ANG</span></td>
-                                <td class="text-fix">Alojamiento, 2 paseos diarios, alimentación básica</td>
-                            </tr>
-                            <tr>
-                                <td>4-7 días</td>
-                                <td><span class="currency">25 ANG</span></td>
-                                <td class="text-fix">Alojamiento, 3 paseos diarios, monitoreo constante</td>
-                            </tr>
-                            <tr>
-                                <td>8+ días</td>
-                                <td><span class="currency">25 ANG</span></td>
-                                <td class="text-fix">Alojamiento premium, paseos ilimitados, reporte diario con fotos</td>
-                            </tr>
-                            <tr>
-                                <td colspan="3" class="text-fix"><strong>Servicios adicionales:</strong> Grooming durante estadía (15 ANG), Paseos extra (5 ANG), Alimento premium (8 ANG/día)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <p class="text-fix"><strong>Horarios:</strong> Entrega: 8:00 AM - 12:00 PM / Recogida: 2:00 PM - 6:00 PM</p>
-                    <p class="text-fix"><strong>Política de cancelación:</strong> Sin costo con 48 horas de anticipación. 50% de cargo con menos de 24 horas.</p>
-                    
                     <div style="text-align: center; margin-top: 30px;">
-                        <button class="service-select-btn" data-service="Pensión Canina - Consulta General" data-price="Consulta de precios" style="padding: 15px 30px; font-size: 1.1rem;">
+                        <button class="service-select-btn" onclick="selectService('Pensión Canina - Consulta General', 'Consulta de precios')" style="padding: 15px 30px; font-size: 1.1rem;">
                             <i class="fab fa-whatsapp"></i> Consultar disponibilidad de pensión
                         </button>
                     </div>
@@ -1696,7 +1824,12 @@
                     <p>
                         <i class="fas fa-map-marker-alt"></i>
                         <span class="location-info-text">
-                            <strong>Dirección:</strong> Calle Llamunchiweg número 4, Dominguito, Curazao
+                            <strong>Dirección:</strong> 
+                            <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
+                               target="_blank" 
+                               class="contact-link">
+                                Calle Llamunchiweg número 4, Dominguito, Curazao
+                            </a>
                         </span>
                     </p>
                     <p>
@@ -1708,7 +1841,12 @@
                     <p>
                         <i class="fas fa-phone-alt"></i>
                         <span class="location-info-text">
-                            <strong>Teléfono/WhatsApp:</strong> +59995211694
+                            <strong>Teléfono/WhatsApp:</strong> 
+                            <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." 
+                               target="_blank" 
+                               class="contact-link">
+                                +59995211694
+                            </a>
                         </span>
                     </p>
                     <p>
@@ -1725,7 +1863,7 @@
                     </p>
                     
                     <div class="location-buttons">
-                        <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLC BDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
+                        <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLCBDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS.0IKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
                            class="btn-minimalist" 
                            target="_blank">
                             <i class="fas fa-map-marked-alt"></i> Ver en Google Maps
@@ -1735,13 +1873,13 @@
                            target="_blank">
                             <i class="fas fa-star"></i> Regálanos un comentario
                         </a>
-                        <button class="service-select-btn" data-service="Consulta de ubicación" data-price="Sin costo" style="padding: 10px 20px; font-size: 0.9rem;">
+                        <button class="service-select-btn" onclick="selectService('Consulta de ubicación', 'Sin costo')" style="padding: 10px 20px; font-size: 0.9rem;">
                             <i class="fab fa-whatsapp"></i> Preguntar por ubicación
                         </button>
                     </div>
                 </div>
                 
-                <div class="map-container" onclick="window.open('https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLC BDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS4wIKXMDSoKLDEwMDc5MjA2N0gBUAM%3D', '_blank')">
+                <div class="map-container" onclick="window.open('https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLC BDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS.0IKXMDSoKLDEwMDc5MjA2N0gBUAM%3D', '_blank')">
                     <div class="map-placeholder">
                         <i class="fas fa-map-marked-alt"></i>
                         <h3 style="color: var(--primary); margin-bottom: 15px;">Ubicación en Curazao</h3>
@@ -1821,7 +1959,7 @@
                     </div>
                     <p style="color: #ccc;" class="text-fix">Estética canina profesional en Dominguito, Curazao. Cuidamos de tu mascota con amor caribeño, experiencia y dedicación.</p>
                     <div style="margin-top: 20px;">
-                        <button class="service-select-btn" data-service="Consulta General" data-price="Sin costo" style="padding: 10px 20px; font-size: 0.9rem;">
+                        <button class="service-select-btn" onclick="selectService('Consulta General', 'Sin costo')" style="padding: 10px 20px; font-size: 0.9rem;">
                             <i class="fab fa-whatsapp"></i> Consulta rápida
                         </button>
                     </div>
@@ -1843,11 +1981,19 @@
                     <div class="footer-contact">
                         <p>
                             <i class="fas fa-map-marker-alt"></i>
-                            <span class="text-fix">Calle Llamunchiweg 4, Dominguito</span>
+                            <a href="https://www.google.com/maps/place/Dominguito/@12.1034598,-68.8942905,17z/data=!4m10!1m2!2m1!1sDominguito,+Curazao++Calle+Llamunchiweg+n%C3%BAmero+4!3m6!1s0x8e837d1df370bb1b:0xd08fbf48dee45416!8m2!3d12.1055074!4d-68.8938515!15sCjFEb21pbmd1aXRvLC BDdXJhemFvICBDYWxsZSBMbGFtdW5jaGl3ZWcgbsO6bWVybyA0kgEPaG91c2luZ19jb21wbGV44AEA!16s%2Fg%2F11ssz5wcw5?entry=ttu&g_ep=EgoyMDI1MTIwOS.0IKXMDSoKLDEwMDc5MjA2N0gBUAM%3D" 
+                               target="_blank" 
+                               class="footer-contact-link">
+                                Calle Llamunchiweg 4, Dominguito
+                            </a>
                         </p>
                         <p>
                             <i class="fas fa-phone-alt"></i>
-                            <span class="text-fix">+59995211694</span>
+                            <a href="https://wa.me/59995211694?text=Hola%20Grooming%20Zoraida,%20me%20gustaría%20conocer%20más%20sobre%20los%20servicios..." 
+                               target="_blank" 
+                               class="footer-contact-link">
+                                +59995211694
+                            </a>
                         </p>
                         <p>
                             <i class="fas fa-clock"></i>
@@ -1958,29 +2104,74 @@
             document.getElementById('serviceNotification').classList.remove('active');
         });
         
-        // Sistema de selección de servicios
+        // Función para seleccionar servicio (hace scroll al formulario y llena los campos)
+        function selectService(service, price) {
+            // Llenar automáticamente el campo de servicio en el formulario
+            const serviceSelect = document.getElementById('service');
+            for (let i = 0; i < serviceSelect.options.length; i++) {
+                if (serviceSelect.options[i].text.includes(service)) {
+                    serviceSelect.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Hacer scroll suave al formulario de contacto
+            document.getElementById('contacto').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+            
+            // Mostrar notificación
+            document.getElementById('notificationText').textContent = 
+                `Has seleccionado: ${service} (${price}). Completa el formulario para contactarnos.`;
+            document.getElementById('serviceNotification').classList.add('active');
+            
+            // Ocultar notificación después de 5 segundos
+            setTimeout(() => {
+                document.getElementById('serviceNotification').classList.remove('active');
+            }, 5000);
+        }
+        
+        // Sistema de selección de servicios para botones específicos
         const serviceButtons = document.querySelectorAll('.service-select-btn');
         
         serviceButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const service = this.getAttribute('data-service');
-                const price = this.getAttribute('data-price');
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // Evitar que se active el clic de la tarjeta
+                
+                // Obtener datos del servicio del elemento padre o cercano
+                let serviceCard = this.closest('.service-card, .size-card');
+                let service = "Servicio Grooming";
+                let price = "Consultar precio";
+                
+                // Intentar obtener datos específicos si están disponibles
+                if (serviceCard) {
+                    const serviceTitle = serviceCard.querySelector('h3') || serviceCard.querySelector('h4');
+                    const servicePrice = serviceCard.querySelector('.price') || serviceCard.querySelector('.currency');
+                    
+                    if (serviceTitle) service = serviceTitle.textContent.trim();
+                    if (servicePrice) price = servicePrice.textContent.trim();
+                }
+                
+                // Llenar automáticamente el campo de servicio en el formulario
+                const serviceSelect = document.getElementById('service');
+                for (let i = 0; i < serviceSelect.options.length; i++) {
+                    if (serviceSelect.options[i].text.includes(service.split('-')[0].trim())) {
+                        serviceSelect.selectedIndex = i;
+                        break;
+                    }
+                }
+                
+                // Hacer scroll suave al formulario de contacto
+                document.getElementById('contacto').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
                 
                 // Mostrar notificación
                 document.getElementById('notificationText').textContent = 
-                    `Estás solicitando: ${service} (${price}). Redirigiendo a WhatsApp...`;
+                    `Has seleccionado: ${service}. Completa el formulario para contactarnos.`;
                 document.getElementById('serviceNotification').classList.add('active');
-                
-                // Crear mensaje para WhatsApp específico para el servicio
-                const whatsappMessage = `Hola Grooming Zoraida, me gustaría solicitar el siguiente servicio:%0A%0A` +
-                                       `*Servicio:* ${service}%0A` +
-                                       `*Precio indicado:* ${price}%0A` +
-                                       `*Mensaje:* Me interesa este servicio, ¿podrían darme más información y disponibilidad?`;
-                
-                // Redirigir a WhatsApp después de 2 segundos
-                setTimeout(() => {
-                    window.open(`https://wa.me/59995211694?text=${encodeURIComponent(whatsappMessage)}`, '_blank');
-                }, 2000);
                 
                 // Ocultar notificación después de 5 segundos
                 setTimeout(() => {
